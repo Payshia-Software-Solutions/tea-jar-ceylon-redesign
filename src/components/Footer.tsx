@@ -54,7 +54,7 @@ export function Footer() {
                         {footerSections.map((section) => (
                             <div key={section.title}>
                                 <h3 className="font-bold text-white mb-6">{section.title}</h3>
-                                <ul className="space-y-4">
+                                <ul className="space-y-3">
                                     {section.links.map((link) => (
                                         <li key={link.text}>
                                             <Link href={link.href} className="hover:text-white transition-colors text-sm">
@@ -69,24 +69,24 @@ export function Footer() {
                         {/* Contact Info */}
                         <div>
                             <h3 className="font-bold text-white mb-6">Tea Jar</h3>
-                            <div className="text-sm space-y-4">
+                            <div className="text-sm space-y-3">
                                 <p>
-                                    <span className="font-semibold text-white/90">Corporate Office:</span> KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka
+                                    <span className="font-semibold text-white/90 block">Corporate Office:</span> KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka
                                 </p>
                                 <p>
-                                    <span className="font-semibold text-white/90">Factory:</span> KDU Exports PVT LTD, Galpadithanna Tea Factory, Lellopitiya,Rathnapura.
+                                    <span className="font-semibold text-white/90 block">Factory:</span> KDU Exports PVT LTD, Galpadithanna Tea Factory, Lellopitiya,Rathnapura.
                                 </p>
                                 <p>
-                                    <span className="font-semibold text-white/90">Customer Service:</span> (+94)70 55 08 800
+                                    <span className="font-semibold text-white/90 block">Customer Service:</span> (+94)70 55 08 800
                                 </p>
                                 <p>
-                                    <span className="font-semibold text-white/90">Service Hours:</span> Daily 9 am - 6 pm
+                                    <span className="font-semibold text-white/90 block">Service Hours:</span> Daily 9 am - 6 pm
                                 </p>
                                 <p>
-                                    <span className="font-semibold text-white/90">Wholesale Inquiries:</span> (+94)70 55 08 800
+                                    <span className="font-semibold text-white/90 block">Wholesale Inquiries:</span> (+94)70 55 08 800
                                 </p>
                                 <p>
-                                    <span className="font-semibold text-white/90">Email:</span> marketing@teajarceylon.com
+                                    <span className="font-semibold text-white/90 block">Email:</span> marketing@teajarceylon.com
                                 </p>
                             </div>
                         </div>
