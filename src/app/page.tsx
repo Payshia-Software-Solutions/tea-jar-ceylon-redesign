@@ -62,13 +62,6 @@ export default function Home() {
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
                 SINCE 1978, TEA JAR HAS BEEN DEDICATED TO CRAFTING THE FINEST CEYLON TEAS, FROM CLASSIC BLACK TO EXQUISITE FLAVORS. BACKED BY THE K.D.U. GROUP, WE COMBINE OVER 30 YEARS OF EXPERTISE WITH TRADITIONAL CRAFTSMANSHIP AND MODERN INNOVATION, DELIVERING EXCEPTIONAL QUALITY THAT DELIGHTS TEA LOVERS AROUND THE WORLD.
             </p>
-            <button
-                onClick={() => window.scrollTo({ top: window.scrollY + 500, behavior: 'smooth' })}
-                className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center animate-bounce"
-                aria-label="Scroll down further"
-            >
-                <ArrowDown className="h-6 w-6" />
-            </button>
         </div>
       </div>
 

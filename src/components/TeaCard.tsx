@@ -44,7 +44,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                         <p className="text-sm text-neutral-400 line-through">
                             Rs {tea.price.toFixed(2)}
                         </p>
-                        <p className="text-lg font-bold text-primary">
+                        <p className="text-lg font-bold text-red-500">
                             Rs {tea.salePrice!.toFixed(2)}
                         </p>
                     </>
