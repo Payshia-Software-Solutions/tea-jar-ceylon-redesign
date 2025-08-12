@@ -1,0 +1,108 @@
+import type { Tea } from './types';
+
+export const teas: Tea[] = [
+  {
+    id: 'ceylon-supreme',
+    name: 'Ceylon Supreme',
+    description: 'A classic black tea with a bold, full-bodied flavor.',
+    longDescription:
+      'Harvested from the lush highlands of Sri Lanka, Ceylon Supreme is a classic black tea renowned for its bold, full-bodied flavor and rich, golden-red hue. Its crisp aroma carries hints of citrus and spice, making it a perfect choice for any time of day.',
+    price: 15.99,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'ceylon tea leaves',
+    type: 'Black',
+    flavorProfile: ['Bold', 'Robust', 'Citrus'],
+    origin: 'Dimbula, Sri Lanka',
+  },
+  {
+    id: 'emerald-green',
+    name: 'Emerald Green',
+    description: 'A delicate green tea with a fresh, grassy aroma.',
+    longDescription:
+      'Our Emerald Green tea is a testament to the art of gentle processing. Steamed to preserve its natural, vibrant character, this tea offers a delicate, refreshing experience with a light, grassy aroma and a hint of sweetness. A truly serene cup.',
+    price: 18.5,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'green tea blend',
+    type: 'Green',
+    flavorProfile: ['Fresh', 'Grassy', 'Sweet'],
+    origin: 'Kandy, Sri Lanka',
+  },
+  {
+    id: 'golden-oolong',
+    name: 'Golden Oolong',
+    description: 'A smooth, semi-oxidized tea with floral notes.',
+    longDescription:
+      'Experience the complexity of our Golden Oolong. Partially oxidized to achieve the perfect balance between black and green tea, it boasts a smooth, creamy texture with enchanting floral and fruity notes. A sophisticated and rewarding brew.',
+    price: 22.0,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'oolong tea',
+    type: 'Oolong',
+    flavorProfile: ['Floral', 'Creamy', 'Fruity'],
+    origin: 'Nuwara Eliya, Sri Lanka',
+  },
+  {
+    id: 'white-peony',
+    name: 'White Peony',
+    description: 'An exquisite white tea with a subtle, mellow flavor.',
+    longDescription:
+      'White Peony, or Bai Mu Dan, is a premium white tea made from the youngest leaves and buds. It is minimally processed to retain its high concentration of antioxidants and delicate flavors. Expect a mellow, slightly sweet cup with notes of melon and honey.',
+    price: 25.99,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'white tea',
+    type: 'White',
+    flavorProfile: ['Subtle', 'Mellow', 'Honey'],
+    origin: 'Uva, Sri Lanka',
+  },
+  {
+    id: 'spiced-chai',
+    name: 'Spiced Chai',
+    description: 'A fragrant blend of black tea and aromatic spices.',
+    longDescription:
+      'Warm your senses with our Spiced Chai. This invigorating blend combines robust Ceylon black tea with a medley of traditional spices, including cinnamon, cardamom, and ginger. It is rich, aromatic, and deeply comforting, perfect with a splash of milk and honey.',
+    price: 17.5,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'chai tea spices',
+    type: 'Black',
+    flavorProfile: ['Spicy', 'Aromatic', 'Warming'],
+    origin: 'Ruhuna, Sri Lanka',
+  },
+  {
+    id: 'jasmine-pearls',
+    name: 'Jasmine Pearls',
+    description: 'Hand-rolled green tea infused with jasmine blossoms.',
+    longDescription:
+      'A true work of art, our Jasmine Pearls are created by hand-rolling young green tea leaves and buds, which are then naturally infused with the fragrance of fresh jasmine blossoms. The pearls unfurl during steeping, releasing a captivating floral aroma and a smooth, enchanting flavor.',
+    price: 28.0,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'tea pearls',
+    type: 'Green',
+    flavorProfile: ['Floral', 'Jasmine', 'Delicate'],
+    origin: 'Sabaragamuwa, Sri Lanka',
+  },
+  {
+    id: 'earl-grey-reserve',
+    name: 'Earl Grey Reserve',
+    description: 'A superior blend with aromatic bergamot oil.',
+    longDescription:
+      'Our Earl Grey Reserve elevates the classic blend to new heights. We use a high-grown Ceylon black tea as the base and infuse it with pure, cold-pressed bergamot oil from Italy. The result is a bright, sophisticated cup with a perfect harmony of citrus and robust tea flavor.',
+    price: 16.99,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'earl grey bergamot',
+    type: 'Black',
+    flavorProfile: ['Citrus', 'Bergamot', 'Aromatic'],
+    origin: 'Uda Pussellawa, Sri Lanka',
+  },
+  {
+    id: 'chamomile-blossom',
+    name: 'Chamomile Blossom',
+    description: 'A caffeine-free herbal infusion for relaxation.',
+    longDescription:
+      'Unwind with our Chamomile Blossom herbal tea. Made from the finest whole chamomile flowers, this caffeine-free infusion is naturally calming and soothing. It offers a gentle, apple-like flavor and a wonderfully floral aroma, perfect for a peaceful evening.',
+    price: 14.5,
+    image: 'https://placehold.co/600x600.png',
+    dataAiHint: 'chamomile flowers',
+    type: 'Herbal',
+    flavorProfile: ['Calming', 'Floral', 'Apple'],
+    origin: 'Sri Lanka',
+  },
+];
