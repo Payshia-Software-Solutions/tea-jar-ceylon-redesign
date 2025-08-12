@@ -6,8 +6,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { TeaCard } from '@/components/TeaCard';
 import { Button } from '@/components/ui/button';
@@ -58,7 +56,7 @@ export function Products() {
                         dataAiHint: 'tea product',
                         type: 'Black', // Placeholder, not in API
                         flavorProfile: [], // Not in API
-                        origin: 'Sri Lanka', // Placeholder
+                        origin: 'Sri Lanka', // Placeholder,
                     };
                 });
                 
@@ -114,8 +112,6 @@ export function Products() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="text-white left-4"/>
-                    <CarouselNext className="text-white right-4"/>
                 </Carousel>
             )}
             <div className="text-center mt-12">
