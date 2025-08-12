@@ -1,6 +1,6 @@
 'use client';
 
-import { useCart } from '@/hooks/use-cart';
+import { useCart } from '@/hooks/use-cart.tsx';
 import {
   SheetClose,
   SheetContent,

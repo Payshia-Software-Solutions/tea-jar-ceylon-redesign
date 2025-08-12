@@ -2,7 +2,7 @@
 
 import { Leaf, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import { useCart } from '@/hooks/use-cart';
+import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetTrigger } from './ui/sheet';
 import { Cart } from './Cart';
 import { Button } from './ui/button';

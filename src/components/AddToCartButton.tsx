@@ -1,6 +1,6 @@
 'use client';
 
-import { useCart } from '@/hooks/use-cart';
+import { useCart } from '@/hooks/use-cart.tsx';
 import type { Tea } from '@/lib/types';
 import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
