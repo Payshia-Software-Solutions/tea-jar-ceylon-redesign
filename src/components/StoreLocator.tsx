@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Globe, Phone, Clock } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ScrollArea } from './ui/scroll-area';
 
 const stores = [
   {
@@ -102,107 +102,93 @@ export function StoreLocator() {
             <h2 className="font-headline text-5xl text-white">Find Your Nearest Store</h2>
         </div>
         
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full mb-12"
-        >
-          <CarouselContent className="-ml-4">
-            {stores.map((store) => (
-              <CarouselItem key={store.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                <div 
-                    className={cn(
-                        "p-1 cursor-pointer group",
-                        selectedStore.id === store.id && "ring-2 ring-amber-200/80 rounded-xl"
-                    )}
-                    onClick={() => setSelectedStore(store)}
-                >
-                  <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
-                    <CardContent className="p-4 flex items-center gap-4">
-                        <div className="relative w-24 h-24 rounded-md overflow-hidden flex-shrink-0">
-                            <Image 
-                                src={store.images[0]} 
-                                alt={store.location} 
-                                fill 
-                                className="object-cover" 
-                                data-ai-hint="tea store facade" 
-                            />
+        <div className="grid lg:grid-cols-3 gap-12">
+            {/* Left Column: Store List */}
+            <div className="lg:col-span-1">
+                <ScrollArea className="h-[500px] pr-4">
+                    <div className="space-y-4">
+                    {stores.map((store) => (
+                        <div 
+                            key={store.id}
+                            className={cn(
+                                "p-1 cursor-pointer group rounded-xl transition-all",
+                                selectedStore.id === store.id ? "ring-2 ring-amber-200/80" : "ring-2 ring-transparent"
+                            )}
+                            onClick={() => setSelectedStore(store)}
+                        >
+                        <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
+                            <CardContent className="p-4 flex items-center gap-4">
+                                <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                                    <Image 
+                                        src={store.images[0]} 
+                                        alt={store.location} 
+                                        fill 
+                                        className="object-cover" 
+                                        data-ai-hint="tea store facade" 
+                                    />
+                                </div>
+                                <div>
+                                    <h4 className="font-headline text-xl text-white">{store.name}</h4>
+                                    <p className="text-amber-100/90">{store.location}</p>
+                                </div>
+                            </CardContent>
+                        </Card>
                         </div>
+                    ))}
+                    </div>
+                </ScrollArea>
+            </div>
+
+            {/* Right Column: Store Details */}
+            <div className="lg:col-span-2">
+                 <div className="grid lg:grid-cols-2 gap-12 items-start">
+                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full">
+                    <CardContent className="p-8 space-y-6">
                         <div>
-                            <h4 className="font-headline text-2xl text-white">{store.name}</h4>
-                            <p className="text-amber-100/90">{store.location}</p>
+                        <h3 className="font-headline text-4xl text-white mb-2">{selectedStore.name}</h3>
+                        <p className="text-lg font-semibold text-amber-100/90">{selectedStore.location}</p>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed font-secondary text-sm">
+                        {selectedStore.description}
+                        </p>
+                        <div className="grid sm:grid-cols-1 gap-y-4 text-sm pt-4">
+                            <div className="flex items-start gap-3">
+                                <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                                <span>{selectedStore.address}</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                                <a href={`http://${selectedStore.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{selectedStore.website}</a>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                                <span>{selectedStore.phone}</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                                <span>{selectedStore.hours}</span>
+                            </div>
                         </div>
                     </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="text-white hover:bg-white/20 hover:text-white left-[-10px]" />
-          <CarouselNext className="text-white hover:bg-white/20 hover:text-white right-[-10px]" />
-        </Carousel>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden">
-              <CardContent className="p-8 space-y-6">
-                <div>
-                  <h3 className="font-headline text-4xl text-white mb-2">{selectedStore.name}</h3>
-                  <p className="text-lg font-semibold text-amber-100/90">{selectedStore.location}</p>
-                </div>
-                <p className="text-neutral-300 leading-relaxed font-secondary">
-                  {selectedStore.description}
-                </p>
-                <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm pt-4">
-                    <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{selectedStore.address}</span>
+                    </Card>
+                
+                <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
+                        <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
                     </div>
-                    <div className="flex items-start gap-3">
-                        <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <a href={`http://${selectedStore.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{selectedStore.website}</a>
+                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
+                        <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
                     </div>
-                    <div className="flex items-start gap-3">
-                        <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{selectedStore.phone}</span>
                     </div>
-                    <div className="flex items-start gap-3">
-                        <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{selectedStore.hours}</span>
+                    <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
+                        <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
                     </div>
                 </div>
-              </CardContent>
-            </Card>
-          
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
-              </div>
-              <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
-              </div>
+                </div>
             </div>
-            <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
-            </div>
-          </div>
         </div>
       </div>
     </section>
   );
 }
-
-// Add this to your globals.css or a style tag
-const styles = `
-@keyframes fade-in {
-  from { opacity: 0.8; }
-  to { opacity: 1; }
-}
-.animate-fade-in {
-  animation: fade-in 1s ease-in-out;
-}
-`;
-// You can either add a <style>{styles}</style> to the component, or add the keyframes and class to globals.css
-// For this example, I am assuming you will add it to globals.css
