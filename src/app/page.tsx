@@ -22,7 +22,7 @@ export default function Home() {
           playsInline
           className="absolute z-0 w-full h-full object-cover"
         >
-          <source src="https://videos.pexels.com/video-files/3209228/3209228-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          <source src="https://teajarceylon.com/assets/videos/TeaJar_HERO_V1-2.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black/50 z-10"></div>
