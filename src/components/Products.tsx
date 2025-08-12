@@ -105,7 +105,7 @@ export function Products() {
                 >
                     <CarouselContent className="-ml-2">
                         {products.map((tea) => (
-                            <CarouselItem key={tea.id} className="pl-2 basis-2/3 sm:basis-2/5 md:basis-2/7 lg:basis-2/9">
+                            <CarouselItem key={tea.id} className="pl-2 basis-2/3 sm:basis-[40%] md:basis-[28.57%] lg:basis-[22.22%]">
                                 <div className="p-1">
                                     <TeaCard tea={tea} />
                                 </div>
