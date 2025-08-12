@@ -10,7 +10,7 @@ interface TeaCardProps {
 export function TeaCard({ tea }: TeaCardProps) {
   return (
     <Link href={`/tea/${tea.id}`} className="group">
-      <Card className="h-full flex flex-col transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:-translate-y-1 border-transparent hover:border-primary/20 bg-card">
+      <Card className="h-full flex flex-col transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:-translate-y-1 border-transparent bg-white text-black">
         <CardHeader>
           <div className="aspect-square overflow-hidden rounded-lg relative">
             <Image

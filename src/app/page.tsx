@@ -4,6 +4,16 @@
 import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 import { useRef } from 'react';
+import { teas } from '@/lib/tea-data';
+import { TeaCard } from '@/components/TeaCard';
+import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 export default function Home() {
 
@@ -38,7 +48,7 @@ export default function Home() {
             <Image
                 src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
                 alt="Glass teacup with saucer"
-                width={400}
+                width={300}
                 height={267}
                 className="object-contain"
             />
@@ -57,6 +67,34 @@ export default function Home() {
             </button>
         </div>
       </div>
+
+      <section className="bg-[#3a4f3a] py-20 text-white">
+        <div className="container mx-auto px-4">
+          <h2 className="font-headline text-4xl text-center mb-12">Shop Our Best Selling Products</h2>
+          <Carousel
+            opts={{
+              align: 'start',
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {teas.slice(0, 5).map((tea) => (
+                <CarouselItem key={tea.id} className="md:basis-1/3 lg:basis-1/5">
+                   <div className="p-1">
+                    <TeaCard tea={tea} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-white"/>
+            <CarouselNext className="text-white"/>
+          </Carousel>
+          <div className="text-center mt-12">
+            <Button variant="outline">Shop More</Button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
