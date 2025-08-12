@@ -54,7 +54,7 @@ export function Products() {
                         longDescription: '', // Not available in API
                         price: price,
                         salePrice: salePrice,
-                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/55/${apiProduct.image_path}`,
+                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
                         dataAiHint: 'tea product',
                         type: 'Black', // Placeholder, not in API
                         flavorProfile: [], // Not in API
@@ -110,7 +110,6 @@ export function Products() {
                             <CarouselItem key={tea.id} className="pl-6 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                                 <div className="p-1">
                                     <TeaCard tea={tea} />
-                                ...
                                 </div>
                             </CarouselItem>
                         ))}
