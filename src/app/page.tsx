@@ -55,6 +55,8 @@ export default function Home() {
         </div>
       </div>
 
+      <Products />
+
       <div className="bg-[#3a4f3a] text-white py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <Image
@@ -83,8 +85,6 @@ export default function Home() {
             </div>
         </div>
       </div>
-
-      <Products />
     </>
   );
 }
