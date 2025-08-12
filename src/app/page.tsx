@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="relative bg-[#2a2f28] py-10 flex justify-center items-center">
+      <div className="relative bg-[#2a2f28] flex justify-center items-center -mt-24 z-30">
         <Image
           src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
           alt="Glass teacup with saucer"
@@ -48,7 +48,7 @@ export default function Home() {
         />
       </div>
 
-      <div ref={journeyRef} className="bg-[#2a2f28] text-white py-20">
+      <div ref={journeyRef} className="bg-[#2a2f28] text-white pt-10 pb-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-6">Our Journey</h2>
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
