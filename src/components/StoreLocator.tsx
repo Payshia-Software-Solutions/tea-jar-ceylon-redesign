@@ -243,8 +243,8 @@ export function StoreLocator() {
 
             {/* Right Column: Store Details */}
             <div className="lg:col-span-2">
-                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
-                    <Card className="lg:col-span-2 xl:col-span-1 bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
+                 <div className="grid lg:grid-cols-2 gap-8 items-start">
+                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
                         <CardContent className="p-8 space-y-6 flex-grow">
                             <div>
                                 <h3 className="font-headline text-4xl text-white mb-2">{selectedStore.name}</h3>
@@ -286,27 +286,27 @@ export function StoreLocator() {
                         <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
                             <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
                         </div>
+                        
+                        {selectedStore.activities && selectedStore.activities.length > 0 && (
+                            <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-8">
+                                <CardContent className="p-8">
+                                    <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
+                                        {selectedStore.activities.map(activity => {
+                                            const Icon = icons[activity];
+                                            return (
+                                                <div key={activity} className="flex flex-col items-center text-center gap-2">
+                                                    <Icon className="w-10 h-10 text-amber-200/80" />
+                                                    <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(0,2).join(' ')}</span>
+                                                    {activity.split(' ').length > 2 && <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(2).join(' ')}</span>}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
                     </div>
-                    
-                    {selectedStore.activities && selectedStore.activities.length > 0 && (
-                        <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden">
-                            <CardContent className="p-8">
-                                <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
-                                    {selectedStore.activities.map(activity => {
-                                        const Icon = icons[activity];
-                                        return (
-                                            <div key={activity} className="flex flex-col items-center text-center gap-2">
-                                                <Icon className="w-10 h-10 text-amber-200/80" />
-                                                <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(0,2).join(' ')}</span>
-                                                {activity.split(' ').length > 2 && <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(2).join(' ')}</span>}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    )}
                 </div>
             </div>
         </div>
