@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['content-provider.payshia.com', 'teajarceylon.com'],
+    domains: ['content-provider.payshia.com', 'teajarceylon.com','payshia.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -21,8 +21,15 @@ const nextConfig: NextConfig = {
         hostname: 'content-provider.payshia.com',
         port: '',
         pathname: '/**',
+      },      
+      {
+        protocol: 'https',
+        hostname: '**.payshia.com',
+        port: '',
+        pathname: '/**',
       },
     ],
+    unoptimized: true,
   },
 };
 
