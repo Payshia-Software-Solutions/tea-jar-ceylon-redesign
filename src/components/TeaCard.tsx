@@ -24,6 +24,7 @@ export function TeaCard({ tea }: TeaCardProps) {
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               data-ai-hint={tea.dataAiHint}
+              unoptimized
             />
             {hasSale && (
                 <Badge variant="destructive" className="absolute top-4 right-4 text-base py-1 px-3">
