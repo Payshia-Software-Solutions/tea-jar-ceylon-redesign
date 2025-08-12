@@ -32,7 +32,7 @@ const icons = {
     <svg {...props} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.5 28.5c-6.8 0-12.8 3.5-16.4 8.7-1 1.4-1.9 2.8-2.6 4.3-.8 1.6-1.3 3.3-1.5 5.1-.3 2.5.2 5.1 1.4 7.3 1.1 2 2.8 3.6 4.9 4.6 4.1 2 8.7 2.4 13.2 1.1 5.4-1.6 9.8-5.3 12.3-10.4.7-1.4 1.1-2.9 1.4-4.4.4-2.4.2-4.9-.7-7.2-1.3-3.2-3.7-5.8-6.9-7.3-2.1-.9-4.3-1.4-6.6-1.4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
         <path d="M37.7 27.3c-1-1.3-2.4-2.3-4-2.8l-2.1-10.2c-.2-1.2.7-2.3 1.9-2.5 1.2-.2 2.3.7 2.5 1.9l2 9.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M31.5 28.5c6.8 0 12.8-3.5 16.4-8.7 1-1.4 1.9-2.8 2.6-4.3.8-1.6 1.3-3.3 1.5-5.1.3-2.5-.2-5.1-1.4-7.3-1.1-2-2.8-3.6-4.9-4.6-4.1-2-8.7-2.4-13.2-1.1-5.4-1.6-9.8-5.3-12.3-10.4-.7-1.4-1.1-2.9-1.4-4.4-.4-2.4-.2-4.9.7-7.2 1.3-3.2 3.7-5.8 6.9-7.3 2.1-.9 4.3-1.4 6.6-1.4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+        <path d="M31.5 28.5c6.8 0 12.8-3.5 16.4-8.7 1-1.4 1.9-2.8 2.6-4.3.8-1.6 1.3-3.3 1.5-5.1.3-2.5-.2-5.1-1.4-7.3-1.1-2-2.8-3.6-4.9-4.6-4.1-2-8.7-2.4-13.2-1.1-5.4-1.6-9.8-5.3-12.3-10.4-.7-1.4-1.1-2.9-1.4-4.4-.4-2.4-.2-4.9-.7-7.2 1.3-3.2 3.7-5.8 6.9-7.3 2.1-.9 4.3-1.4 6.6-1.4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
         <path d="M26.3 27.3c1-1.3 2.4-2.3 4-2.8l2.1-10.2c.2-1.2-.7-2.3-1.9-2.5-1.2-.2-2.3.7-2.5 1.9l-2 9.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
     </svg>
   ),
@@ -243,8 +243,8 @@ export function StoreLocator() {
 
             {/* Right Column: Store Details */}
             <div className="lg:col-span-2">
-                 <div className="grid lg:grid-cols-2 gap-12 items-start">
-                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
+                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+                    <Card className="lg:col-span-2 xl:col-span-1 bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
                         <CardContent className="p-8 space-y-6 flex-grow">
                             <div>
                                 <h3 className="font-headline text-4xl text-white mb-2">{selectedStore.name}</h3>
@@ -272,38 +272,41 @@ export function StoreLocator() {
                                 </div>
                             </div>
                         </CardContent>
-                        {selectedStore.activities && selectedStore.activities.length > 0 && (
-                        <div className="p-8 border-t border-neutral-700/50">
-                            <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
-                                {selectedStore.activities.map(activity => {
-                                    const Icon = icons[activity];
-                                    return (
-                                        <div key={activity} className="flex flex-col items-center text-center gap-2">
-                                            <Icon className="w-10 h-10 text-amber-200/80" />
-                                            <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(0,2).join(' ')}</span>
-                                            {activity.split(' ').length > 2 && <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(2).join(' ')}</span>}
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        )}
                     </Card>
                 
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                        <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                            <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
-                        </div>
-                        <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                            <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
-                        </div>
+                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
+                                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
+                            </div>
+                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
+                                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
+                            </div>
                         </div>
                         <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
                             <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
                         </div>
                     </div>
+                    
+                    {selectedStore.activities && selectedStore.activities.length > 0 && (
+                        <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden">
+                            <CardContent className="p-8">
+                                <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
+                                    {selectedStore.activities.map(activity => {
+                                        const Icon = icons[activity];
+                                        return (
+                                            <div key={activity} className="flex flex-col items-center text-center gap-2">
+                                                <Icon className="w-10 h-10 text-amber-200/80" />
+                                                <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(0,2).join(' ')}</span>
+                                                {activity.split(' ').length > 2 && <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(2).join(' ')}</span>}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
             </div>
         </div>
@@ -311,3 +314,5 @@ export function StoreLocator() {
     </section>
   );
 }
+
+    
