@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="bg-[#2a2f28] text-white pt-20 pb-20 relative">
+      <div className="bg-[#2a2f28] text-white pt-36 pb-20 relative">
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 z-10">
             <Image
                 src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
