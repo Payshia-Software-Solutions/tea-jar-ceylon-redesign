@@ -28,22 +28,55 @@ const stores = [
   },
   {
     id: 'colombo',
-    name: 'Tea Jar Express',
+    name: 'Tea Jar Lounge',
     location: 'Colombo',
     bgImage: 'https://placehold.co/1920x1080.png',
     dataAiHint: 'modern tea shop',
     description: "Located in the heart of Colombo, Tea Jar Express offers a modern tea experience. Perfect for a quick stop, it features a curated selection of our finest teas and a range of delicious pastries. Whether you're commuting or shopping, it's the ideal spot to recharge with a perfect cup of Ceylon tea.",
     address: '123 Galle Road, Colombo 03, Sri Lanka',
-    website: 'www.teajarexpress.com',
+    website: 'www.teajarlounge.com',
     phone: '(+94) 11 222 4444',
-    hours: '7:00 AM - 8:00 PM',
+    hours: '10:00 AM - 9:00 PM',
     images: [
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ]
   },
-  // Add more stores here
+  {
+    id: 'weerawila',
+    name: 'Tea Jar by the Lake',
+    location: 'Weerawila',
+    bgImage: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'lake view tea shop',
+    description: "Enjoy stunning lakeside views at our Weerawila location. This serene spot is perfect for enjoying a peaceful cup of tea while surrounded by nature's beauty. We offer a full range of our exclusive tea collections and a delightful menu of light bites.",
+    address: '456 Lake Road, Weerawila, Sri Lanka',
+    website: 'www.teajarbythelake.com',
+    phone: '(+94) 47 222 5555',
+    hours: '8:00 AM - 7:00 PM',
+    images: [
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png'
+    ]
+  },
+    {
+    id: 'ella',
+    name: 'Tea Jar Boutique',
+    location: 'Ella',
+    bgImage: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'boutique tea store',
+    description: "Our charming boutique in the scenic town of Ella is a treasure trove for tea lovers. Browse our extensive collection of packaged teas to take home, along with unique tea accessories and gifts. Our knowledgeable staff are on hand to help you find your perfect blend.",
+    address: '789 Main Street, Ella, Sri Lanka',
+    website: 'www.teajarella.com',
+    phone: '(+94) 57 222 6666',
+    hours: '9:00 AM - 8:00 PM',
+    images: [
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png'
+    ]
+  }
 ];
 
 export function StoreLocator() {
