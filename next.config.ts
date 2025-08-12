@@ -22,11 +22,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: '**.payshia.com', // wildcard match
-        pathname: '/**',
-      }
     ],
   },
 };
