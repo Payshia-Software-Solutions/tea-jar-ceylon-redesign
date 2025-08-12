@@ -1,16 +1,15 @@
 'use client';
 
-import { TeaCard } from '@/components/TeaCard';
-import { teas } from '@/lib/tea-data';
 import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 import { useRef } from 'react';
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
+  const journeyRef = useRef<HTMLDivElement>(null);
 
   const scrollToContent = () => {
-    contentRef.current?.scrollIntoView({ behavior: 'smooth' });
+    journeyRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -46,20 +45,28 @@ export default function Home() {
         </div>
       </div>
 
-      <div ref={contentRef} className="bg-[#2a2f28] text-white">
-        <div className="container mx-auto px-4 py-12">
-            <header className="text-center mb-12 pt-8">
-            <h1 className="font-headline text-5xl font-bold text-primary-foreground mb-2">Explore Our Teas</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Discover the rich heritage and exquisite flavors of Ceylon, captured in every cup.
-            </p>
-            </header>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {teas.map((tea) => (
-                <TeaCard key={tea.id} tea={tea} />
-            ))}
+      <div ref={journeyRef} className="bg-[#353d32] text-white py-20">
+        <div className="container mx-auto px-4 text-center flex flex-col items-center">
+            <div className="relative w-48 h-24 mb-4">
+                <Image 
+                    src="https://teajarceylon.com/assets/cup.png"
+                    alt="Tea cup"
+                    width={192}
+                    height={96}
+                    className="object-contain"
+                />
             </div>
+            <h2 className="font-headline text-4xl font-bold mb-6">Our Journey</h2>
+            <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
+                SINCE 1978, TEA JAR HAS BEEN DEDICATED TO CRAFTING THE FINEST CEYLON TEAS, FROM CLASSIC BLACK TO EXQUISITE FLAVORS. BACKED BY THE K.D.U. GROUP, WE COMBINE OVER 30 YEARS OF EXPERTISE WITH TRADITIONAL CRAFTSMANSHIP AND MODERN INNOVATION, DELIVERING EXCEPTIONAL QUALITY THAT DELIGHTS TEA LOVERS AROUND THE WORLD.
+            </p>
+            <button
+                onClick={() => window.scrollTo({ top: window.scrollY + 500, behavior: 'smooth' })}
+                className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center animate-bounce"
+                aria-label="Scroll down further"
+            >
+                <ArrowDown className="h-6 w-6" />
+            </button>
         </div>
       </div>
     </>
