@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['content-provider.payshia.com', 'teajarceylon.com','payshia.com'],
+    domains: ['content-provider.payshia.com', 'teajarceylon.com','payshia.com', 'kdu-admin.payshia.com'],
     remotePatterns: [
       {
         protocol: 'https',

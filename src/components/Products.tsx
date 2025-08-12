@@ -54,7 +54,7 @@ export function Products() {
                         longDescription: '', // Not available in API
                         price: price,
                         salePrice: salePrice,
-                        image: `https://content-provider.payshia.com/uploads/product/${apiProduct.image_path}`,
+                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/55/${apiProduct.image_path}`,
                         dataAiHint: 'tea product',
                         type: 'Black', // Placeholder, not in API
                         flavorProfile: [], // Not in API
@@ -74,7 +74,7 @@ export function Products() {
     }, []);
 
     return (
-        <section className="bg-[#3a4f3a] py-20 text-white">
+        <section className="bg-[#3a4f3a] py-20 text-white" id="teas">
             <div className="container mx-auto px-4">
                 <h2 className="font-headline text-4xl text-center mb-12">Shop Our Best Selling Products</h2>
             </div>
@@ -110,6 +110,7 @@ export function Products() {
                             <CarouselItem key={tea.id} className="pl-6 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                                 <div className="p-1">
                                     <TeaCard tea={tea} />
+                                ...
                                 </div>
                             </CarouselItem>
                         ))}
