@@ -4,6 +4,7 @@ export interface Tea {
   description: string;
   longDescription: string;
   price: number;
+  salePrice?: number;
   image: string;
   dataAiHint: string;
   type: 'Black' | 'Green' | 'Oolong' | 'Herbal' | 'White';

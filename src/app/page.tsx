@@ -42,9 +42,9 @@ export default function Home() {
           />
         </div>
       </div>
-      
-      <div className="bg-[#2a2f28] text-white pt-36 pb-20 relative">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 z-10">
+
+      <div className="relative bg-[#2a2f28]">
+        <div className="absolute -bottom-24 md:-bottom-32 left-1/2 -translate-x-1/2 z-10 w-48 md:w-auto">
             <Image
                 src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
                 alt="Glass teacup with saucer"
@@ -53,6 +53,10 @@ export default function Home() {
                 className="object-contain"
             />
         </div>
+      </div>
+      
+      <div className="bg-[#2a2f28] text-white pt-36 pb-20 relative">
+        
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-6">Our Journey</h2>
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
@@ -71,29 +75,28 @@ export default function Home() {
       <section className="bg-[#3a4f3a] py-20 text-white">
         <div className="container mx-auto px-4">
           <h2 className="font-headline text-4xl text-center mb-12">Shop Our Best Selling Products</h2>
+        </div>
           <Carousel
             opts={{
               align: 'start',
-              loop: true,
             }}
             className="w-full"
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-1">
               {teas.slice(0, 5).map((tea) => (
-                <CarouselItem key={tea.id} className="md:basis-1/3 lg:basis-1/5">
+                <CarouselItem key={tea.id} className="pl-6 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                    <div className="p-1">
                     <TeaCard tea={tea} />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="text-white"/>
-            <CarouselNext className="text-white"/>
+            <CarouselPrevious className="text-white left-4"/>
+            <CarouselNext className="text-white right-4"/>
           </Carousel>
           <div className="text-center mt-12">
             <Button variant="outline">Shop More</Button>
           </div>
-        </div>
       </section>
     </>
   );
