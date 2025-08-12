@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
-        headline: ['Poppins', 'sans-serif'],
+        headline: ['Italiana', 'serif'],
         secondary: ['Roboto', 'sans-serif'],
         code: ['monospace'],
       },
