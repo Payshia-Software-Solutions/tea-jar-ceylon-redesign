@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Globe, Phone, Clock } from 'lucide-react';
-import { ScrollArea } from './ui/scroll-area';
 
 const stores = [
   {
@@ -77,6 +76,23 @@ const stores = [
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ]
+  },
+  {
+    id: 'galle',
+    name: 'Tea Jar Boutique',
+    location: 'Galle',
+    bgImage: 'https://placehold.co/1920x1080.png',
+    dataAiHint: 'historic tea boutique',
+    description: "Nestled within the historic Galle Fort, our boutique offers a unique tea experience amidst colonial charm. Discover our exclusive tea collections, fine porcelain, and curated gifts. A perfect stop to immerse yourself in the rich history and flavour of Ceylon tea.",
+    address: '42 Lighthouse Street, Galle Fort, Sri Lanka',
+    website: 'www.teajargalle.com',
+    phone: '(+94) 91 222 7777',
+    hours: '10:00 AM - 7:00 PM',
+    images: [
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png',
+      'https://placehold.co/400x300.png'
+    ]
   }
 ];
 
@@ -105,38 +121,36 @@ export function StoreLocator() {
         <div className="grid lg:grid-cols-3 gap-12">
             {/* Left Column: Store List */}
             <div className="lg:col-span-1">
-                <ScrollArea className="h-[500px] pr-4">
-                    <div className="space-y-4">
-                    {stores.map((store) => (
-                        <div 
-                            key={store.id}
-                            className={cn(
-                                "p-1 cursor-pointer group rounded-xl transition-all",
-                                selectedStore.id === store.id ? "ring-2 ring-amber-200/80" : "ring-2 ring-transparent"
-                            )}
-                            onClick={() => setSelectedStore(store)}
-                        >
-                        <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
-                            <CardContent className="p-4 flex items-center gap-4">
-                                <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
-                                    <Image 
-                                        src={store.images[0]} 
-                                        alt={store.location} 
-                                        fill 
-                                        className="object-cover" 
-                                        data-ai-hint="tea store facade" 
-                                    />
-                                </div>
-                                <div>
-                                    <h4 className="font-headline text-xl text-white">{store.name}</h4>
-                                    <p className="text-amber-100/90">{store.location}</p>
-                                </div>
-                            </CardContent>
-                        </Card>
-                        </div>
-                    ))}
+                <div className="space-y-4">
+                {stores.map((store) => (
+                    <div 
+                        key={store.id}
+                        className={cn(
+                            "p-1 cursor-pointer group rounded-xl transition-all",
+                            selectedStore.id === store.id ? "ring-2 ring-amber-200/80" : "ring-2 ring-transparent"
+                        )}
+                        onClick={() => setSelectedStore(store)}
+                    >
+                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
+                        <CardContent className="p-4 flex items-center gap-4">
+                            <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                                <Image 
+                                    src={store.images[0]} 
+                                    alt={store.location} 
+                                    fill 
+                                    className="object-cover" 
+                                    data-ai-hint="tea store facade" 
+                                />
+                            </div>
+                            <div>
+                                <h4 className="font-headline text-xl text-white">{store.name}</h4>
+                                <p className="text-amber-100/90">{store.location}</p>
+                            </div>
+                        </CardContent>
+                    </Card>
                     </div>
-                </ScrollArea>
+                ))}
+                </div>
             </div>
 
             {/* Right Column: Store Details */}
