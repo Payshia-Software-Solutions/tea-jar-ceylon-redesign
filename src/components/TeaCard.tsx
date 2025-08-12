@@ -29,17 +29,7 @@ export function TeaCard({ tea }: TeaCardProps) {
   };
 
   return (
-    <Link href={`/tea/${tea.id}`} className="group relative">
-      <div className="absolute z-10 bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)]">
-        <Button
-          onClick={handleAddToCart}
-          size="lg"
-          className="w-full bg-[#2a2f28] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <ShoppingCart className="mr-2 h-5 w-5" />
-          Add to Cart
-        </Button>
-      </div>
+    <Link href={`/tea/${tea.id}`} className="block group">
       <Card className="h-full flex flex-col transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:-translate-y-1 border-neutral-700 bg-[#2a2f28] text-white rounded-lg overflow-hidden">
         <CardHeader className="p-0">
           <div className="aspect-square overflow-hidden relative">
@@ -52,11 +42,21 @@ export function TeaCard({ tea }: TeaCardProps) {
               unoptimized
             />
             {hasSale && (
-                <Badge variant="destructive" className="absolute top-4 right-4 text-base py-1 px-3">
+                <Badge variant="destructive" className="absolute top-4 right-4 text-base py-1 px-3 z-10">
                     <Sparkle className="w-4 h-4 mr-1.5" />
                     {discount}% OFF
                 </Badge>
             )}
+             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+              <Button
+                onClick={handleAddToCart}
+                size="lg"
+                className="w-full bg-[#2a2f28] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="flex-grow p-4">
