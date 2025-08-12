@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ArrowDown } from 'lucide-react';
@@ -5,12 +6,6 @@ import Image from 'next/image';
 import { useRef } from 'react';
 
 export default function Home() {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const journeyRef = useRef<HTMLDivElement>(null);
-
-  const scrollToContent = () => {
-    journeyRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <>
@@ -38,17 +33,19 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="relative bg-[#2a2f28] flex justify-center items-center -mt-40 z-30">
-        <Image
-          src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
-          alt="Glass teacup with saucer"
-          width={400}
-          height={267}
-          className="object-contain"
-        />
+      <div className="relative z-20 -mt-28">
+        <div className="flex justify-center">
+             <Image
+              src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
+              alt="Glass teacup with saucer"
+              width={400}
+              height={267}
+              className="object-contain"
+            />
+        </div>
       </div>
 
-      <div ref={journeyRef} className="bg-[#2a2f28] text-white pt-10 pb-20">
+      <div className="bg-[#2a2f28] text-white pt-10 pb-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-6">Our Journey</h2>
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
