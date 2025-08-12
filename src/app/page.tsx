@@ -59,7 +59,7 @@ export default function Home() {
 
       <Products />
 
-      <div className="bg-[#2a2f28] text-white py-20">
+      <div className="bg-[#3a4f3a] text-white py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-12">Finest Ceylon Tea</h2>
             <Image

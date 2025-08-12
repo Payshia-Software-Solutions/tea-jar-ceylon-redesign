@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Globe, Phone, Clock } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const stores = [
   {
@@ -83,42 +84,67 @@ export function StoreLocator() {
   const [selectedStore, setSelectedStore] = useState(stores[0]);
 
   return (
-    <section className="relative w-full text-white overflow-hidden">
+    <section className="relative w-full text-white overflow-hidden py-20 bg-[#2a2f28]">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <Image
           key={selectedStore.id}
           src={selectedStore.bgImage}
           alt={selectedStore.name}
           fill
-          className="object-cover animate-fade-in"
+          className="object-cover animate-fade-in opacity-20"
           data-ai-hint={selectedStore.dataAiHint}
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/50 to-transparent" />
       </div>
 
-      <div className="relative container mx-auto px-4 py-20 z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <div className="relative container mx-auto px-4 z-10">
+        <div className="text-center mb-12">
             <h2 className="font-headline text-5xl text-white">Find Your Nearest Store</h2>
-            <div className="bg-black/30 backdrop-blur-sm p-6 rounded-lg">
-                <div className="flex flex-wrap gap-4">
-                {stores.map((store) => (
-                    <Button
-                    key={store.id}
-                    variant={selectedStore.id === store.id ? 'secondary' : 'outline'}
+        </div>
+        
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full mb-12"
+        >
+          <CarouselContent className="-ml-4">
+            {stores.map((store) => (
+              <CarouselItem key={store.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+                <div 
                     className={cn(
-                        "transition-all",
-                        selectedStore.id === store.id 
-                            ? 'bg-white/90 text-black' 
-                            : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                        "p-1 cursor-pointer group",
+                        selectedStore.id === store.id && "ring-2 ring-amber-200/80 rounded-xl"
                     )}
                     onClick={() => setSelectedStore(store)}
-                    >
-                    {store.location}
-                    </Button>
-                ))}
+                >
+                  <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <div className="relative w-24 h-24 rounded-md overflow-hidden flex-shrink-0">
+                            <Image 
+                                src={store.images[0]} 
+                                alt={store.location} 
+                                fill 
+                                className="object-cover" 
+                                data-ai-hint="tea store facade" 
+                            />
+                        </div>
+                        <div>
+                            <h4 className="font-headline text-2xl text-white">{store.name}</h4>
+                            <p className="text-amber-100/90">{store.location}</p>
+                        </div>
+                    </CardContent>
+                  </Card>
                 </div>
-            </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="text-white hover:bg-white/20 hover:text-white left-[-10px]" />
+          <CarouselNext className="text-white hover:bg-white/20 hover:text-white right-[-10px]" />
+        </Carousel>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
             <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden">
               <CardContent className="p-8 space-y-6">
                 <div>
@@ -148,18 +174,18 @@ export function StoreLocator() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-          <div className="space-y-4 hidden lg:block">
+          
+          <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover" data-ai-hint="tea lounge interior"/>
+                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
               </div>
               <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover" data-ai-hint="tea selection display"/>
+                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
               </div>
             </div>
-            <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg">
-                <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover" data-ai-hint="gourmet food pastry"/>
+            <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
+                <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
             </div>
           </div>
         </div>
