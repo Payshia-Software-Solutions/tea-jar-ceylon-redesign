@@ -67,7 +67,7 @@ export function Header() {
           <div className="container mx-auto flex h-20 items-center justify-between px-4">
             <Link href="/" className="flex items-center">
                 <Image
-                    src="https://teajarceylon.com/assets/gold-logo.webp"
+                    src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
                     width={140}
                     height={40}

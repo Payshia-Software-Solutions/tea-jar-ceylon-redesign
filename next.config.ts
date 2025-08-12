@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'teajarceylon.com',
+        hostname: 'content-provider.payshia.com',
         port: '',
         pathname: '/**',
       },

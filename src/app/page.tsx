@@ -29,7 +29,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white p-4">
           <Image
-            src="https://teajarceylon.com/assets/white-logo.png"
+            src="https://content-provider.payshia.com/tea-jar/white-logo.png"
             alt="Tea Jar Logo"
             width={400}
             height={150}
