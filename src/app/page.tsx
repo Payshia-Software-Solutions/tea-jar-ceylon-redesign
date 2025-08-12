@@ -35,13 +35,6 @@ export default function Home() {
             priority
             className="object-contain drop-shadow-lg"
           />
-          <button
-            onClick={scrollToContent}
-            className="absolute bottom-12 animate-bounce"
-            aria-label="Scroll down"
-          >
-            <ArrowDown className="h-10 w-10 text-white" />
-          </button>
         </div>
       </div>
       
