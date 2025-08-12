@@ -33,19 +33,17 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="relative z-20 -mt-28">
-        <div className="flex justify-center">
-             <Image
-              src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
-              alt="Glass teacup with saucer"
-              width={400}
-              height={267}
-              className="object-contain"
-            />
-        </div>
+      <div className="bg-[#eaf0e6] py-12 flex justify-center">
+         <Image
+          src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
+          alt="Glass teacup with saucer"
+          width={400}
+          height={267}
+          className="object-contain"
+        />
       </div>
 
-      <div className="bg-[#2a2f28] text-white pt-10 pb-20">
+      <div className="bg-[#2a2f28] text-white pt-20 pb-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-6">Our Journey</h2>
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
