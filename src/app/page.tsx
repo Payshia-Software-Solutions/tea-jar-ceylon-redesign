@@ -89,6 +89,28 @@ export default function Home() {
       </div>
 
       <RecommendedCollections />
+
+      <div className="bg-[#2a2f28] text-white py-20">
+        <div className="container mx-auto px-4 text-center flex flex-col items-center">
+          <p className="font-headline text-3xl max-w-4xl leading-relaxed italic relative">
+            <span className="absolute -top-4 left-0 text-6xl opacity-50">&ldquo;</span>
+            Sri Lanka&apos;s iconic Ceylon tea, gifted from generation to generation. Two of the freshest leaves and bud are handpicked and manufactured at the state of the art tea factories in Sri Lanka. Mastering the art of world renowned, origin Ceylon tea since 1978.
+            <span className="absolute -bottom-8 right-0 text-6xl opacity-50">&rdquo;</span>
+          </p>
+          <div className="mt-16 text-center">
+            <p className="text-sm tracking-widest text-neutral-400">FROM US AND OURS,</p>
+            <p className="text-sm tracking-widest text-neutral-400">TO YOU AND YOURS</p>
+            <Image 
+                src="https://content-provider.payshia.com/tea-jar/gold-chairman-sign.webp"
+                alt="Founder's Signature"
+                width={150}
+                height={100}
+                className="mx-auto my-4"
+            />
+            <p className="text-xs tracking-widest text-neutral-400">FOUNDER, SAMAN UPASENA</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
