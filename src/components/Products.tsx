@@ -83,9 +83,9 @@ export function Products() {
                         align: 'start',
                         }}
                     >
-                        <CarouselContent className="-ml-1">
+                        <CarouselContent>
                             {Array.from({ length: 5 }).map((_, index) => (
-                                <CarouselItem key={index} className="pl-6 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                                <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                                     <div className="p-1 space-y-4">
                                         <Skeleton className="h-[250px] w-full rounded-lg" />
                                         <Skeleton className="h-4 w-3/4" />
@@ -103,9 +103,9 @@ export function Products() {
                     }}
                     className="w-full"
                 >
-                    <CarouselContent className="-ml-1">
+                    <CarouselContent className="-ml-2">
                         {products.map((tea) => (
-                            <CarouselItem key={tea.id} className="pl-6 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                            <CarouselItem key={tea.id} className="pl-2 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                                 <div className="p-1">
                                     <TeaCard tea={tea} />
                                 </div>
