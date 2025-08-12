@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import { Products } from '@/components/Products';
 import { RecommendedCollections } from '@/components/RecommendedCollections';
+import { StoreLocator } from '@/components/StoreLocator';
 
 
 export default function Home() {
@@ -81,7 +82,7 @@ export default function Home() {
                     <h3 className="font-headline text-xl text-neutral-100">Hand Picked</h3>
                 </div>
                 <div className="flex flex-col items-center gap-4">
-                    <Image src="https://content-provider.payshia.com/tea-jar/factory-fresh.webp" alt="Factory Fresh" width={80} height={80} className="object-contain" />
+                    <Image src="https://content-provider.payshia.com/tea-jar/factory-fresh-gold-02.webp" alt="Factory Fresh" width={80} height={80} className="object-contain" />
                     <h3 className="font-headline text-xl text-neutral-100">Factory Fresh</h3>
                 </div>
             </div>
@@ -111,6 +112,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <StoreLocator />
     </>
   );
 }
