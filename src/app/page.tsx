@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="relative bg-[#2a2f28] flex justify-center items-center -mt-24 z-30">
+      <div className="relative bg-[#2a2f28] flex justify-center items-center -mt-40 z-30">
         <Image
           src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
           alt="Glass teacup with saucer"
