@@ -92,7 +92,7 @@ export default function Home() {
 
       <div className="bg-[#2a2f28] text-white py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
-          <p className="font-headline text-3xl max-w-4xl leading-relaxed italic relative">
+          <p className="font-handwritten text-5xl max-w-4xl leading-relaxed relative text-amber-100/90">
             <span className="absolute -top-4 left-0 text-6xl opacity-50">&ldquo;</span>
             Sri Lanka&apos;s iconic Ceylon tea, gifted from generation to generation. Two of the freshest leaves and bud are handpicked and manufactured at the state of the art tea factories in Sri Lanka. Mastering the art of world renowned, origin Ceylon tea since 1978.
             <span className="absolute -bottom-8 right-0 text-6xl opacity-50">&rdquo;</span>

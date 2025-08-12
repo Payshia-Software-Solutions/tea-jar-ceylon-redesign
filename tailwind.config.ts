@@ -13,6 +13,7 @@ export default {
         body: ['Poppins', 'sans-serif'],
         headline: ['Italiana', 'serif'],
         secondary: ['Roboto', 'sans-serif'],
+        handwritten: ['Great Vibes', 'cursive'],
         code: ['monospace'],
       },
       colors: {
