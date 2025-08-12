@@ -69,8 +69,8 @@ export function Header() {
                 <Image
                     src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
-                    width={140}
-                    height={40}
+                    width={100}
+                    height={30}
                     priority
                     className="object-contain"
                 />
