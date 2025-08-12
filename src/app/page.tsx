@@ -3,6 +3,7 @@
 
 import Image from 'next/image';
 import { Products } from '@/components/Products';
+import { RecommendedCollections } from '@/components/RecommendedCollections';
 
 
 export default function Home() {
@@ -86,6 +87,8 @@ export default function Home() {
             </div>
         </div>
       </div>
+
+      <RecommendedCollections />
     </>
   );
 }
