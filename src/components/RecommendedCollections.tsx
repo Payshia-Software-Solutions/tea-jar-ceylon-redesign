@@ -44,7 +44,7 @@ export function RecommendedCollections() {
           />
            <div className="absolute inset-0 bg-black/20"></div>
         </div>
-        <div className="p-8 md:p-16 flex flex-col justify-center">
+        <div className="p-8 md:p-16 flex flex-col">
           <h2 className="font-headline text-4xl mb-8">Recommended Collections</h2>
           <Tabs defaultValue="Classic" className="flex flex-col md:flex-row gap-8" orientation="vertical">
             <TabsList className="bg-transparent flex-shrink-0 items-start p-0">
