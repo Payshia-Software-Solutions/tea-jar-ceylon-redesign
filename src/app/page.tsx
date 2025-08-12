@@ -67,7 +67,7 @@ export default function Home() {
                 className="object-contain mb-8"
             />
             <p className="max-w-4xl text-neutral-200 leading-loose tracking-wider mb-16 font-secondary text-lg">
-                OUR SINGLE-ORIGIN CEYLON TEAS ARE ETHICALLY SOURCED AND CRAFTED TO ENSURE FACTORY-FRESH QUALITY, REFLECTING THE RICH HERITAGE AND VALUES OF CEYLON TEA. ENJOY THE TRUE ESSENCE OF CEYLON TEA WITH TEA JAR.
+                Our single-origin Ceylon teas are ethically sourced and crafted to ensure factory-fresh quality, reflecting the rich heritage and values of Ceylon tea. Enjoy the true essence of Ceylon tea with Tea Jar.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-3xl">
                 <div className="flex flex-col items-center gap-4">
