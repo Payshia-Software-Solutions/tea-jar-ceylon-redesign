@@ -44,7 +44,7 @@ export default function TeaPage({ params }: TeaPageProps) {
               <Badge variant="outline">{tea.type}</Badge>
               <span className="text-sm text-muted-foreground">{tea.origin}</span>
             </div>
-            <h1 className="font-headline text-5xl font-bold text-primary">{tea.name}</h1>
+            <h1 className="font-headline text-5xl text-primary">{tea.name}</h1>
             <p className="text-xl text-muted-foreground">{tea.longDescription}</p>
           </div>
           <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export default function TeaPage({ params }: TeaPageProps) {
       {recommendedTeas.length > 0 && (
         <div className="mt-16 md:mt-24">
             <Separator className="my-8" />
-          <h2 className="font-headline text-4xl font-bold text-center text-primary mb-12">You Might Also Like</h2>
+          <h2 className="font-headline text-4xl text-center text-primary mb-12">You Might Also Like</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {recommendedTeas.map((recTea) => (
               <TeaCard key={recTea.id} tea={recTea} />
