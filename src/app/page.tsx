@@ -44,6 +44,16 @@ export default function Home() {
           </button>
         </div>
       </div>
+      
+      <div className="relative bg-[#2a2f28] py-10 flex justify-center items-center">
+        <Image
+          src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
+          alt="Glass teacup with saucer"
+          width={400}
+          height={267}
+          className="object-contain"
+        />
+      </div>
 
       <div ref={journeyRef} className="bg-[#2a2f28] text-white py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
