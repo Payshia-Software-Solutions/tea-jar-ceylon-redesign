@@ -1,6 +1,6 @@
 'use client';
 
-import { Leaf, ShoppingCart } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, User, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetTrigger } from './ui/sheet';
@@ -9,6 +9,15 @@ import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Input } from './ui/input';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/#teas', label: 'Shop' },
+  { href: '/about', label: 'About Us' },
+  { href: '/#teas', label: 'Our Teas' },
+  { href: '/contact', label: 'Contact Us' },
+];
 
 export function Header() {
   const { getItemCount } = useCart();
@@ -19,53 +28,89 @@ export function Header() {
   useEffect(() => {
     const handleScroll = () => {
       if (pathname === '/') {
-        if (window.scrollY > window.innerHeight * 0.5) {
+        if (window.scrollY > window.innerHeight * 0.8) {
           setIsVisible(true);
         } else {
           setIsVisible(false);
         }
-      } else {
-        setIsVisible(true);
       }
     };
-    
-    if (pathname === '/') {
-        setIsVisible(false);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    } else {
-        setIsVisible(true)
-    }
 
+    if (pathname === '/') {
+      setIsVisible(false);
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+    } else {
+      setIsVisible(true);
+    }
   }, [pathname]);
 
   return (
     <Sheet>
       <header
         className={cn(
-          'fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-neutral-800 transition-transform duration-300 ease-in-out',
+          'fixed top-0 z-40 w-full transition-transform duration-500 ease-in-out',
           {
             'translate-y-0': isVisible,
             '-translate-y-full': !isVisible,
           }
         )}
       >
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Leaf className="h-7 w-7 text-primary-foreground" />
-            <span className="font-headline text-2xl font-bold text-primary-foreground">Ceylon Calm</span>
-          </Link>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-6 w-6 text-white" />
-              {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
-                  {itemCount}
-                </span>
-              )}
-              <span className="sr-only">Open cart</span>
-            </Button>
-          </SheetTrigger>
+        <div className="bg-[#b91c1c] text-white py-2 text-center text-sm">
+          <div className="container mx-auto flex items-center justify-center gap-2">
+            <Truck className="h-4 w-4" />
+            <span>Enjoy 20% Off &amp; Island wide Free Delivery..!</span>
+          </div>
+        </div>
+        <div className="bg-black text-white">
+          <div className="container mx-auto flex h-20 items-center justify-between px-4">
+            <Link href="/" className="flex items-center gap-2">
+              <Leaf className="h-8 w-8 text-amber-500" />
+              <span className="font-headline text-3xl font-bold text-amber-500">
+                Tea Jar
+              </span>
+            </Link>
+
+            <nav className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-neutral-300 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-4">
+              <div className="relative hidden lg:block">
+                <Input
+                  type="search"
+                  placeholder="Find products"
+                  className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-56 text-white"
+                />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+              </div>
+
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800">
+                  <ShoppingCart className="h-6 w-6 text-white" />
+                  {itemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
+                      {itemCount}
+                    </span>
+                  )}
+                  <span className="sr-only">Open cart</span>
+                </Button>
+              </SheetTrigger>
+              
+              <Button variant="ghost" size="icon" className="hidden sm:inline-flex hover:bg-neutral-800">
+                <User className="h-6 w-6 text-white" />
+                <span className="sr-only">User profile</span>
+              </Button>
+            </div>
+          </div>
         </div>
       </header>
       <Cart />
