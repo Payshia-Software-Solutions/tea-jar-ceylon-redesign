@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from './ui/input';
+import Image from 'next/image';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -64,11 +65,15 @@ export function Header() {
         </div>
         <div className="bg-black text-white">
           <div className="container mx-auto flex h-20 items-center justify-between px-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Leaf className="h-8 w-8 text-amber-500" />
-              <span className="font-headline text-3xl font-bold text-amber-500">
-                Tea Jar
-              </span>
+            <Link href="/" className="flex items-center">
+                <Image
+                    src="https://teajarceylon.com/assets/gold-logo.webp"
+                    alt="Tea Jar Logo"
+                    width={140}
+                    height={40}
+                    priority
+                    className="object-contain"
+                />
             </Link>
 
             <nav className="hidden md:flex items-center gap-6">
