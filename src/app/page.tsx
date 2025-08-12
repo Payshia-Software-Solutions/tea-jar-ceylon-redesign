@@ -45,17 +45,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div ref={journeyRef} className="bg-[#353d32] text-white py-20">
+      <div ref={journeyRef} className="bg-[#2a2f28] text-white py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
-            <div className="relative w-48 h-24 mb-4">
-                <Image 
-                    src="https://teajarceylon.com/assets/cup.png"
-                    alt="Tea cup"
-                    width={192}
-                    height={96}
-                    className="object-contain"
-                />
-            </div>
             <h2 className="font-headline text-4xl font-bold mb-6">Our Journey</h2>
             <p className="max-w-4xl text-neutral-300 leading-relaxed tracking-wider mb-12">
                 SINCE 1978, TEA JAR HAS BEEN DEDICATED TO CRAFTING THE FINEST CEYLON TEAS, FROM CLASSIC BLACK TO EXQUISITE FLAVORS. BACKED BY THE K.D.U. GROUP, WE COMBINE OVER 30 YEARS OF EXPERTISE WITH TRADITIONAL CRAFTSMANSHIP AND MODERN INNOVATION, DELIVERING EXCEPTIONAL QUALITY THAT DELIGHTS TEA LOVERS AROUND THE WORLD.
