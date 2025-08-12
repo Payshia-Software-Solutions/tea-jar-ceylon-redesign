@@ -35,7 +35,7 @@ export function TeaCard({ tea }: TeaCardProps) {
           </div>
         </CardHeader>
         <CardContent className="flex-grow p-4">
-          <CardTitle className="font-bold text-lg leading-tight">{tea.name}</CardTitle>
+          <CardTitle className="font-bold text-lg leading-tight line-clamp-2">{tea.name}</CardTitle>
         </CardContent>
         <CardFooter className="p-4 pt-0 flex justify-between items-center">
             <ShoppingBag className="w-6 h-6 text-neutral-400" />
