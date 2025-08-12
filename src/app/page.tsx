@@ -61,7 +61,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-4xl mb-12">Finest Ceylon Tea</h2>
             <Image
-                src="https://content-provider.payshia.com/tea-jar/premium-quality-seal.png"
+                src="https://content-provider.payshia.com/tea-jar/premium-quality-seal.webp"
                 alt="Premium Quality Guaranteed"
                 width={120}
                 height={120}
@@ -80,7 +80,7 @@ export default function Home() {
                     <h3 className="font-headline text-xl text-neutral-100">Hand Picked</h3>
                 </div>
                 <div className="flex flex-col items-center gap-4">
-                    <Image src="https://content-provider.payshia.com/tea-jar/factory-fresh-gold-02.webp" alt="Factory Fresh" width={80} height={80} className="object-contain" />
+                    <Image src="https://content-provider.payshia.com/tea-jar/factory-fresh.webp" alt="Factory Fresh" width={80} height={80} className="object-contain" />
                     <h3 className="font-headline text-xl text-neutral-100">Factory Fresh</h3>
                 </div>
             </div>
