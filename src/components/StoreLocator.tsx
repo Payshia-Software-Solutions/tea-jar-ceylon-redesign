@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -255,62 +256,47 @@ export function StoreLocator() {
             Back to All Stores
         </Button>
 
-        <div className="grid lg:grid-cols-5 gap-8 xl:gap-12">
-            <div className="lg:col-span-3">
-                 <p className="text-neutral-300 leading-relaxed font-body text-base">
-                    {store.description}
-                </p>
-                <div className="grid sm:grid-cols-2 gap-y-4 text-sm mt-8">
-                    <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{store.address}</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <a href={`http://${store.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{store.website}</a>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{store.phone}</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                        <span>{store.hours}</span>
-                    </div>
+        <div className="lg:col-span-3">
+             <p className="text-neutral-300 leading-relaxed font-body text-base">
+                {store.description}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-y-4 text-sm mt-8">
+                <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                    <span>{store.address}</span>
                 </div>
+                <div className="flex items-start gap-3">
+                    <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                    <a href={`http://${store.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{store.website}</a>
+                </div>
+                <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                    <span>{store.phone}</span>
+                </div>
+                <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                    <span>{store.hours}</span>
+                </div>
+            </div>
 
-                {store.activities && store.activities.length > 0 && (
-                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-8">
-                        <CardContent className="p-6">
-                            <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6">
-                                {store.activities.map(activity => {
-                                    const Icon = icons[activity];
-                                    return (
-                                        <div key={activity} className="flex flex-col items-center text-center gap-2">
-                                            <Icon className="w-10 h-10 text-amber-200/80" />
-                                            <span className="text-xs font-medium tracking-wide text-neutral-300">{activity}</span>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </CardContent>
-                    </Card>
-                )}
-            </div>
-            <div className="lg:col-span-2 space-y-4">
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                        <Image src={store.images[0]} alt={`${store.name} gallery image 1`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
-                    </div>
-                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                        <Image src={store.images[1]} alt={`${store.name} gallery image 2`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
-                    </div>
-                </div>
-                <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                    <Image src={store.images[2]} alt={`${store.name} gallery image 3`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
-                </div>
-            </div>
+            {store.activities && store.activities.length > 0 && (
+                <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-8">
+                    <CardContent className="p-6">
+                        <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6">
+                            {store.activities.map(activity => {
+                                const Icon = icons[activity];
+                                return (
+                                    <div key={activity} className="flex flex-col items-center text-center gap-2">
+                                        <Icon className="w-10 h-10 text-amber-200/80" />
+                                        <span className="text-xs font-medium tracking-wide text-neutral-300">{activity}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
         </div>
     </div>
   );
