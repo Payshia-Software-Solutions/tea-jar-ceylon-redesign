@@ -78,7 +78,7 @@ export default function StoryPage() {
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
                             alt="Saman Upasena, Founder of Tea Jar"
                             fill
-                            className="object-contain object-bottom"
+                            className="object-cover object-bottom"
                         />
                     </div>
                     <div className="md:col-span-2 bg-white p-8 md:p-16 flex justify-center">
