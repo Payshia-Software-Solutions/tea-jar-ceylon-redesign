@@ -74,7 +74,7 @@ export default function Home() {
 
       <Products />
 
-      <div className="bg-[#353d32] text-white py-16 md:py-20">
+      <div className="bg-[#2a2f28] text-white py-16 md:py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="font-headline text-3xl md:text-4xl mb-8 md:mb-12">Finest Ceylon Tea</h2>
             <Image
@@ -106,7 +106,7 @@ export default function Home() {
 
       <RecommendedCollections />
 
-      <div className="bg-[#353d32] text-white py-16 md:py-20">
+      <div className="bg-[#2a2f28] text-white py-16 md:py-20">
         <div className="container mx-auto px-4 text-center flex flex-col items-center">
           <p className="font-handwritten text-4xl md:text-5xl max-w-4xl leading-relaxed relative text-amber-100/90">
             <span className="absolute -top-4 left-0 text-6xl opacity-50">&ldquo;</span>
