@@ -138,7 +138,7 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
 
     return (
         <section>
-            <h2 className="font-headline text-4xl text-center text-white mb-8">{department.department_name}</h2>
+            <h2 className="font-headline text-4xl text-center text-white mb-8">{department.department_name} ({filteredAndFormattedTeas.length})</h2>
             <ProductGrid teas={filteredAndFormattedTeas} />
         </section>
     );
