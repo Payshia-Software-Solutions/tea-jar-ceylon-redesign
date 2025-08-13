@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, User, ChevronRight } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -20,38 +20,38 @@ const navMenuData = {
       title: 'Shop Tea',
       links: [
         { text: 'Shop All Teas', href: '/shop' },
-        { text: 'Advent Calender', href: '#' },
+        { text: 'Advent Calender', href: '/shop?department=Advent%20Calender' },
       ],
     },
     {
       title: 'Shop By Tea',
       links: [
-        { text: 'Black Tea', href: '#' },
-        { text: 'Green Tea', href: '#' },
-        { text: 'Herbal Tea', href: '#' },
+        { text: 'Black Tea', href: '/shop?section=Black%20Tea' },
+        { text: 'Green Tea', href: '/shop?section=Green%20Tea' },
+        { text: 'Herbal Tea', href: '/shop?section=Herbal%20Tea' },
       ],
     },
     {
       title: 'Tea Format',
       links: [
-        { text: 'Loose Leaf', href: '#' },
-        { text: 'Tea Bags', href: '#' },
-        { text: 'Luxury Leaf Tea Bags', href: '#' },
-        { text: 'Canisters', href: '#' },
+        { text: 'Loose Leaf', href: '/shop?category=Loose%20Leaf' },
+        { text: 'Tea Bags', href: '/shop?category=Tea%20Bags' },
+        { text: 'Luxury Leaf Tea Bags', href: '/shop?category=Luxury%20Leaf%20Tea%20Bags' },
+        { text: 'Canisters', href: '/shop?category=Canisters' },
       ],
     },
     {
       title: 'Tea Edits',
       links: [
-        { text: 'Special Offers', href: '#' },
-        { text: 'Classic Teas', href: '#' },
-        { text: 'Flavored Teas', href: '#' },
-        { text: 'Exceptional Teas', href: '#' },
-        { text: 'Exclusive Teas', href: '#' },
-        { text: 'Factory Series', href: '#' },
-        { text: 'Artisanal Teas', href: '#' },
-        { text: 'Organic Teas', href: '#' },
-        { text: 'Gift', href: '#' },
+        { text: 'Special Offers', href: '/shop?department=Special%20Offers' },
+        { text: 'Classic Teas', href: '/shop?department=Classic%20Teas' },
+        { text: 'Flavored Teas', href: '/shop?department=Flavored%20Teas' },
+        { text: 'Exceptional Teas', href: '/shop?department=Exceptional%20Teas' },
+        { text: 'Exclusive Teas', href: '/shop?department=Exclusive%20Teas' },
+        { text: 'Factory Series', href: '/shop?department=Factory%20Series' },
+        { text: 'Artisanal Teas', href: '/shop?department=Artisanal%20Teas' },
+        { text: 'Organic Teas', href: '/shop?department=Organic%20Teas' },
+        { text: 'Gift', href: '/shop?department=Gift' },
       ],
     },
   ],
@@ -61,12 +61,12 @@ const navMenuData = {
       { text: 'KDU Group', href: '#' },
   ],
   ourTeas: [
-    { text: 'Classic Teas', href: '#' },
-    { text: 'Flavoured Teas', href: '#' },
-    { text: 'Exceptional Teas', href: '#' },
-    { text: 'Exclusive Teas', href: '#' },
-    { text: 'Factory Teas', href: '#' },
-    { text: 'Organic Teas', href: '#' },
+    { text: 'Classic Teas', href: '/shop?department=Classic%20Teas' },
+    { text: 'Flavoured Teas', href: '/shop?department=Flavored%20Teas' },
+    { text: 'Exceptional Teas', href: '/shop?department=Exceptional%20Teas' },
+    { text: 'Exclusive Teas', href: '/shop?department=Exclusive%20Teas' },
+    { text: 'Factory Teas', href: '/shop?department=Factory%20Series' },
+    { text: 'Organic Teas', href: '/shop?department=Organic%20Teas' },
   ]
 };
 

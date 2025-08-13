@@ -1,16 +1,19 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import type { Tea, Department, Section, Category, ApiProduct } from '@/lib/types';
+import { useState, useEffect, useMemo, Suspense } from 'react';
+import type { Tea, Department, Section, Category } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ShopFilters, type Filters } from '@/components/ShopFilters';
 import { DepartmentShowcase } from '@/components/DepartmentShowcase';
+import { useSearchParams } from 'next/navigation';
 
 const MAX_PRICE = 10000;
 
-export default function ShopPage() {
+function ShopPageContent() {
+  const searchParams = useSearchParams();
+
   const [allDepartments, setAllDepartments] = useState<Department[]>([]);
   const [allSections, setAllSections] = useState<Section[]>([]);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
@@ -32,13 +35,37 @@ export default function ShopPage() {
                 fetch('https://kduserver.payshia.com/categories'),
             ]);
 
-            const departmentsData = await departmentsRes.json();
-            const sectionsData = await sectionsRes.json();
-            const categoriesData = await categoriesRes.json();
+            const departmentsData: Department[] = await departmentsRes.json();
+            const sectionsData: Section[] = await sectionsRes.json();
+            const categoriesData: Category[] = await categoriesRes.json();
 
             setAllDepartments(departmentsData);
             setAllSections(sectionsData);
             setAllCategories(categoriesData);
+
+            // Apply filters from URL search params
+            const sectionName = searchParams.get('section');
+            const departmentName = searchParams.get('department');
+            const categoryName = searchParams.get('category');
+            
+            const newFilters: Partial<Filters> = {};
+
+            if (sectionName) {
+                const section = sectionsData.find(s => s.section_name === sectionName);
+                if (section) newFilters.sections = [section.id];
+            }
+            if (departmentName) {
+                const department = departmentsData.find(d => d.department_name === departmentName);
+                if (department) newFilters.departments = [department.id];
+            }
+            if (categoryName) {
+                const category = categoriesData.find(c => c.category_name === categoryName);
+                if (category) newFilters.categories = [category.id];
+            }
+
+            if (Object.keys(newFilters).length > 0) {
+              setFilters(prev => ({...prev, ...newFilters}));
+            }
 
         } catch (error) {
             console.error('Failed to fetch shop filter data:', error);
@@ -47,7 +74,7 @@ export default function ShopPage() {
         }
     }
     fetchFilterData();
-  }, []);
+  }, [searchParams]);
 
   const visibleDepartments = useMemo(() => {
     if (filters.departments.length === 0) {
@@ -129,4 +156,12 @@ export default function ShopPage() {
       </div>
     </div>
   );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ShopPageContent />
+    </Suspense>
+  )
 }
