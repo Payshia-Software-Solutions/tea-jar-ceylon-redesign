@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, User, Search, Menu } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -12,7 +12,50 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from './ui/input';
 import Image from 'next/image';
-import { Separator } from './ui/separator';
+
+const navMenuData = {
+  shop: [
+    {
+      title: 'Shop Tea',
+      links: [
+        { text: 'Shop All Teas', href: '/shop' },
+        { text: 'Advent Calender', href: '#' },
+      ],
+    },
+    {
+      title: 'Shop By Tea',
+      links: [
+        { text: 'Black Tea', href: '#' },
+        { text: 'Green Tea', href: '#' },
+        { text: 'Herbal Tea', href: '#' },
+      ],
+    },
+    {
+      title: 'Tea Format',
+      links: [
+        { text: 'Loose Leaf', href: '#' },
+        { text: 'Tea Bags', href: '#' },
+        { text: 'Luxury Leaf Tea Bags', href: '#' },
+        { text: 'Canisters', href: '#' },
+      ],
+    },
+    {
+      title: 'Tea Edits',
+      links: [
+        { text: 'Special Offers', href: '#' },
+        { text: 'Classic Teas', href: '#' },
+        { text: 'Flavored Teas', href: '#' },
+        { text: 'Exceptional Teas', href: '#' },
+        { text: 'Exclusive Teas', href: '#' },
+        { text: 'Factory Series', href: '#' },
+        { text: 'Artisanal Teas', href: '#' },
+        { text: 'Organic Teas', href: '#' },
+        { text: 'Gift', href: '#' },
+      ],
+    },
+  ],
+};
+
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -28,11 +71,12 @@ export function Header() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(pathname !== '/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isShopMenuOpen, setIsShopMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       if (pathname === '/') {
-        if (window.scrollY > 10) { // Show header after a small scroll
+        if (window.scrollY > 10) {
           setIsVisible(true);
         } else {
           setIsVisible(false);
@@ -65,7 +109,7 @@ export function Header() {
             <span>Enjoy 20% Off &amp; Island wide Free Delivery..!</span>
           </div>
         </div>
-        <div className="bg-black text-white">
+        <div className="bg-black text-white" onMouseLeave={() => setIsShopMenuOpen(false)}>
           <div className="container mx-auto flex h-20 items-center justify-between px-4">
             
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -127,13 +171,19 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-neutral-300 hover:text-white transition-colors"
+                <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={() => link.label === 'Shop' && setIsShopMenuOpen(true)}
                 >
-                  {link.label}
-                </Link>
+                    <Link
+                    href={link.href}
+                    className="text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
+                    >
+                    {link.label}
+                    {link.label === 'Shop' && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isShopMenuOpen ? 'rotate-180' : ''}`} />}
+                    </Link>
+                </div>
               ))}
             </nav>
 
@@ -161,9 +211,31 @@ export function Header() {
                 </SheetTrigger>
                 <Cart />
               </Sheet>
-              
             </div>
           </div>
+          {isShopMenuOpen && (
+            <div 
+                className="absolute w-full bg-[#2a2f28] text-white shadow-lg"
+                onMouseLeave={() => setIsShopMenuOpen(false)}
+            >
+                <div className="container mx-auto px-4 py-8 grid grid-cols-4 gap-8">
+                    {navMenuData.shop.map(column => (
+                        <div key={column.title}>
+                            <h3 className="font-bold text-sm uppercase tracking-wider text-neutral-400 mb-4">{column.title}</h3>
+                            <ul className="space-y-2">
+                                {column.links.map(link => (
+                                    <li key={link.text}>
+                                        <Link href={link.href} className="hover:text-white transition-colors text-base text-neutral-200">
+                                            {link.text}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </div>
+          )}
         </div>
       </header>
   );
