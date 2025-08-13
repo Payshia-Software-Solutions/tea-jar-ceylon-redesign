@@ -59,7 +59,7 @@ export default function ShopPage() {
 
   return (
     <div className="bg-[#353d32] text-white min-h-screen">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:py-16 pt-32 md:pt-40">
         <div className="text-center mb-12">
           <h1 className="font-headline text-5xl md:text-6xl">Tea by Collection</h1>
           <p className="text-lg text-neutral-300 mt-4 max-w-2xl mx-auto">
