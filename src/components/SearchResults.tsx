@@ -18,7 +18,7 @@ interface SearchResultsProps {
 export function SearchResults({ results, isLoading, onClose, query, isMobile = false }: SearchResultsProps) {
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
 
-    if (!isLoading && !showNoResults && results.length === 0) {
+    if (!isLoading && !showNoResults && results.length === 0 && !isMobile) {
         return null;
     }
 
