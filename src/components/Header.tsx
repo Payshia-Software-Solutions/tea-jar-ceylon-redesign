@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Leaf, ShoppingCart, Truck, User, Search } from 'lucide-react';
@@ -14,7 +15,7 @@ import Image from 'next/image';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/#teas', label: 'Shop' },
+  { href: '/shop', label: 'Shop' },
   { href: '/about', label: 'About Us' },
   { href: '/#teas', label: 'Our Teas' },
   { href: '/contact', label: 'Contact Us' },
