@@ -73,16 +73,15 @@ export default function StoryPage() {
 
                 {/* Section 3: Founder's Message */}
                  <section className="flex flex-col md:flex-row items-stretch">
-                    <div className="w-full md:w-1/3 flex-shrink-0">
+                    <div className="w-full md:w-1/3 flex-shrink-0 relative min-h-[400px] md:min-h-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
                             alt="Saman Upasena, Founder of Tea Jar"
-                            width={500}
-                            height={600}
-                            className="object-contain object-bottom w-full h-auto"
+                            fill
+                            className="object-cover object-bottom"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-stretch">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
                         <div className="max-w-2xl space-y-6 flex flex-col justify-center">
                             <h2 className="font-headline text-3xl md:text-4xl">Founder&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
@@ -105,16 +104,15 @@ export default function StoryPage() {
 
                 {/* Section 4: Managing Director's Message */}
                 <section className="flex flex-col md:flex-row-reverse items-stretch">
-                     <div className="w-full md:w-1/3 flex-shrink-0">
+                     <div className="w-full md:w-1/3 flex-shrink-0 relative min-h-[400px] md:min-h-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/deelaka_nbg.webp"
                             alt="Deelaka Upasena, Managing Director of Tea Jar"
-                            width={500}
-                            height={600}
-                            className="object-contain object-bottom w-full h-auto"
+                            fill
+                            className="object-cover object-bottom"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-stretch">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
                         <div className="max-w-2xl space-y-6 flex flex-col justify-center">
                             <h2 className="font-headline text-3xl md:text-4xl">Managing Director&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
