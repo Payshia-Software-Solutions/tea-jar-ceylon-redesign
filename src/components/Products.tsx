@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import type { Tea } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 import 'swiper/css';
+import Link from 'next/link';
 
 interface ApiProduct {
     product_id: string;
@@ -72,7 +73,7 @@ export function Products() {
                 <h2 className="font-headline text-3xl md:text-4xl text-center mb-8 md:mb-12">Shop Our Best Selling Products</h2>
             </div>
             {loading ? (
-                <div className="w-full pl-4 md:pl-8 lg:pl-12">
+                <div className="w-full pl-4 sm:pl-6 md:pl-8 lg:pl-12">
                    <div className="flex space-x-4">
                         {Array.from({ length: 5 }).map((_, index) => (
                             <div key={index} className="w-[250px] flex-shrink-0 space-y-4">
@@ -86,32 +87,26 @@ export function Products() {
             ) : (
                 <Swiper
                     spaceBetween={16}
-                    slidesPerView={'auto'}
-                    className="!pl-4 md:!pl-8 lg:!pl-12"
+                    slidesPerView={1.5}
+                    className="!pl-4 sm:!pl-6 md:!pl-8 lg:!pl-12"
                     breakpoints={{
-                        // mobile (default)
-                        0: { slidesPerView: 1.5 },
-                        // tablet
                         640: { slidesPerView: 2.5 },
-                        // md
                         768: { slidesPerView: 3.5 },
-                        // large
                         1024: { slidesPerView: 4.5 },
-                        // extra large
                         1280: { slidesPerView: 5.5 },
                     }}
                 >
                     {products.map((tea) => (
-                        <SwiperSlide key={tea.id} className="!h-auto !w-auto">
-                            <div className="w-[250px] h-full">
-                                <TeaCard tea={tea} />
-                            </div>
+                        <SwiperSlide key={tea.id}>
+                            <TeaCard tea={tea} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
             )}
             <div className="text-center mt-12">
-                <Button className="bg-[#d1e4c9] text-black hover:bg-[#d1e4c9]/90">Shop More</Button>
+                <Link href="/shop">
+                  <Button className="bg-[#d1e4c9] text-black hover:bg-[#d1e4c9]/90">Shop More</Button>
+                </Link>
             </div>
         </section>
     );
