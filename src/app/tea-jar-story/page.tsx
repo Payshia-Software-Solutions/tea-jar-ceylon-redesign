@@ -72,7 +72,7 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 3: Founder's Message */}
-                 <section className="flex flex-col md:flex-row items-center">
+                 <section className="flex flex-col md:flex-row items-stretch">
                     <div className="w-full md:w-1/3 flex-shrink-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
@@ -104,7 +104,7 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 4: Managing Director's Message */}
-                <section className="flex flex-col md:flex-row-reverse items-center">
+                <section className="flex flex-col md:flex-row-reverse items-stretch">
                      <div className="w-full md:w-1/3 flex-shrink-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/deelaka_nbg.webp"
