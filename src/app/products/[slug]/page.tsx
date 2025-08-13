@@ -13,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Star, ChevronRight, Minus, Plus, ShoppingBag, Droplets, Thermometer, Clock, Users, Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from 'next/link';
 
 interface TeaPageProps {
   params: {
@@ -150,10 +151,10 @@ export default function TeaPage({ params }: TeaPageProps) {
   }
 
   return (
-    <div className="bg-white text-neutral-800 min-h-screen pt-12">
+    <div className="bg-white text-neutral-800 min-h-screen pt-32">
         <div className="container mx-auto px-4 py-8">
             <div className="flex items-center text-sm text-neutral-500 mb-8">
-                <span>Products</span>
+                <Link href="/shop" className="hover:text-neutral-800">Products</Link>
                 <ChevronRight className="w-4 h-4 mx-1" />
                 <span className="font-medium text-neutral-800">{tea.name}</span>
             </div>
@@ -321,3 +322,5 @@ export default function TeaPage({ params }: TeaPageProps) {
     </div>
   );
 }
+
+    
