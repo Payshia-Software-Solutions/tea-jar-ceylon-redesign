@@ -20,6 +20,7 @@ interface TeaCardProps {
 export function TeaCard({ tea }: TeaCardProps) {
   const hasSale = tea.salePrice && tea.salePrice < tea.price;
   const discount = hasSale ? Math.round(((tea.price - tea.salePrice!) / tea.price) * 100) : 0;
+  const isOutOfStock = tea.stock_status === "0";
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [isHovered, setIsHovered] = useState(false);
@@ -27,6 +28,7 @@ export function TeaCard({ tea }: TeaCardProps) {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isOutOfStock) return;
     addToCart(tea);
     toast({
       title: 'Added to Cart',
@@ -68,7 +70,11 @@ export function TeaCard({ tea }: TeaCardProps) {
                     unoptimized
                 />
             )}
-            {hasSale && (
+             {isOutOfStock ? (
+                <Badge variant="secondary" className="absolute top-4 left-4 z-10">
+                    OUT OF STOCK
+                </Badge>
+            ) : hasSale && (
                 <Badge variant="destructive" className="absolute top-4 right-4 text-base py-1 px-3 z-10">
                     <Sparkle className="w-4 h-4 mr-1.5" />
                     {discount}% OFF
@@ -78,10 +84,11 @@ export function TeaCard({ tea }: TeaCardProps) {
               <Button
                 onClick={handleAddToCart}
                 size="lg"
-                className="w-full bg-white/90 text-black hover:bg-white"
+                className="w-full bg-white/90 text-black hover:bg-white disabled:bg-neutral-400 disabled:text-neutral-600"
+                disabled={isOutOfStock}
               >
                 <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
+                {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
               </Button>
             </div>
           </div>
@@ -114,10 +121,11 @@ export function TeaCard({ tea }: TeaCardProps) {
             <Button
                 onClick={handleAddToCart}
                 size="lg"
-                className="w-full bg-white/90 text-black hover:bg-white"
+                className="w-full bg-white/90 text-black hover:bg-white disabled:bg-neutral-400 disabled:text-neutral-600"
+                disabled={isOutOfStock}
               >
                 <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
+                {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
             </Button>
         </div>
       </Card>

@@ -1,71 +1,91 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { TeaCard } from '@/components/TeaCard';
 import { Button } from '@/components/ui/button';
-import type { Tea } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 import 'swiper/css';
 import Link from 'next/link';
 
-interface ApiProduct {
-    product_id: string;
-    product_name: string;
-    selling_price: string;
-    special_promo: string;
-    special_promo_type: string;
-    image_path: string;
-    slug: string;
-}
-
 export function Products() {
-    const [products, setProducts] = useState<Tea[]>([]);
+    const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
+    const [productImages, setProductImages] = useState<Record<string, ApiImage[]>>({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchProducts() {
+        async function fetchProductsAndImages() {
             try {
                 const response = await fetch('https://kduserver.payshia.com/products');
                 const data: ApiProduct[] = await response.json();
+                setApiProducts(data);
+
+                const imagePromises = data.map(product =>
+                    fetch(`https://kduserver.payshia.com/product-images/get-by-product/${product.product_id}`).then(res => res.json())
+                );
                 
-                const formattedProducts: Tea[] = data.map(apiProduct => {
-                    const price = parseFloat(apiProduct.selling_price);
-                    let salePrice: number | undefined;
-
-                    if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
-                        const discount = parseFloat(apiProduct.special_promo);
-                        salePrice = price - (price * discount / 100);
-                    } else if (apiProduct.special_promo) {
-                         salePrice = price - parseFloat(apiProduct.special_promo);
+                const imagesResults = await Promise.all(imagePromises);
+                
+                const imagesMap: Record<string, ApiImage[]> = {};
+                data.forEach((product, index) => {
+                    if (Array.isArray(imagesResults[index])) {
+                        imagesMap[product.product_id] = imagesResults[index];
+                    } else {
+                        imagesMap[product.product_id] = [];
                     }
-
-                    return {
-                        id: apiProduct.slug || apiProduct.product_id,
-                        name: apiProduct.product_name.trim(),
-                        description: '', 
-                        longDescription: '',
-                        price: price,
-                        salePrice: salePrice,
-                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
-                        dataAiHint: 'tea product',
-                        type: 'Black', 
-                        flavorProfile: [],
-                        origin: 'Sri Lanka',
-                    };
                 });
                 
-                setProducts(formattedProducts);
+                setProductImages(imagesMap);
+
             } catch (error) {
-                console.error('Failed to fetch products:', error);
+                console.error('Failed to fetch products or images:', error);
             } finally {
                 setLoading(false);
             }
         }
 
-        fetchProducts();
+        fetchProductsAndImages();
     }, []);
+
+    const formattedProducts = useMemo((): Tea[] => {
+        return apiProducts.map(apiProduct => {
+            const price = parseFloat(apiProduct.selling_price);
+            let salePrice: number | undefined;
+
+            if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
+                const discount = parseFloat(apiProduct.special_promo);
+                salePrice = price - (price * discount / 100);
+            } else if (apiProduct.special_promo) {
+                 salePrice = price - parseFloat(apiProduct.special_promo);
+            }
+
+            const images = productImages[apiProduct.product_id] || [];
+            const otherImage = images.find(img => img.image_prefix === 'Other');
+
+            const hoverImageUrl = otherImage
+                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${otherImage.image_path}`
+                : undefined;
+
+            return {
+                id: apiProduct.slug || apiProduct.product_id,
+                productId: apiProduct.product_id,
+                name: apiProduct.product_name.trim(),
+                description: '',
+                longDescription: '',
+                price: price,
+                salePrice: salePrice,
+                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
+                hoverImage: hoverImageUrl,
+                dataAiHint: 'tea product',
+                type: 'Black',
+                flavorProfile: [],
+                origin: 'Sri Lanka',
+                stock_status: apiProduct.stock_status,
+            };
+        });
+    }, [apiProducts, productImages]);
 
     return (
         <section className="bg-[#353d32] py-16 md:py-20 text-white" id="teas">
@@ -96,7 +116,7 @@ export function Products() {
                         1280: { slidesPerView: 5.5 },
                     }}
                 >
-                    {products.map((tea) => (
+                    {formattedProducts.map((tea) => (
                         <SwiperSlide key={tea.id}>
                             <TeaCard tea={tea} />
                         </SwiperSlide>
