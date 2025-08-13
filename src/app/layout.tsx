@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
@@ -6,6 +7,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ProgressBar } from '@/components/ProgressBar';
 import { Suspense } from 'react';
+import { MotionWrapper } from '@/components/MotionWrapper';
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +39,9 @@ export default function RootLayout({
         </Suspense>
         <CartProvider>
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow flex flex-col">
+            <MotionWrapper>{children}</MotionWrapper>
+          </main>
           <Footer />
         </CartProvider>
         <Toaster />
