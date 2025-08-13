@@ -321,7 +321,7 @@ export default function TeaPage({ params }: TeaPageProps) {
                  </div>
             </div>
 
-            <ProductReviews />
+            <ProductReviews tea={tea}/>
 
 
             {/* Recommendations */}

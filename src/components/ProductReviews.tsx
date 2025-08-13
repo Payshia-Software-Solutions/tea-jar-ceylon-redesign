@@ -6,10 +6,9 @@ import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Separator } from './ui/separator';
-import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
-import { Input } from './ui/input';
-import { useState } from 'react';
+import Link from 'next/link';
+import type { Tea } from '@/lib/types';
 
 const reviews = [
   {
@@ -55,9 +54,11 @@ const ratingDistribution = [
   { rating: 1, percentage: 2, count: 2 },
 ];
 
-export function ProductReviews() {
-  const [newReviewRating, setNewReviewRating] = useState(0);
-  const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
+interface ProductReviewsProps {
+    tea: Tea;
+}
+
+export function ProductReviews({ tea }: ProductReviewsProps) {
 
   return (
     <div className="mt-16 md:mt-24">
@@ -88,47 +89,15 @@ export function ProductReviews() {
           
           <Separator className="my-8 bg-neutral-700" />
             <div className="text-center">
-                <Button 
-                    onClick={() => setIsReviewFormVisible(prev => !prev)}
-                    variant="outline"
-                    className="bg-transparent text-white border-white hover:bg-white hover:text-black"
-                >
-                    {isReviewFormVisible ? 'Cancel' : 'Write a review'}
-                </Button>
+                <Link href={`/products/${tea.id}/review`}>
+                    <Button 
+                        variant="outline"
+                        className="bg-transparent text-white border-white hover:bg-white hover:text-black"
+                    >
+                       Write a review
+                    </Button>
+                </Link>
             </div>
-
-          {isReviewFormVisible && (
-            <>
-            <Separator className="my-8 bg-neutral-700" />
-            <div className="space-y-8">
-                <h4 className="font-headline text-2xl text-white">Write a review</h4>
-                <div className="space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <Input placeholder="Name" className="bg-neutral-800 border-neutral-700 text-white" />
-                        <Input type="email" placeholder="Email" className="bg-neutral-800 border-neutral-700 text-white" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-neutral-300">Rating:</span>
-                        <div className="flex items-center">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                            <Star
-                                key={star}
-                                className={`w-5 h-5 cursor-pointer ${newReviewRating >= star ? 'text-yellow-400 fill-yellow-400' : 'text-neutral-500'}`}
-                                onClick={() => setNewReviewRating(star)}
-                            />
-                            ))}
-                        </div>
-                    </div>
-                    <Input placeholder="Review Title" className="bg-neutral-800 border-neutral-700 text-white" />
-                    <Textarea placeholder="Body of Review (1500)" rows={4} className="bg-neutral-800 border-neutral-700 text-white" />
-                    <div className="flex justify-end gap-4">
-                        <Button variant="ghost" onClick={() => setIsReviewFormVisible(false)} className="text-neutral-300 hover:text-white">Cancel</Button>
-                        <Button className="bg-white text-black hover:bg-neutral-200">Submit Review</Button>
-                    </div>
-                </div>
-            </div>
-            </>
-          )}
 
           <Separator className="my-8 bg-neutral-700" />
 
