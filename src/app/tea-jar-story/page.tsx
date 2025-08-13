@@ -72,16 +72,17 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 3: Founder's Message */}
-                 <section className="grid md:grid-cols-3 items-center">
-                    <div className="h-64 md:h-auto min-h-[40vh] md:min-h-screen relative">
+                 <section className="flex flex-col md:flex-row items-center">
+                    <div className="w-full md:w-1/3 flex-shrink-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
                             alt="Saman Upasena, Founder of Tea Jar"
-                            fill
-                            className="object-contain object-bottom"
+                            width={500}
+                            height={600}
+                            className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="md:col-span-2 bg-white p-8 md:p-16 flex justify-center">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-center">
                         <div className="max-w-md space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">Founder&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
