@@ -221,12 +221,12 @@ export function StoreLocator() {
                     >
                     <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
                         <CardContent className="p-4 flex items-center gap-4">
-                            <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                            <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 bg-white p-1">
                                 <Image 
                                     src={store.images[0]} 
                                     alt={store.location} 
                                     fill 
-                                    className="object-cover" 
+                                    className="object-contain" 
                                     data-ai-hint="tea store facade" 
                                 />
                             </div>
@@ -276,15 +276,15 @@ export function StoreLocator() {
                 
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
+                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
                             </div>
-                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-                                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
+                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
                             </div>
                         </div>
-                        <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
-                            <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-cover transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
+                        <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                            <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
                         </div>
                         
                         {selectedStore.activities && selectedStore.activities.length > 0 && (
