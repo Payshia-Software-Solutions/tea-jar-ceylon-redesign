@@ -66,7 +66,7 @@ const navMenuData = {
   ],
   ourTeas: [
     { text: 'Classic Teas', href: '/our-teas/classic-teas' },
-    { text: 'Flavoured Teas', href: '/shop?department=Flavored%20Teas' },
+    { text: 'Flavoured Teas', href: '/our-teas/flavoured-teas' },
     { text: 'Exceptional Teas', href: '/shop?department=Exceptional%20Teas' },
     { text: 'Exclusive Teas', href: '/shop?department=Exclusive%20Teas' },
     { text: 'Factory Teas', href: '/shop?department=Factory%20Series' },
