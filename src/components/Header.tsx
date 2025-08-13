@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, User } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, User, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -316,8 +316,9 @@ export function Header() {
                             <ul className="space-y-2">
                                 {column.links.map(link => (
                                     <li key={link.text}>
-                                        <Link href={link.href} className="hover:text-white transition-colors text-base text-neutral-200">
-                                            {link.text}
+                                        <Link href={link.href} className="flex items-center gap-2 hover:text-white transition-colors text-base text-neutral-200 group">
+                                            <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                            <span>{link.text}</span>
                                         </Link>
                                     </li>
                                 ))}
@@ -338,8 +339,9 @@ export function Header() {
             >
                 <div className="container mx-auto px-4 py-6 flex justify-center gap-16">
                     {navMenuData.about.map(item => (
-                        <Link key={item.text} href={item.href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
-                           {item.text}
+                        <Link key={item.text} href={item.href} className="flex items-center gap-2 hover:text-white transition-colors text-lg font-medium text-neutral-200 group">
+                           <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                           <span>{item.text}</span>
                         </Link>
                     ))}
                 </div>
@@ -357,20 +359,23 @@ export function Header() {
                 <div className="container mx-auto px-4 py-8">
                    <div className="grid grid-cols-4 gap-x-8 gap-y-4">
                      {navMenuData.ourTeas.slice(0, 4).map(item => (
-                        <Link key={item.text} href={item.href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200 text-center">
-                           {item.text}
+                        <Link key={item.text} href={item.href} className="flex items-center gap-2 hover:text-white transition-colors text-lg font-medium text-neutral-200 group justify-center">
+                           <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                           <span>{item.text}</span>
                         </Link>
                     ))}
                    </div>
                    <div className="grid grid-cols-4 gap-x-8 gap-y-4 mt-4">
                         <div className="col-start-2 flex justify-center">
-                             <Link href={navMenuData.ourTeas[4].href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
-                                {navMenuData.ourTeas[4].text}
+                             <Link href={navMenuData.ourTeas[4].href} className="flex items-center gap-2 hover:text-white transition-colors text-lg font-medium text-neutral-200 group">
+                                <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                <span>{navMenuData.ourTeas[4].text}</span>
                             </Link>
                         </div>
                         <div className="flex justify-center">
-                             <Link href={navMenuData.ourTeas[5].href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
-                                {navMenuData.ourTeas[5].text}
+                             <Link href={navMenuData.ourTeas[5].href} className="flex items-center gap-2 hover:text-white transition-colors text-lg font-medium text-neutral-200 group">
+                                <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                <span>{navMenuData.ourTeas[5].text}</span>
                             </Link>
                         </div>
                    </div>
@@ -380,5 +385,3 @@ export function Header() {
       </header>
   );
 }
-
-    
