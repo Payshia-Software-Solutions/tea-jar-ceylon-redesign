@@ -25,7 +25,7 @@ export function SubscriptionModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="p-0 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black">
+      <DialogContent className="p-0 max-w-xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black">
         {/* Left Side (Image) */}
         <div className="relative hidden md:block h-full">
             <Image 
