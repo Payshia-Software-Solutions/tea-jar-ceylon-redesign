@@ -81,14 +81,14 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
 
             const images = productImages[apiProduct.product_id] || [];
             const frontImage = Array.isArray(images) ? images.find(img => img.image_prefix === 'Front Image') : null;
-            const topViewImage = Array.isArray(images) ? images.find(img => img.image_prefix === 'Top View') : null;
+            const otherImage = Array.isArray(images) ? images.find(img => img.image_prefix === 'Other') : null;
 
             const mainImageUrl = frontImage
                 ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${frontImage.image_path}`
                 : `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`;
 
-            const hoverImageUrl = topViewImage
-                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${topViewImage.image_path}`
+            const hoverImageUrl = otherImage
+                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${otherImage.image_path}`
                 : undefined;
 
             return {
