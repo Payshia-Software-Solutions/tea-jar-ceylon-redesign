@@ -185,7 +185,10 @@ export function Header() {
                                                     {col.title === 'Shop Tea' ? (
                                                         col.links.map(link => (
                                                             <SheetClose asChild key={link.text}>
-                                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                                    <span>{link.text}</span>
+                                                                </Link>
                                                             </SheetClose>
                                                         ))
                                                     ) : (
@@ -196,7 +199,10 @@ export function Header() {
                                                             <AccordionContent className="pl-4">
                                                                 {col.links.map(link => (
                                                                      <SheetClose asChild key={link.text}>
-                                                                        <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                                        <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                                            <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                                            <span>{link.text}</span>
+                                                                        </Link>
                                                                     </SheetClose>
                                                                 ))}
                                                             </AccordionContent>
@@ -216,7 +222,10 @@ export function Header() {
                                    <div className="flex flex-col gap-2 mt-2">
                                         {navMenuData.about.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                    <span>{link.text}</span>
+                                                </Link>
                                             </SheetClose>
                                         ))}
                                    </div>
@@ -230,7 +239,10 @@ export function Header() {
                                    <div className="flex flex-col gap-2 mt-2">
                                         {navMenuData.ourTeas.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                    <span>{link.text}</span>
+                                                </Link>
                                             </SheetClose>
                                         ))}
                                    </div>
