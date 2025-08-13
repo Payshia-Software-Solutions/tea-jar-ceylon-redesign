@@ -44,7 +44,7 @@ export function SubscriptionModal() {
                 </div>
             </div>
              <div className="mt-auto">
-                <Image src="https://content-provider.payshia.com/tea-jar/exceptional-collection-box-v2.png" alt="Exceptional Tea Collection" width={250} height={150} className="object-contain"/>
+                <Image src="https://teajarceylon.com/_next/image?url=%2Fassets%2Fpromo-banners%2Faugust-banner.webp&w=640&q=75" alt="Exceptional Tea Collection" width={250} height={150} className="object-contain"/>
              </div>
         </div>
 
