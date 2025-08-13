@@ -55,29 +55,32 @@ export function ShopFilters({
     });
   };
 
+  const hasActiveFilters = filters.sections.length > 0 || filters.departments.length > 0 || filters.categories.length > 0 || filters.priceRange[0] !== 0 || filters.priceRange[1] !== maxPrice;
+
   return (
-    <div className="space-y-8 sticky top-24">
-      <div className="flex justify-between items-center">
-        <h3 className="font-headline text-2xl text-white">Filters</h3>
-        <Button variant="link" onClick={clearFilters} className="text-neutral-300 hover:text-white p-0 h-auto">
-          Clear All
-        </Button>
+    <div className="space-y-6 sticky top-32">
+      <div className="flex justify-between items-center pb-4 border-b border-neutral-700/60">
+        <h3 className="font-headline text-2xl text-white">Filter By</h3>
+        {hasActiveFilters && (
+            <Button variant="link" onClick={clearFilters} className="text-amber-200/80 hover:text-amber-200 p-0 h-auto text-sm">
+            Clear All
+            </Button>
+        )}
       </div>
 
-      <Accordion type="multiple" defaultValue={['price', 'type', 'collection']} className="w-full text-white">
+      <Accordion type="multiple" defaultValue={['price', 'type', 'collection', 'category']} className="w-full text-white space-y-4">
         {/* Price Range Filter */}
-        <AccordionItem value="price">
-          <AccordionTrigger className="text-lg font-semibold text-neutral-200 hover:no-underline">Price Range</AccordionTrigger>
-          <AccordionContent>
+        <AccordionItem value="price" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
+          <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Price Range</AccordionTrigger>
+          <AccordionContent className="px-4">
             <div className="pt-2">
                 <Slider
                     value={filters.priceRange}
                     onValueChange={handlePriceChange}
                     max={maxPrice}
                     step={100}
-                    className="[&>span]:bg-amber-200"
                 />
-                <div className="flex justify-between text-neutral-300 mt-3">
+                <div className="flex justify-between text-neutral-300 mt-4 text-sm">
                     <span>Rs {filters.priceRange[0].toLocaleString('en-US')}</span>
                     <span>Rs {filters.priceRange[1].toLocaleString('en-US')}</span>
                 </div>
@@ -86,19 +89,18 @@ export function ShopFilters({
         </AccordionItem>
 
         {/* Tea Type (Sections) */}
-        <AccordionItem value="type">
-          <AccordionTrigger className="text-lg font-semibold text-neutral-200 hover:no-underline">Tea Type</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2 pt-2">
+        <AccordionItem value="type" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
+          <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Tea Type</AccordionTrigger>
+          <AccordionContent className="px-4">
+            <div className="space-y-3 pt-2">
                 {allSections.map(section => (
-                    <div key={section.id} className="flex items-center space-x-2">
+                    <div key={section.id} className="flex items-center space-x-3">
                         <Checkbox 
                             id={`section-${section.id}`} 
                             checked={filters.sections.includes(section.id)}
                             onCheckedChange={(checked) => handleCheckboxChange('sections', section.id, !!checked)}
-                            className="text-white border-neutral-400"
                         />
-                        <label htmlFor={`section-${section.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300">
+                        <label htmlFor={`section-${section.id}`} className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300 hover:text-white cursor-pointer">
                             {section.section_name}
                         </label>
                     </div>
@@ -108,19 +110,18 @@ export function ShopFilters({
         </AccordionItem>
         
         {/* Collections (Departments) */}
-        <AccordionItem value="collection">
-          <AccordionTrigger className="text-lg font-semibold text-neutral-200 hover:no-underline">Collections</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2 pt-2">
+        <AccordionItem value="collection" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
+          <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Collections</AccordionTrigger>
+          <AccordionContent className="px-4">
+            <div className="space-y-3 pt-2">
                 {allDepartments.map(dep => (
-                    <div key={dep.id} className="flex items-center space-x-2">
+                    <div key={dep.id} className="flex items-center space-x-3">
                         <Checkbox 
                             id={`dep-${dep.id}`} 
                             checked={filters.departments.includes(dep.id)}
                             onCheckedChange={(checked) => handleCheckboxChange('departments', dep.id, !!checked)}
-                            className="text-white border-neutral-400"
                         />
-                        <label htmlFor={`dep-${dep.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300">
+                        <label htmlFor={`dep-${dep.id}`} className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300 hover:text-white cursor-pointer">
                             {dep.department_name}
                         </label>
                     </div>
@@ -130,19 +131,18 @@ export function ShopFilters({
         </AccordionItem>
 
         {/* Categories */}
-        <AccordionItem value="category">
-          <AccordionTrigger className="text-lg font-semibold text-neutral-200 hover:no-underline">Category</AccordionTrigger>
-          <AccordionContent>
-             <div className="space-y-2 pt-2">
+        <AccordionItem value="category" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
+          <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Category</AccordionTrigger>
+          <AccordionContent className="px-4">
+             <div className="space-y-3 pt-2">
                 {allCategories.map(cat => (
-                    <div key={cat.id} className="flex items-center space-x-2">
+                    <div key={cat.id} className="flex items-center space-x-3">
                         <Checkbox 
                             id={`cat-${cat.id}`} 
                             checked={filters.categories.includes(cat.id)}
                             onCheckedChange={(checked) => handleCheckboxChange('categories', cat.id, !!checked)}
-                             className="text-white border-neutral-400"
                         />
-                        <label htmlFor={`cat-${cat.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300">
+                        <label htmlFor={`cat-${cat.id}`} className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-300 hover:text-white cursor-pointer">
                             {cat.category_name}
                         </label>
                     </div>
