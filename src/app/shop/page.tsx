@@ -38,7 +38,7 @@ function ShopPageContent() {
             const departmentsData: Department[] = await departmentsRes.json();
             const sectionsData: Section[] = await sectionsRes.json();
             const categoriesData: Category[] = await categoriesRes.json();
-
+            
             setAllDepartments(departmentsData);
             setAllSections(sectionsData);
             setAllCategories(categoriesData);
@@ -77,10 +77,10 @@ function ShopPageContent() {
   }, [searchParams]);
 
   const visibleDepartments = useMemo(() => {
-    if (filters.departments.length === 0) {
-      return allDepartments;
+    if (filters.departments.length > 0) {
+      return allDepartments.filter(dep => filters.departments.includes(dep.id));
     }
-    return allDepartments.filter(dep => filters.departments.includes(dep.id));
+    return allDepartments;
   }, [allDepartments, filters.departments]);
 
 
@@ -117,7 +117,7 @@ function ShopPageContent() {
                         onFilterChange={setFilters}
                         maxPrice={MAX_PRICE}
                         allSections={allSections}
-                        allDepartments={allDepartments}
+                        allDepartments={allDepartments.filter(dep => dep.department_name !== 'Advent Calender')}
                         allCategories={allCategories}
                     />
                 )}
