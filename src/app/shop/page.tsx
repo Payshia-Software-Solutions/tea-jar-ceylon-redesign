@@ -69,7 +69,7 @@ export default function ShopPage() {
         
         <Separator className="bg-neutral-700/50 my-8" />
 
-        <div className="grid lg:grid-cols-4 gap-x-12">
+        <div className="grid lg:grid-cols-5 gap-x-12">
             <aside className="hidden lg:block lg:col-span-1">
                  {loading ? (
                     <div className="space-y-8">
@@ -95,14 +95,14 @@ export default function ShopPage() {
                     />
                 )}
             </aside>
-            <main className="lg:col-span-3">
+            <main className="lg:col-span-4">
                  {loading ? (
                     <div className="space-y-12">
                        {Array.from({ length: 3 }).map((_, i) => (
                            <div key={i} className="space-y-6">
                                <Skeleton className="h-10 w-1/2 mx-auto" />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-                                    {Array.from({ length: 3 }).map((_, j) => (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+                                    {Array.from({ length: 4 }).map((_, j) => (
                                         <div key={j} className="p-1 space-y-4">
                                             <Skeleton className="h-[250px] w-full rounded-lg" />
                                             <Skeleton className="h-4 w-3/4" />
