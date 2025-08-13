@@ -92,9 +92,19 @@ export function Header() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
-  const [searchResults, setSearchResults] = useState<Tea[]>([]);
+  const [searchResults, setSearchResults] = useState<ApiProduct[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if(searchQuery) {
+        router.push(`/shop?search=${searchQuery}`);
+        handleClearSearch();
+    }
+  }
 
   const handleClearSearch = () => {
     setSearchQuery('');
@@ -128,31 +138,7 @@ export function Header() {
           .filter(p => p.product_name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
           .slice(0, 5);
 
-        const formattedProducts: Tea[] = filteredProducts.map(p => {
-             const price = parseFloat(p.selling_price);
-            let salePrice: number | undefined;
-            if (p.special_promo && p.special_promo_type === 'percentage') {
-                const discount = parseFloat(p.special_promo);
-                salePrice = price - (price * discount / 100);
-            } else if (p.special_promo) {
-                 salePrice = price - parseFloat(p.special_promo);
-            }
-            return {
-                id: p.slug || p.product_id,
-                name: p.product_name.trim(),
-                description: '',
-                longDescription: p.product_description || '',
-                price: price,
-                salePrice: salePrice,
-                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,
-                dataAiHint: 'tea product',
-                type: 'Black',
-                flavorProfile: [],
-                origin: 'Sri Lanka',
-            };
-        });
-
-        setSearchResults(formattedProducts);
+        setSearchResults(filteredProducts);
       } catch (error) {
         console.error('Failed to fetch search results:', error);
         setSearchResults([]);
@@ -238,26 +224,28 @@ export function Header() {
                     </SheetTitle>
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
-                    <div className="relative mb-6" ref={searchRef}>
-                        <Input
-                          type="search"
-                          placeholder="Find products"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-full text-white"
-                        />
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                        {searchQuery && (
-                            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
-                                <X className="h-4 w-4 text-neutral-400" />
-                            </Button>
-                        )}
-                         <SearchResults
-                            results={searchResults}
-                            isLoading={isSearching}
-                            onClose={closeAllPopups}
-                        />
-                    </div>
+                    <form onSubmit={handleSearchSubmit}>
+                        <div className="relative mb-6" ref={searchRef}>
+                            <Input
+                            type="search"
+                            placeholder="Find products"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-full text-white"
+                            />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                            {searchQuery && (
+                                <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
+                                    <X className="h-4 w-4 text-neutral-400" />
+                                </Button>
+                            )}
+                            <SearchResults
+                                results={searchResults}
+                                isLoading={isSearching}
+                                onClose={closeAllPopups}
+                            />
+                        </div>
+                    </form>
                     <nav className="flex flex-col gap-1">
                         <SheetClose asChild>
                             <Link href="/" className="text-lg py-2 text-neutral-300 hover:text-white transition-colors">Home</Link>
@@ -381,26 +369,28 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-4">
-              <div className="relative hidden lg:block" ref={searchRef}>
-                <Input
-                  type="search"
-                  placeholder="Find products"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-56 text-white"
-                />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                {searchQuery && (
-                    <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
-                        <X className="h-4 w-4 text-neutral-400" />
-                    </Button>
-                )}
-                <SearchResults
-                    results={searchResults}
-                    isLoading={isSearching}
-                    onClose={closeAllPopups}
-                />
-              </div>
+                <form onSubmit={handleSearchSubmit}>
+                    <div className="relative hidden lg:block" ref={searchRef}>
+                        <Input
+                        type="search"
+                        placeholder="Find products"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-56 text-white"
+                        />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                        {searchQuery && (
+                            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
+                                <X className="h-4 w-4 text-neutral-400" />
+                            </Button>
+                        )}
+                        <SearchResults
+                            results={searchResults}
+                            isLoading={isSearching}
+                            onClose={closeAllPopups}
+                        />
+                    </div>
+              </form>
               
               <Sheet>
                  <SheetTrigger asChild>

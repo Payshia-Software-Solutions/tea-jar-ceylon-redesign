@@ -1,13 +1,12 @@
 
 'use client';
 
-import type { Tea } from '@/lib/types';
+import type { ApiProduct } from '@/lib/types';
 import { Loader2 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface SearchResultsProps {
-    results: Tea[];
+    results: ApiProduct[];
     isLoading: boolean;
     onClose: () => void;
 }
@@ -32,25 +31,14 @@ export function SearchResults({ results, isLoading, onClose }: SearchResultsProp
         <div className="absolute top-full mt-2 w-full max-h-96 overflow-y-auto rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50">
             <ul className="divide-y divide-neutral-700">
                 {results.map(product => (
-                    <li key={product.id}>
+                    <li key={product.product_id}>
                         <Link 
-                            href={`/products/${product.id}`} 
-                            className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
+                            href={`/products/${product.slug || product.product_id}`} 
+                            className="flex items-center justify-between gap-4 p-3 hover:bg-neutral-800 transition-colors"
                             onClick={onClose}
                         >
-                            <div className="relative h-14 w-14 flex-shrink-0 bg-white rounded-md overflow-hidden">
-                                <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    fill
-                                    className="object-contain"
-                                    unoptimized
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <p className="font-semibold text-white line-clamp-2">{product.name}</p>
-                                <p className="text-sm text-neutral-400">Rs {product.price.toFixed(2)}</p>
-                            </div>
+                            <p className="font-semibold text-white line-clamp-2 flex-1">{product.product_name.trim()}</p>
+                            <p className="text-sm text-neutral-400">Rs {parseFloat(product.selling_price).toFixed(2)}</p>
                         </Link>
                     </li>
                 ))}
