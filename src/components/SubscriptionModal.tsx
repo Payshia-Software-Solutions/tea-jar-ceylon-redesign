@@ -12,17 +12,11 @@ export function SubscriptionModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // We need to ensure this code only runs on the client
-    if (typeof window !== 'undefined') {
-      const hasBeenShown = sessionStorage.getItem('subscriptionModalShown');
-      if (!hasBeenShown) {
-        const timer = setTimeout(() => {
-          setIsOpen(true);
-          sessionStorage.setItem('subscriptionModalShown', 'true');
-        }, 2000); // Delay of 2 seconds
-        return () => clearTimeout(timer);
-      }
-    }
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 2000); // Delay of 2 seconds
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
