@@ -60,7 +60,7 @@ const navMenuData = {
     },
   ],
   about: [
-      { text: 'Tea Jar Story', href: '#' },
+      { text: 'Tea Jar Story', href: '/tea-jar-story' },
       { text: 'Our Tea Heritage', href: '#' },
       { text: 'KDU Group', href: '#' },
   ],
