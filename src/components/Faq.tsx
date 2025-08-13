@@ -38,7 +38,7 @@ const faqData = [
 
 export function Faq() {
   return (
-    <section className="bg-[#2a2f28] py-20 text-white">
+    <section className="bg-[#353d32] py-20 text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-headline text-5xl text-white">
