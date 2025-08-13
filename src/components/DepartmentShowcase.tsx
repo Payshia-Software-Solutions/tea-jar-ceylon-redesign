@@ -105,6 +105,7 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
                 type: 'Black',
                 flavorProfile: [],
                 origin: 'Sri Lanka',
+                stock_status: apiProduct.stock_status,
             };
           });
     }, [products, filters, productImages]);
