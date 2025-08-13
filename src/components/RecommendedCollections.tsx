@@ -2,6 +2,12 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { teas } from '@/lib/tea-data';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -40,8 +46,9 @@ export function RecommendedCollections() {
   const [activeVideo, setActiveVideo] = useState(collections[0].video);
 
   return (
-    <section className="bg-[#2a2f28] text-white">
-      <div className="grid md:grid-cols-2">
+    <section className="bg-[#353d32] text-white">
+      {/* Desktop View */}
+      <div className="hidden md:grid md:grid-cols-2">
         <div className="relative min-h-[300px] md:min-h-[600px]">
            <video
             key={activeVideo}
@@ -93,6 +100,34 @@ export function RecommendedCollections() {
             </div>
           </Tabs>
         </div>
+      </div>
+      
+      {/* Mobile View */}
+      <div className="md:hidden p-8">
+        <h2 className="font-headline text-3xl md:text-4xl mb-8 text-center">Recommended Collections</h2>
+        <Accordion type="single" collapsible className="w-full" defaultValue="item-0">
+          {collections.map((collection, index) => (
+            <AccordionItem key={collection.name} value={`item-${index}`} className="border-b border-neutral-600/50">
+              <AccordionTrigger className="text-base md:text-lg font-semibold text-left hover:no-underline py-4 text-neutral-100">
+                {collection.name}
+              </AccordionTrigger>
+              <AccordionContent className="pb-4">
+                 <div className="space-y-4">
+                    {teas
+                      .filter((tea) => collection.teas.includes(tea.name))
+                      .map((tea) => (
+                        <Link href={`/tea/${tea.id}`} key={tea.id} className="flex items-center justify-between group">
+                          <span className="text-lg font-headline group-hover:text-amber-100 transition-colors">
+                            {tea.name}
+                          </span>
+                          <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
+                        </Link>
+                      ))}
+                  </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );
