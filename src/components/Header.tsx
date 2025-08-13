@@ -243,6 +243,7 @@ export function Header() {
                                 results={searchResults}
                                 isLoading={isSearching}
                                 onClose={closeAllPopups}
+                                query={debouncedSearchQuery}
                             />
                         </div>
                     </form>
@@ -388,6 +389,7 @@ export function Header() {
                             results={searchResults}
                             isLoading={isSearching}
                             onClose={closeAllPopups}
+                            query={debouncedSearchQuery}
                         />
                     </div>
               </form>
