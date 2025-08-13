@@ -33,64 +33,70 @@ export function Cart() {
         <>
           <ScrollArea className="flex-1">
             <div className="flex flex-col gap-6 p-6">
-              {items.map((item) => (
-                <div key={item.product.id} className="flex items-center gap-4">
-                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-neutral-200 bg-white">
-                    <Image
-                      src={item.product.image}
-                      alt={item.product.name}
-                      fill
-                      className="object-contain p-1"
-                      data-ai-hint={item.product.dataAiHint}
-                      unoptimized
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-headline text-lg text-black">{item.product.name}</h3>
-                    {item.product.salePrice ? (
-                        <div className="flex items-baseline gap-2">
-                           <p className="text-sm text-neutral-500 line-through">
-                             Rs {item.product.price.toFixed(2)}
-                           </p>
-                           <p className="text-sm font-bold text-red-600">
-                             Rs {item.product.salePrice.toFixed(2)}
-                           </p>
-                        </div>
-                    ) : (
-                         <p className="text-sm font-bold text-neutral-800">
-                            Rs {item.product.price.toFixed(2)}
-                         </p>
-                    )}
-                    <div className="mt-2 flex items-center gap-2">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7 border-neutral-300 text-black hover:bg-neutral-100"
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <span className="w-6 text-center">{item.quantity}</span>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7 border-neutral-300 text-black hover:bg-neutral-100"
-                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
+              {items.map((item) => {
+                const lineTotal = (item.product.salePrice ?? item.product.price) * item.quantity;
+                return (
+                  <div key={item.product.id} className="flex items-center gap-4">
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-neutral-200 bg-white">
+                      <Image
+                        src={item.product.image}
+                        alt={item.product.name}
+                        fill
+                        className="object-contain p-1"
+                        data-ai-hint={item.product.dataAiHint}
+                        unoptimized
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-headline text-lg text-black">{item.product.name}</h3>
+                      {item.product.salePrice ? (
+                          <div className="flex items-baseline gap-2">
+                            <p className="text-sm text-neutral-500 line-through">
+                              Rs {item.product.price.toFixed(2)}
+                            </p>
+                            <p className="text-sm font-bold text-red-600">
+                              Rs {item.product.salePrice.toFixed(2)}
+                            </p>
+                          </div>
+                      ) : (
+                          <p className="text-sm font-bold text-neutral-800">
+                              Rs {item.product.price.toFixed(2)}
+                          </p>
+                      )}
+                      <div className="mt-2 flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7 border-neutral-300 text-black hover:bg-neutral-100"
+                          onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span className="w-6 text-center">{item.quantity}</span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7 border-neutral-300 text-black hover:bg-neutral-100"
+                          onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                        <p className="font-bold text-lg text-black">Rs {lineTotal.toFixed(2)}</p>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-neutral-500 hover:text-red-500 h-8 w-8 -mr-2"
+                            onClick={() => removeFromCart(item.product.id)}
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-neutral-500 hover:text-red-500"
-                    onClick={() => removeFromCart(item.product.id)}
-                  >
-                    <Trash2 className="h-5 w-5" />
-                  </Button>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </ScrollArea>
           <Separator className="bg-neutral-200"/>
@@ -125,5 +131,3 @@ export function Cart() {
     </SheetContent>
   );
 }
-
-    
