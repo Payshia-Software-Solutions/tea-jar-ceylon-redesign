@@ -41,7 +41,7 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 2: Ceylon's Finest Tea */}
-                <section className="grid md:grid-cols-2 items-center">
+                <section className="grid md:grid-cols-2 items-stretch">
                     <div className="h-64 md:h-auto min-h-[40vh] md:min-h-screen relative">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/ceylon-finest-tea.webp"
@@ -50,7 +50,7 @@ export default function StoryPage() {
                             className="object-cover"
                         />
                     </div>
-                     <div className="bg-[#eafde9] p-8 md:p-16 lg:p-24 flex justify-center">
+                     <div className="bg-[#eafde9] p-8 md:p-16 lg:p-24 flex justify-center items-center">
                         <div className="max-w-md space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">CEYLON&apos;S FINEST TEA</h2>
                             <p className="text-sm font-semibold tracking-wider">Mastering the Art of World Renowned, Single Origin Ceylon Tea Since 1978</p>
@@ -82,7 +82,7 @@ export default function StoryPage() {
                             className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-center">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
                         <div className="max-w-xl space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">Founder&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
@@ -114,7 +114,7 @@ export default function StoryPage() {
                             className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-center">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
                         <div className="max-w-xl space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">Managing Director&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
