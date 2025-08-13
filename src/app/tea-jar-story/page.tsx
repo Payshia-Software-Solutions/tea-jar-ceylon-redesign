@@ -82,8 +82,8 @@ export default function StoryPage() {
                             className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
-                        <div className="max-w-2xl space-y-6">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-stretch">
+                        <div className="max-w-2xl space-y-6 flex flex-col justify-center">
                             <h2 className="font-headline text-3xl md:text-4xl">Founder&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
                                 As the founder of Tea Jar and Chairman of KDU Group, I take immense pride in the journey that began with a single vision: to share the unparalleled richness of Ceylon tea with the world. Since 1978, our commitment has been to uphold the legacy of Sri Lanka’s tea heritage, ensuring every sip reflects the passion, dedication, and authenticity that our family business stands for.
@@ -114,8 +114,8 @@ export default function StoryPage() {
                             className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
-                        <div className="max-w-2xl space-y-6">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-stretch">
+                        <div className="max-w-2xl space-y-6 flex flex-col justify-center">
                             <h2 className="font-headline text-3xl md:text-4xl">Managing Director&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
                                 Under my leadership as Managing Director of KDU Group, Tea Jar has evolved into a brand that seamlessly blends tradition with modernity. Building on the strong foundation laid by my father, I have envisioned Tea Jar as a global ambassador for Ceylon tea, delivering premium-quality blends to discerning tea lovers across the world.
