@@ -231,8 +231,8 @@ export function Header() {
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
                                 width={80}
-                                height={20}
-                                className="object-contain h-5"
+                                height={28}
+                                className="object-contain h-7"
                             />
                         </Link>
                     </SheetTitle>
@@ -336,9 +336,9 @@ export function Header() {
                     src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
                     width={80}
-                    height={20}
+                    height={28}
                     priority
-                    className="object-contain h-5"
+                    className="object-contain h-7"
                 />
             </Link>
 
@@ -368,7 +368,7 @@ export function Header() {
                             <span className="sr-only">Open search</span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-black/80 backdrop-blur-sm text-white p-4 top-1/4 rounded-lg w-[90vw] max-w-md border-none shadow-2xl">
+                    <DialogContent className="bg-black/80 backdrop-blur-sm text-white p-4 top-1/4 rounded-lg w-[90vw] max-w-md shadow-2xl border-none">
                         <DialogHeader>
                             <DialogTitle>Search for products</DialogTitle>
                         </DialogHeader>
