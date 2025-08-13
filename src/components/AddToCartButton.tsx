@@ -1,29 +1,33 @@
+
 'use client';
 
 import { useCart } from '@/hooks/use-cart.tsx';
 import type { Tea } from '@/lib/types';
-import { Button } from './ui/button';
+import { Button, ButtonProps } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingCart } from 'lucide-react';
 
-interface AddToCartButtonProps {
+interface AddToCartButtonProps extends ButtonProps {
   tea: Tea;
+  quantity?: number;
 }
 
-export function AddToCartButton({ tea }: AddToCartButtonProps) {
+export function AddToCartButton({ tea, quantity = 1, className, ...props }: AddToCartButtonProps) {
   const { addToCart } = useCart();
   const { toast } = useToast();
 
-  const handleAddToCart = () => {
-    addToCart(tea);
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(tea, quantity);
     toast({
       title: 'Added to Cart',
-      description: `${tea.name} has been added to your cart.`,
+      description: `${quantity} x ${tea.name} has been added to your cart.`,
     });
   };
 
   return (
-    <Button size="lg" onClick={handleAddToCart} className="bg-white text-black hover:bg-white/90">
+    <Button size="lg" onClick={handleAddToCart} className={className} {...props}>
       <ShoppingCart className="mr-2 h-5 w-5" />
       Add to Cart
     </Button>

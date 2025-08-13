@@ -7,10 +7,12 @@ export interface Tea {
   price: number;
   salePrice?: number;
   image: string;
+  images?: string[];
   dataAiHint: string;
   type: 'Black' | 'Green' | 'Oolong' | 'Herbal' | 'White' | string; // Allow string for dynamic values
   flavorProfile: string[];
   origin: string;
+  netWeight?: string;
 }
 
 export interface ApiProduct {
@@ -22,6 +24,7 @@ export interface ApiProduct {
     image_path: string;
     slug: string;
     product_description: string;
+    how_to_use: string;
     section_id: string;
     department_id: string;
     category_id: string;
