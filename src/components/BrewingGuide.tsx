@@ -16,7 +16,7 @@ import { getBrewingGuide, type BrewingGuideState } from '@/actions/brewing';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Loader2, Thermometer, Clock, Leaf } from 'lucide-react';
 import { useEffect } from 'react';
-import { useToast } from './ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import {
   Select,
   SelectContent,
