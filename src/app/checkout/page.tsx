@@ -418,8 +418,10 @@ export default function CheckoutPage() {
                     </Form>
 
                     <div className="py-8">
-                        <Link href="/shop" className="text-blue-400 text-sm hover:underline">
-                           &larr; Return to cart
+                        <Link href="/shop">
+                            <Button variant="outline" className="text-white border-neutral-500 hover:bg-neutral-700 hover:text-white">
+                               &larr; Return to Shopping
+                            </Button>
                         </Link>
                     </div>
                 </div>
