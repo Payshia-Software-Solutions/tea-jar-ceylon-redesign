@@ -16,6 +16,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './
 import type { ApiProduct, Tea } from '@/lib/types';
 import { SearchResults } from './SearchResults';
 import { useDebounce } from '@/hooks/use-debounce';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 
 const navMenuData = {
   shop: [
@@ -230,8 +231,8 @@ export function Header() {
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
                                 width={80}
-                                height={24}
-                                className="object-contain h-6"
+                                height={20}
+                                className="object-contain h-5"
                             />
                         </Link>
                     </SheetTitle>
@@ -335,9 +336,9 @@ export function Header() {
                     src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
                     width={80}
-                    height={24}
+                    height={20}
                     priority
-                    className="object-contain h-6"
+                    className="object-contain h-5"
                 />
             </Link>
 
@@ -360,10 +361,42 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-4">
-               <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800 md:hidden" onClick={() => setIsMobileSearchOpen(true)}>
-                    <Search className="h-6 w-6 text-white" />
-                    <span className="sr-only">Open search</span>
-                </Button>
+                <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
+                    <DialogTrigger asChild>
+                        <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800 md:hidden">
+                            <Search className="h-6 w-6 text-white" />
+                            <span className="sr-only">Open search</span>
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-black/80 backdrop-blur-sm border-neutral-700 text-white p-4 top-1/3">
+                        <DialogHeader>
+                            <DialogTitle>Search for products</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={handleSearchSubmit} className="w-full">
+                            <div className="relative" ref={searchRef}>
+                                <Input
+                                type="search"
+                                placeholder="Find products"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
+                                autoFocus
+                                />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                            </div>
+                        </form>
+                         <div className="relative flex-1 mt-4">
+                            <SearchResults
+                                results={searchResults}
+                                isLoading={isSearching}
+                                onClose={closeAllPopups}
+                                query={debouncedSearchQuery}
+                                isMobile={true}
+                            />
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
                 <form onSubmit={handleSearchSubmit}>
                     <div className="relative hidden lg:block" ref={searchRef}>
                         <Input
@@ -486,42 +519,6 @@ export function Header() {
                 </div>
             </div>
         </div>
-
-        {/* Mobile Search Overlay */}
-        {isMobileSearchOpen && (
-            <div className="md:hidden fixed inset-0 z-50 bg-black">
-                <div className="container mx-auto px-4 h-full">
-                    <div className="flex flex-col h-full">
-                        <div className="flex items-center h-20">
-                             <form onSubmit={handleSearchSubmit} className="w-full">
-                                <div className="relative" ref={searchRef}>
-                                    <Input
-                                    type="search"
-                                    placeholder="Find products"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
-                                    autoFocus
-                                    />
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                                </div>
-                            </form>
-                            <Button variant="ghost" onClick={closeAllPopups} className="ml-2 text-white">Cancel</Button>
-                        </div>
-
-                        <div className="relative flex-1">
-                            <SearchResults
-                                results={searchResults}
-                                isLoading={isSearching}
-                                onClose={closeAllPopups}
-                                query={debouncedSearchQuery}
-                                isMobile={true}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )}
       </header>
   );
 }
