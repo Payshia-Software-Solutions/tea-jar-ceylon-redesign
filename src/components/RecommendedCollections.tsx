@@ -40,7 +40,7 @@ export function RecommendedCollections() {
   const [activeVideo, setActiveVideo] = useState(collections[0].video);
 
   return (
-    <section className="bg-[#2f3d2f] text-white">
+    <section className="bg-[#2a2f28] text-white">
       <div className="grid md:grid-cols-2">
         <div className="relative min-h-[400px] md:min-h-[600px]">
            <video
