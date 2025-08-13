@@ -68,8 +68,9 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
             const priceMatch = price >= minPrice && price <= maxPrice;
             const sectionMatch = filters.sections.length === 0 || filters.sections.includes(product.section_id);
             const categoryMatch = filters.categories.length === 0 || filters.categories.includes(product.category_id);
+            const searchMatch = !filters.search || product.product_name.toLowerCase().includes(filters.search.toLowerCase());
             
-            return priceMatch && sectionMatch && categoryMatch;
+            return priceMatch && sectionMatch && categoryMatch && searchMatch;
           })
           .map((apiProduct): Tea => {
             const price = parseFloat(apiProduct.selling_price);

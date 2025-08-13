@@ -8,7 +8,7 @@ import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger 
 import { Cart } from './Cart';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from './ui/input';
 import Image from 'next/image';
@@ -83,9 +83,19 @@ export function Header() {
   const { getItemCount } = useCart();
   const itemCount = getItemCount();
   const pathname = usePathname();
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(pathname !== '/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchQuery.trim() !== '') {
+      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+      if(isMobileMenuOpen) setIsMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -158,9 +168,12 @@ export function Header() {
                  <div className="p-6 flex-grow overflow-y-auto">
                     <div className="relative mb-6">
                         <Input
-                        type="search"
-                        placeholder="Find products"
-                        className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-full text-white"
+                          type="search"
+                          placeholder="Find products"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onKeyDown={handleSearch}
+                          className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-full text-white"
                         />
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                     </div>
@@ -291,6 +304,9 @@ export function Header() {
                 <Input
                   type="search"
                   placeholder="Find products"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearch}
                   className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-56 text-white"
                 />
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
@@ -397,5 +413,3 @@ export function Header() {
       </header>
   );
 }
-
-    

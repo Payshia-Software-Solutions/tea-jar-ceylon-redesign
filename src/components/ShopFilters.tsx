@@ -12,6 +12,7 @@ export type Filters = {
   sections: string[];
   departments: string[];
   categories: string[];
+  search: string;
 };
 
 interface ShopFiltersProps {
@@ -50,6 +51,7 @@ export function ShopFilters({
         sections: [],
         departments: [],
         categories: [],
+        search: '',
     });
   };
 

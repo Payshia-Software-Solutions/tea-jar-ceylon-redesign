@@ -24,6 +24,7 @@ function ShopPageContent() {
     sections: [],
     departments: [],
     categories: [],
+    search: '',
   });
 
   useEffect(() => {
@@ -47,6 +48,7 @@ function ShopPageContent() {
             const sectionName = searchParams.get('section');
             const departmentName = searchParams.get('department');
             const categoryName = searchParams.get('category');
+            const search = searchParams.get('search');
             
             const newFilters: Partial<Filters> = {};
 
@@ -61,6 +63,9 @@ function ShopPageContent() {
             if (categoryName) {
                 const category = categoriesData.find(c => c.category_name === categoryName);
                 if (category) newFilters.categories = [category.id];
+            }
+            if (search) {
+                newFilters.search = search;
             }
 
             if (Object.keys(newFilters).length > 0) {
@@ -77,11 +82,20 @@ function ShopPageContent() {
   }, [searchParams]);
 
   const visibleDepartments = useMemo(() => {
-    if (filters.departments.length > 0) {
-      return allDepartments.filter(dep => filters.departments.includes(dep.id));
+    let departments = allDepartments;
+
+    if (filters.search) {
+      // If there's a search query, we don't filter by department initially.
+      // The filtering will happen inside DepartmentShowcase.
+      return departments;
     }
-    return allDepartments;
-  }, [allDepartments, filters.departments]);
+    
+    if (filters.departments.length > 0) {
+      departments = departments.filter(dep => filters.departments.includes(dep.id));
+    }
+
+    return departments;
+  }, [allDepartments, filters.departments, filters.search]);
 
 
   return (
@@ -117,7 +131,7 @@ function ShopPageContent() {
                         onFilterChange={setFilters}
                         maxPrice={MAX_PRICE}
                         allSections={allSections}
-                        allDepartments={allDepartments.filter(dep => dep.department_name !== 'Advent Calender')}
+                        allDepartments={allDepartments}
                         allCategories={allCategories}
                     />
                 )}
