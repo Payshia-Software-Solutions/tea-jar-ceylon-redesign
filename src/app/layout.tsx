@@ -4,6 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { CartProvider } from '@/hooks/use-cart.tsx';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ProgressBar } from '@/components/ProgressBar';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +38,9 @@ export default function RootLayout({
           <Footer />
         </CartProvider>
         <Toaster />
+        <Suspense fallback={null}>
+          <ProgressBar />
+        </Suspense>
       </body>
     </html>
   );
