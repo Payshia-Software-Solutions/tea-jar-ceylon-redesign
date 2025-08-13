@@ -1,18 +1,21 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, ChevronRight } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Cart } from './Cart';
 import { Button } from './ui/button';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from './ui/input';
 import Image from 'next/image';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
+import type { ApiProduct, Tea } from '@/lib/types';
+import { SearchResults } from './SearchResults';
+import { useDebounce } from '@/hooks/use-debounce';
 
 const navMenuData = {
   shop: [
@@ -83,19 +86,81 @@ export function Header() {
   const { getItemCount } = useCart();
   const itemCount = getItemCount();
   const pathname = usePathname();
-  const router = useRouter();
   const [isVisible, setIsVisible] = useState(pathname !== '/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && searchQuery.trim() !== '') {
-      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-      if(isMobileMenuOpen) setIsMobileMenuOpen(false);
-    }
+  const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const [searchResults, setSearchResults] = useState<Tea[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    setSearchResults([]);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setSearchResults([]);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    async function fetchSearchResults() {
+      if (debouncedSearchQuery.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+      setIsSearching(true);
+      try {
+        const response = await fetch('https://kduserver.payshia.com/products');
+        const apiProducts: ApiProduct[] = await response.json();
+        
+        const filteredProducts = apiProducts.filter(p => p.product_name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()));
+
+        const formattedProducts: Tea[] = filteredProducts.map(p => {
+             const price = parseFloat(p.selling_price);
+            let salePrice: number | undefined;
+            if (p.special_promo && p.special_promo_type === 'percentage') {
+                const discount = parseFloat(p.special_promo);
+                p_salePrice = price - (price * discount / 100);
+            } else if (p.special_promo) {
+                 salePrice = price - parseFloat(p.special_promo);
+            }
+            return {
+                id: p.slug || p.product_id,
+                name: p.product_name.trim(),
+                description: '',
+                longDescription: p.product_description || '',
+                price: price,
+                salePrice: salePrice,
+                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,
+                dataAiHint: 'tea product',
+                type: 'Black',
+                flavorProfile: [],
+                origin: 'Sri Lanka',
+            };
+        });
+
+        setSearchResults(formattedProducts);
+      } catch (error) {
+        console.error('Failed to fetch search results:', error);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    }
+
+    fetchSearchResults();
+  }, [debouncedSearchQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -124,6 +189,11 @@ export function Header() {
       setActiveMenu(null);
     }
   };
+  
+  const closeAllPopups = () => {
+    setIsMobileMenuOpen(false);
+    handleClearSearch();
+  };
 
   return (
       <header
@@ -138,7 +208,7 @@ export function Header() {
         <div className="bg-[#b91c1c] text-white py-2 text-center text-sm">
           <div className="container mx-auto flex items-center justify-center gap-2">
             <Truck className="h-4 w-4" />
-            <span>Enjoy 20% Off &amp; Island wide Free Delivery..!</span>
+            <span>Enjoy 20% Off & Island wide Free Delivery..!</span>
           </div>
         </div>
         <div className="bg-black text-white" onMouseLeave={() => setActiveMenu(null)}>
@@ -166,16 +236,25 @@ export function Header() {
                     </SheetTitle>
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
-                    <div className="relative mb-6">
+                    <div className="relative mb-6" ref={searchRef}>
                         <Input
                           type="search"
                           placeholder="Find products"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          onKeyDown={handleSearch}
-                          className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-full text-white"
+                          className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-full text-white"
                         />
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                        {searchQuery && (
+                            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
+                                <X className="h-4 w-4 text-neutral-400" />
+                            </Button>
+                        )}
+                         <SearchResults
+                            results={searchResults}
+                            isLoading={isSearching}
+                            onClose={closeAllPopups}
+                        />
                     </div>
                     <nav className="flex flex-col gap-1">
                         <SheetClose asChild>
@@ -300,16 +379,25 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-4">
-              <div className="relative hidden lg:block">
+              <div className="relative hidden lg:block" ref={searchRef}>
                 <Input
                   type="search"
                   placeholder="Find products"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearch}
-                  className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-56 text-white"
+                  className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-56 text-white"
                 />
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                {searchQuery && (
+                    <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
+                        <X className="h-4 w-4 text-neutral-400" />
+                    </Button>
+                )}
+                <SearchResults
+                    results={searchResults}
+                    isLoading={isSearching}
+                    onClose={closeAllPopups}
+                />
               </div>
               
               <Sheet>
