@@ -7,6 +7,7 @@ import { RecommendedCollections } from '@/components/RecommendedCollections';
 import { StoreLocator } from '@/components/StoreLocator';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { Faq } from '@/components/Faq';
 
 
 export default function Home() {
@@ -128,6 +129,7 @@ export default function Home() {
       </div>
 
       <StoreLocator />
+      <Faq />
     </>
   );
 }
