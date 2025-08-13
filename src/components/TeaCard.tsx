@@ -32,7 +32,7 @@ export function TeaCard({ tea }: TeaCardProps) {
   };
 
   return (
-    <Link href={`/tea/${tea.id}`} className="block group">
+    <Link href={`/products/${tea.id}`} className="block group">
       <Card className="h-full flex flex-col transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:-translate-y-1 border-neutral-700 bg-[#2a2f28] text-white rounded-lg overflow-hidden">
         <CardHeader className="p-0">
           <div className="aspect-square overflow-hidden relative">
