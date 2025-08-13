@@ -39,10 +39,6 @@ export function SubscriptionModal() {
 
         {/* Right Side (Form) */}
         <div className="relative p-8 md:p-12 flex flex-col justify-center">
-            <Button variant="ghost" size="icon" className="absolute top-4 right-4 text-neutral-500 hover:text-black" onClick={handleClose}>
-                <X className="w-5 h-5"/>
-                <span className="sr-only">Close</span>
-            </Button>
             <div className="space-y-4 text-center">
                 <h2 className="font-headline text-2xl md:text-3xl font-bold">Life's better with tea, especially when it's 20% Off!</h2>
                 <p className="text-neutral-600 text-sm">Enjoy 20% Off + FREE Delivery on all Tea Jar products, because you deserve the best.👌</p>
