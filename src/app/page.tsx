@@ -52,7 +52,7 @@ export default function Home() {
       </div>
 
       <div className="relative bg-[#2a2f28]">
-        <div className="absolute -bottom-24 md:-bottom-32 left-1/2 -translate-x-1/2 z-10 w-48 md:w-auto">
+        <div className="absolute -bottom-16 md:-bottom-24 left-1/2 -translate-x-1/2 z-10 w-48 md:w-auto">
             <Image
                 src="https://content-provider.payshia.com/tea-jar/tea-cup-w-optimized.webp"
                 alt="Glass teacup with saucer"
