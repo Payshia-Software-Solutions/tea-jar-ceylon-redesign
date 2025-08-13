@@ -40,12 +40,12 @@ export function SearchResults({ results, isLoading, onClose }: SearchResultsProp
                                 className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
                                 onClick={onClose}
                             >
-                                <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white">
+                                <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden">
                                     <Image
                                         src={imageUrl}
                                         alt={product.product_name}
                                         fill
-                                        className="object-contain p-1"
+                                        className="object-contain"
                                         unoptimized
                                     />
                                 </div>
