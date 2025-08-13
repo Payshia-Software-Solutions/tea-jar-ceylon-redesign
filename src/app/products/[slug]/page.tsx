@@ -1,5 +1,5 @@
 
-import type { Tea, ApiProduct, ApiImage } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Department } from '@/lib/types';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
@@ -10,11 +10,11 @@ interface TeaPageProps {
   };
 }
 
-async function getTeaData(slug: string): Promise<{tea: Tea | null, recommendedTeas: Tea[]}> {
+async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: Tea[], departmentName: string | null}> {
     try {
         const response = await fetch(`https://kduserver.payshia.com/products/get-by-slug/${slug}`);
         if (!response.ok) {
-            return { tea: null, recommendedTeas: [] };
+            return { tea: null, relatedTeas: [], departmentName: null };
         }
         const apiProduct: ApiProduct = await response.json();
 
@@ -48,44 +48,59 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, recommendedTe
             type: 'Black',
             flavorProfile: [],
             origin: 'Sri Lanka',
-            netWeight: '350.00 g'
+            netWeight: '350.00 g',
+            departmentId: apiProduct.department_id,
         };
 
-        // Fetch recommendations
-        const allProductsResponse = await fetch('https://kduserver.payshia.com/products');
-        const allProductsData: ApiProduct[] = await allProductsResponse.json();
-        const allFormattedProducts: Tea[] = allProductsData.map(p => {
-            const p_price = parseFloat(p.selling_price);
-            let p_salePrice: number | undefined;
-            if (p.special_promo && p.special_promo_type === 'percentage') {
-                const discount = parseFloat(p.special_promo);
-                p_salePrice = p_price - (p_price * discount / 100);
-            } else if (p.special_promo) {
-                 p_salePrice = p_price - parseFloat(p.special_promo);
+        let departmentName: string | null = null;
+        let relatedTeas: Tea[] = [];
+        
+        if(formattedProduct.departmentId){
+            // Fetch department name
+            const deptRes = await fetch('https://kduserver.payshia.com/departments');
+            const allDepts: Department[] = await deptRes.json();
+            const currentDept = allDepts.find(d => d.id === formattedProduct.departmentId);
+            if (currentDept) {
+                departmentName = currentDept.department_name;
             }
-            return {
-                id: p.slug || p.product_id,
-                productId: p.product_id,
-                name: p.product_name.trim(),
-                description: '',
-                longDescription: p.product_description || '',
-                price: p_price,
-                salePrice: p_salePrice,
-                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,
-                dataAiHint: 'tea product',
-                type: 'Black',
-                flavorProfile: [],
-                origin: 'Sri Lanka',
-            };
-        });
 
-        const recs = allFormattedProducts.filter(t => t.id !== formattedProduct.id).slice(0, 4);
+            // Fetch related products from the same department
+            const relatedResponse = await fetch(`https://kduserver.payshia.com/products/get-by-department/${formattedProduct.departmentId}`);
+            const relatedApiProducts: ApiProduct[] = await relatedResponse.json();
 
-        return { tea: formattedProduct, recommendedTeas: recs };
+            relatedTeas = relatedApiProducts
+                .filter(p => p.slug !== slug) // Filter out the current product
+                .map(p => {
+                    const p_price = parseFloat(p.selling_price);
+                    let p_salePrice: number | undefined;
+                    if (p.special_promo && p.special_promo_type === 'percentage') {
+                        const discount = parseFloat(p.special_promo);
+                        p_salePrice = p_price - (p_price * discount / 100);
+                    } else if (p.special_promo) {
+                        p_salePrice = p_price - parseFloat(p.special_promo);
+                    }
+                    return {
+                        id: p.slug || p.product_id,
+                        productId: p.product_id,
+                        name: p.product_name.trim(),
+                        description: '',
+                        longDescription: p.product_description || '',
+                        price: p_price,
+                        salePrice: p_salePrice,
+                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,
+                        dataAiHint: 'tea product',
+                        type: 'Black',
+                        flavorProfile: [],
+                        origin: 'Sri Lanka',
+                    };
+                });
+        }
+        
+        return { tea: formattedProduct, relatedTeas, departmentName };
 
       } catch (error) {
         console.error('Failed to fetch product:', error);
-        return { tea: null, recommendedTeas: [] };
+        return { tea: null, relatedTeas: [], departmentName: null };
       }
 }
 
@@ -126,11 +141,11 @@ export async function generateMetadata({ params }: TeaPageProps): Promise<Metada
 
 
 export default async function TeaPage({ params }: TeaPageProps) {
-  const {tea, recommendedTeas} = await getTeaData(params.slug);
+  const {tea, relatedTeas, departmentName} = await getTeaData(params.slug);
 
   if (!tea) {
     notFound();
   }
 
-  return <ProductDetailClient tea={tea} recommendedTeas={recommendedTeas} />;
+  return <ProductDetailClient tea={tea} relatedTeas={relatedTeas} departmentName={departmentName} />;
 }

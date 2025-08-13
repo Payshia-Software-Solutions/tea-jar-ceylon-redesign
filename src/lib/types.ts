@@ -14,6 +14,7 @@ export interface Tea {
   flavorProfile: string[];
   origin: string;
   netWeight?: string;
+  departmentId?: string;
 }
 
 export interface ApiProduct {

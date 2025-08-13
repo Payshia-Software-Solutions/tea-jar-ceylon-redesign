@@ -13,13 +13,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from 'next/link';
 import { ProductReviews } from '@/components/ProductReviews';
 import { Badge } from './ui/badge';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 interface ProductDetailClientProps {
   tea: Tea;
-  recommendedTeas: Tea[];
+  relatedTeas: Tea[];
+  departmentName: string | null;
 }
 
-export function ProductDetailClient({ tea, recommendedTeas }: ProductDetailClientProps) {
+export function ProductDetailClient({ tea, relatedTeas, departmentName }: ProductDetailClientProps) {
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState<string>(tea.images?.[0] || tea.image);
 
@@ -185,16 +188,29 @@ export function ProductDetailClient({ tea, recommendedTeas }: ProductDetailClien
             <ProductReviews tea={tea}/>
 
 
-            {/* Recommendations */}
-            {recommendedTeas.length > 0 && (
+            {/* Related Products */}
+            {relatedTeas.length > 0 && (
                 <div className="mt-16 md:mt-24">
-                <Separator className="my-8 bg-neutral-700" />
-                <h2 className="font-headline text-4xl text-center text-white mb-12">You Might Also Like</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {recommendedTeas.map((recTea) => (
-                    <TeaCard key={recTea.id} tea={recTea} />
-                    ))}
-                </div>
+                    <Separator className="my-8 bg-neutral-700" />
+                    <h2 className="font-headline text-4xl text-center text-white mb-12">
+                        Related Products {departmentName && `from ${departmentName}`}
+                    </h2>
+                     <Swiper
+                        spaceBetween={16}
+                        slidesPerView={1.5}
+                        className="!px-4"
+                        breakpoints={{
+                            640: { slidesPerView: 2.5 },
+                            768: { slidesPerView: 3.5 },
+                            1024: { slidesPerView: 4.5 },
+                        }}
+                    >
+                        {relatedTeas.map((recTea) => (
+                            <SwiperSlide key={recTea.id}>
+                                <TeaCard tea={recTea} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             )}
         </div>
