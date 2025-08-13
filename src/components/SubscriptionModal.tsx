@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X } from 'lucide-react';
 import Image from 'next/image';
 
 export function SubscriptionModal() {
@@ -21,9 +20,9 @@ export function SubscriptionModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="p-0 max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black border-none">
+      <DialogContent className="p-0 max-w-2xl w-full grid grid-cols-2 gap-0 overflow-hidden bg-white text-black border-none">
         {/* Left Side (Image) */}
-        <div className="relative h-48 md:h-full">
+        <div className="relative h-full">
             <Image 
                 src="http://content-provider.payshia.com/tea-jar/august-banner.webp" 
                 alt="Exceptional Tea Collection" 
