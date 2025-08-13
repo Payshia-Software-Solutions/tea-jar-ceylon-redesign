@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Tea } from '@/lib/types';
+import type { Tea, ApiProduct } from '@/lib/types';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
@@ -18,17 +18,6 @@ interface TeaPageProps {
   };
 }
 
-interface ApiProduct {
-    product_id: string;
-    product_name: string;
-    selling_price: string;
-    special_promo: string;
-    special_promo_type: string;
-    image_path: string;
-    slug: string;
-    description: string;
-    // Add other fields if needed
-}
 
 export default function TeaPage({ params }: TeaPageProps) {
   const [tea, setTea] = useState<Tea | null>(null);
@@ -59,7 +48,7 @@ export default function TeaPage({ params }: TeaPageProps) {
             id: apiProduct.slug || apiProduct.product_id,
             name: apiProduct.product_name.trim(),
             description: '', 
-            longDescription: apiProduct.description || 'A delightful tea from Ceylon.',
+            longDescription: apiProduct.product_description || 'A delightful tea from Ceylon.',
             price: price,
             salePrice: salePrice,
             image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
@@ -87,7 +76,7 @@ export default function TeaPage({ params }: TeaPageProps) {
                 id: p.slug || p.product_id,
                 name: p.product_name.trim(),
                 description: '',
-                longDescription: p.description || '',
+                longDescription: p.product_description || '',
                 price: p_price,
                 salePrice: p_salePrice,
                 image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,

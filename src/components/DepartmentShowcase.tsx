@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Tea } from '@/lib/types';
+import type { Tea, ApiProduct } from '@/lib/types';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from './ui/separator';
@@ -14,16 +14,6 @@ interface Department {
 
 interface DepartmentShowcaseProps {
     department: Department;
-}
-
-interface ApiProduct {
-    product_id: string;
-    product_name: string;
-    selling_price: string;
-    special_promo: string;
-    special_promo_type: string;
-    image_path: string;
-    slug: string;
 }
 
 export function DepartmentShowcase({ department }: DepartmentShowcaseProps) {
