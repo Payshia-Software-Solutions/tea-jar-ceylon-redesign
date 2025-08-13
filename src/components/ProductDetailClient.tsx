@@ -7,7 +7,7 @@ import { AddToCartButton } from '@/components/AddToCartButton';
 import { TeaCard } from '@/components/TeaCard';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
-import { Star, ChevronRight, Minus, Plus, ShoppingBag, Droplets, Thermometer, Clock, Users, Coffee } from 'lucide-react';
+import { Star, ChevronRight, Minus, Plus, ShoppingBag, Droplets, Thermometer, Clock, Users, Coffee, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from 'next/link';
@@ -15,6 +15,7 @@ import { ProductReviews } from '@/components/ProductReviews';
 import { Badge } from './ui/badge';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductDetailClientProps {
   tea: Tea;
@@ -25,9 +26,45 @@ interface ProductDetailClientProps {
 export function ProductDetailClient({ tea, relatedTeas, departmentName }: ProductDetailClientProps) {
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState<string>(tea.images?.[0] || tea.image);
+  const { toast } = useToast();
 
   const handleQuantityChange = (amount: number) => {
     setQuantity(prev => Math.max(1, prev + amount));
+  };
+  
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: tea.name,
+          text: `Check out this tea: ${tea.name}`,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not share the product.',
+        })
+      }
+    } else {
+       // Fallback for browsers that don't support the Web Share API
+       try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast({
+                title: 'Link Copied!',
+                description: 'Product link has been copied to your clipboard.',
+            });
+       } catch (err) {
+            console.error('Failed to copy: ', err);
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: 'Could not copy the link.',
+            })
+       }
+    }
   };
 
   return (
@@ -112,8 +149,8 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                             <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-white hover:bg-neutral-700 hover:text-white"><Plus className="w-4 h-4" /></Button>
                         </div>
                         <AddToCartButton tea={tea} quantity={quantity} className="flex-grow w-full sm:w-auto bg-white text-black hover:bg-neutral-200" />
-                        <Button variant="outline" size="icon" className="border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300 hidden sm:inline-flex">
-                            <ShoppingBag className="w-5 h-5" />
+                        <Button onClick={handleShare} variant="outline" size="icon" className="border-amber-200/50 text-amber-200/90 hover:bg-amber-500/10 hover:text-amber-200/90 hidden sm:inline-flex" title="Share this product">
+                            <Share2 className="w-5 h-5" />
                         </Button>
                     </div>
 
@@ -219,3 +256,5 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
     </div>
   );
 }
+
+    
