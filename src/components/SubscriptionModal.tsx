@@ -27,12 +27,13 @@ export function SubscriptionModal() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="p-0 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black">
         {/* Left Side (Image) */}
-        <div className="relative h-64 md:h-auto hidden md:block">
+        <div className="relative hidden md:block">
             <Image 
                 src="http://content-provider.payshia.com/tea-jar/august-banner.webp" 
                 alt="Exceptional Tea Collection" 
-                fill
-                className="object-cover"
+                width={800}
+                height={800}
+                className="object-cover w-full h-full"
             />
         </div>
 
