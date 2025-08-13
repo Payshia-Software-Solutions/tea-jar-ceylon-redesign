@@ -16,7 +16,7 @@ export default function StoryPage() {
                     <div className="order-2 md:order-1 bg-[#f7f5f2] p-8 md:p-16 lg:p-24 flex justify-center">
                         <div className="max-w-md space-y-6">
                             <Image
-                                src="https://content-provider.payshia.com/tea-jar/ceylon-tea-logo.webp"
+                                src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
                                 width={200}
                                 height={80}
