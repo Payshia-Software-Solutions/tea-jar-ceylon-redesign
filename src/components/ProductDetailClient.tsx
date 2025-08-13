@@ -120,8 +120,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                     <Tabs defaultValue="features" className="w-full pt-4">
                         <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 bg-neutral-800 text-neutral-300 h-auto sm:h-10">
                             <TabsTrigger value="features" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white whitespace-normal sm:whitespace-nowrap">
-                                <span className="sm:hidden">Features</span>
-                                <span className="hidden sm:inline">Tasting Note & Distinctive Features</span>
+                                Tasting Note
                             </TabsTrigger>
                             <TabsTrigger value="ingredients" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white">Ingredients</TabsTrigger>
                         </TabsList>
