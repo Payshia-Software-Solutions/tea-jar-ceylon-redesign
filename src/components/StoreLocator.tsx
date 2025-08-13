@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
@@ -188,6 +188,21 @@ type Store = typeof stores[0];
 
 export function StoreLocator() {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedStore && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selectedStore]);
+
+  const handleSelectStore = (store: Store) => {
+    setSelectedStore(store);
+  };
+
+  const handleBack = () => {
+    setSelectedStore(null);
+  }
 
   const StoreCard = ({ store, onSelect }: { store: Store, onSelect: () => void }) => (
     <div 
@@ -301,7 +316,7 @@ export function StoreLocator() {
   );
 
   return (
-    <section className="relative w-full text-white overflow-hidden py-16 md:py-20 bg-[#2a2f28]">
+    <section ref={sectionRef} className="relative w-full text-white overflow-hidden py-16 md:py-20 bg-[#2a2f28] scroll-mt-20">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <Image
           key={selectedStore?.id || 'default'}
@@ -320,11 +335,11 @@ export function StoreLocator() {
         </div>
         
         {selectedStore ? (
-            <StoreDetail store={selectedStore} onBack={() => setSelectedStore(null)} />
+            <StoreDetail store={selectedStore} onBack={handleBack} />
         ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {stores.map((store) => (
-                    <StoreCard key={store.id} store={store} onSelect={() => setSelectedStore(store)} />
+                    <StoreCard key={store.id} store={store} onSelect={() => handleSelectStore(store)} />
                 ))}
             </div>
         )}
