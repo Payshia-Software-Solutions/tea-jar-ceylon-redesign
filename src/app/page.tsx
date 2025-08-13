@@ -34,7 +34,6 @@ export default function Home() {
           <source src="https://teajarceylon.com/assets/videos/TeaJar_HERO_V1-2.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white p-4">
           <Image
             src="https://content-provider.payshia.com/tea-jar/white-logo.png"
