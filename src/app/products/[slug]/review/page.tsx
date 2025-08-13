@@ -105,14 +105,10 @@ export default function WriteReviewPage() {
   }
 
   return (
-    <div className="bg-[#353d32] text-white min-h-screen pt-32">
-      <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <Link href={`/products/${slug}`} className="inline-flex items-center gap-2 text-neutral-300 hover:text-white mb-8">
-          <ChevronLeft className="w-4 h-4" />
-          Back to Product
-        </Link>
-        <Card className="bg-[#2a2f28] border-neutral-700">
-          <CardHeader>
+    <div className="bg-[#353d32] text-white min-h-screen pt-24 pb-24 flex items-center">
+      <div className="container mx-auto px-4 max-w-3xl">
+        <Card className="bg-[#2a2f28] border-neutral-700 p-8">
+          <CardHeader className="p-0">
             <CardTitle className="font-headline text-3xl text-white">Write a review for</CardTitle>
             <div className="flex items-center gap-4 pt-4">
               <Image src={tea.image} alt={tea.name} width={80} height={80} className="rounded-md bg-white p-1" unoptimized />
@@ -122,11 +118,11 @@ export default function WriteReviewPage() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="p-0 mt-8 space-y-6">
             <div className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
-                    <Input placeholder="Name" className="bg-neutral-800 border-neutral-700 text-white" />
-                    <Input type="email" placeholder="Email" className="bg-neutral-800 border-neutral-700 text-white" />
+                    <Input placeholder="Name" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-green-200/50" />
+                    <Input type="email" placeholder="Email" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-green-200/50" />
                 </div>
                 <div className="flex items-center gap-2">
                     <span className="text-sm text-neutral-300">Your Rating:</span>
@@ -140,8 +136,8 @@ export default function WriteReviewPage() {
                         ))}
                     </div>
                 </div>
-                <Input placeholder="Review Title" className="bg-neutral-800 border-neutral-700 text-white" />
-                <Textarea placeholder="Body of Review (1500)" rows={5} className="bg-neutral-800 border-neutral-700 text-white" />
+                <Input placeholder="Review Title" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-green-200/50" />
+                <Textarea placeholder="Body of Review (1500)" rows={5} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-green-200/50" />
                 <div className="flex justify-end gap-4 pt-2">
                     <Link href={`/products/${slug}`}>
                         <Button variant="ghost" className="text-neutral-300 hover:text-white">Cancel</Button>
