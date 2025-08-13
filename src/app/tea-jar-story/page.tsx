@@ -104,16 +104,17 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 4: Managing Director's Message */}
-                <section className="grid md:grid-cols-2 items-center">
-                     <div className="order-2 md:order-1 h-64 md:h-auto min-h-[40vh] md:min-h-screen relative">
+                <section className="flex flex-col md:flex-row-reverse items-center">
+                     <div className="w-full md:w-1/3 flex-shrink-0">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/deelaka_nbg.webp"
                             alt="Deelaka Upasena, Managing Director of Tea Jar"
-                            fill
-                            className="object-contain object-bottom"
+                            width={500}
+                            height={600}
+                            className="object-contain object-bottom w-full h-auto"
                         />
                     </div>
-                    <div className="order-1 md:order-2 bg-white p-8 md:p-16 lg:p-24 flex justify-center">
+                    <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-center">
                         <div className="max-w-md space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">Managing Director&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
