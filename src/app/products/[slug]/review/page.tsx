@@ -72,11 +72,11 @@ export default function WriteReviewPage() {
 
   if (loading) {
     return (
-      <div className="bg-[#353d32] text-white min-h-screen flex items-center justify-center">
+      <div className="bg-[#353d32] text-white min-h-screen flex items-center justify-center pt-32 pb-12">
         <div className="container mx-auto px-4 max-w-3xl">
           <Card className="bg-[#2a2f28] border-neutral-700 p-8 w-full">
             <CardHeader className="p-0">
-                <Skeleton className="h-8 w-48 mb-6" />
+                <Skeleton className="h-8 w-48 mb-6 bg-neutral-700" />
                 <div className="flex items-center gap-4">
                     <Skeleton className="w-20 h-20 rounded-md bg-neutral-700" />
                     <div className="space-y-2">
@@ -109,7 +109,7 @@ export default function WriteReviewPage() {
   }
 
   return (
-    <div className="bg-[#353d32] text-white min-h-screen flex items-center justify-center p-4">
+    <div className="bg-[#353d32] text-white min-h-screen flex items-center justify-center p-4 pt-32 pb-12">
       <Card className="bg-[#2a2f28] border-neutral-700 p-8 rounded-lg w-full max-w-3xl">
         <CardHeader className="p-0">
           <CardTitle className="font-headline text-3xl text-white">Write a review for</CardTitle>
