@@ -5,15 +5,17 @@ import type { ApiProduct } from '@/lib/types';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface SearchResultsProps {
     results: ApiProduct[];
     isLoading: boolean;
     onClose: () => void;
     query: string;
+    isMobile?: boolean;
 }
 
-export function SearchResults({ results, isLoading, onClose, query }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, onClose, query, isMobile = false }: SearchResultsProps) {
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
 
     if (!isLoading && !showNoResults && results.length === 0) {
@@ -21,7 +23,12 @@ export function SearchResults({ results, isLoading, onClose, query }: SearchResu
     }
 
     return (
-        <div className="absolute top-full mt-2 w-full max-h-[60vh] overflow-y-auto rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50">
+        <div className={cn(
+            "overflow-y-auto",
+            isMobile 
+                ? "h-full"
+                : "absolute top-full mt-2 w-full max-h-[60vh] rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50"
+        )}>
             {isLoading ? (
                 <div className="flex justify-center items-center gap-2 text-neutral-300 p-4">
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -32,7 +39,7 @@ export function SearchResults({ results, isLoading, onClose, query }: SearchResu
                     <p>No results found for &quot;{query}&quot;</p>
                 </div>
             ) : (
-                <ul className="divide-y divide-neutral-700">
+                <ul className={cn("divide-y", isMobile ? "divide-neutral-800" : "divide-neutral-700")}>
                     {results.map(product => {
                         const imageUrl = `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`;
                         return (

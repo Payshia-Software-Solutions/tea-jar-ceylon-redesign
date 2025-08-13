@@ -96,13 +96,14 @@ export function Header() {
   const [isSearching, setIsSearching] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if(searchQuery) {
         router.push(`/shop?search=${searchQuery}`);
-        handleClearSearch();
+        closeAllPopups();
     }
   }
 
@@ -180,8 +181,20 @@ export function Header() {
   
   const closeAllPopups = () => {
     setIsMobileMenuOpen(false);
+    setIsMobileSearchOpen(false);
     handleClearSearch();
   };
+  
+  useEffect(() => {
+    if(isMobileSearchOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+    return () => {
+        document.body.style.overflow = '';
+    }
+  }, [isMobileSearchOpen]);
 
   return (
       <header
@@ -216,37 +229,14 @@ export function Header() {
                             <Image
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
-                                width={100}
-                                height={33}
+                                width={80}
+                                height={24}
                                 className="object-contain"
                             />
                         </Link>
                     </SheetTitle>
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
-                    <form onSubmit={handleSearchSubmit}>
-                        <div className="relative mb-6" ref={searchRef}>
-                            <Input
-                            type="search"
-                            placeholder="Find products"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-full text-white"
-                            />
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                            {searchQuery && (
-                                <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
-                                    <X className="h-4 w-4 text-neutral-400" />
-                                </Button>
-                            )}
-                            <SearchResults
-                                results={searchResults}
-                                isLoading={isSearching}
-                                onClose={closeAllPopups}
-                                query={debouncedSearchQuery}
-                            />
-                        </div>
-                    </form>
                     <nav className="flex flex-col gap-1">
                         <SheetClose asChild>
                             <Link href="/" className="text-lg py-2 text-neutral-300 hover:text-white transition-colors">Home</Link>
@@ -370,6 +360,10 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-4">
+               <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800 md:hidden" onClick={() => setIsMobileSearchOpen(true)}>
+                    <Search className="h-6 w-6 text-white" />
+                    <span className="sr-only">Open search</span>
+                </Button>
                 <form onSubmit={handleSearchSubmit}>
                     <div className="relative hidden lg:block" ref={searchRef}>
                         <Input
@@ -492,6 +486,41 @@ export function Header() {
                 </div>
             </div>
         </div>
+
+        {/* Mobile Search Overlay */}
+        {isMobileSearchOpen && (
+            <div className="md:hidden fixed inset-0 z-50 bg-black">
+                <div className="container mx-auto px-4 h-full">
+                    <div className="flex flex-col h-full">
+                        <div className="flex items-center h-20">
+                             <form onSubmit={handleSearchSubmit} className="w-full">
+                                <div className="relative" ref={searchRef}>
+                                    <Input
+                                    type="search"
+                                    placeholder="Find products"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
+                                    />
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                                </div>
+                            </form>
+                            <Button variant="ghost" onClick={closeAllPopups} className="ml-2 text-white">Cancel</Button>
+                        </div>
+
+                        <div className="relative flex-1">
+                            <SearchResults
+                                results={searchResults}
+                                isLoading={isSearching}
+                                onClose={closeAllPopups}
+                                query={debouncedSearchQuery}
+                                isMobile={true}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )}
       </header>
   );
 }
