@@ -29,7 +29,7 @@ export function Header() {
   useEffect(() => {
     const handleScroll = () => {
       if (pathname === '/') {
-        if (window.scrollY > window.innerHeight * 0.8) {
+        if (window.scrollY > 10) { // Show header after a small scroll
           setIsVisible(true);
         } else {
           setIsVisible(false);
