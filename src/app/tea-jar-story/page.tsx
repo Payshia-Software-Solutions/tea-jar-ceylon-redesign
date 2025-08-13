@@ -96,7 +96,7 @@ export default function StoryPage() {
                             <div className="pt-4">
                                 <p className="font-handwritten text-xl">Warm regards,</p>
                                 <Image
-                                    src="https://content-provider.payshia.com/tea-jar/saman-sign.webp"
+                                    src="https://content-provider.payshia.com/tea-jar/gold-chairman-sign.webp"
                                     alt="Saman Upasena's Signature"
                                     width={120}
                                     height={60}
