@@ -42,6 +42,7 @@ export function SearchResults({ results, isLoading, onClose, query, isMobile = f
                 <ul className={cn("divide-y", isMobile ? "divide-neutral-800" : "divide-neutral-700")}>
                     {results.map(product => {
                         const imageUrl = `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`;
+                        const price = parseFloat(product.selling_price);
                         return (
                             <li key={product.product_id}>
                                 <Link 
@@ -60,7 +61,7 @@ export function SearchResults({ results, isLoading, onClose, query, isMobile = f
                                     </div>
                                     <div className="flex-1">
                                         <p className="font-medium text-white text-sm line-clamp-2">{product.product_name.trim()}</p>
-                                        <p className="text-xs text-neutral-400 mt-1">Rs {parseFloat(product.selling_price).toFixed(2)}</p>
+                                        <p className="text-xs text-neutral-400 mt-1">Rs {price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                                     </div>
                                 </Link>
                             </li>

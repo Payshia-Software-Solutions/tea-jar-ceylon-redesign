@@ -78,8 +78,8 @@ export function ShopFilters({
                     className="[&>span]:bg-amber-200"
                 />
                 <div className="flex justify-between text-neutral-300 mt-3">
-                    <span>Rs {filters.priceRange[0]}</span>
-                    <span>Rs {filters.priceRange[1]}</span>
+                    <span>Rs {filters.priceRange[0].toLocaleString('en-US')}</span>
+                    <span>Rs {filters.priceRange[1].toLocaleString('en-US')}</span>
                 </div>
             </div>
           </AccordionContent>

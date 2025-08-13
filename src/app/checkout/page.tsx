@@ -451,16 +451,16 @@ export default function CheckoutPage() {
                                         <div className="flex items-baseline gap-2 text-xs">
                                             {item.product.salePrice ? (
                                                 <>
-                                                  <span className="text-neutral-400 line-through">LKR {item.product.price.toFixed(2)}</span>
-                                                  <span className="text-white font-medium">LKR {item.product.salePrice.toFixed(2)}</span>
+                                                  <span className="text-neutral-400 line-through">LKR {item.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                                  <span className="text-white font-medium">LKR {item.product.salePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                                                 </>
                                             ): (
-                                                 <span className="text-white font-medium">LKR {item.product.price.toFixed(2)}</span>
+                                                 <span className="text-white font-medium">LKR {item.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                                             )}
                                             
                                         </div>
                                     </div>
-                                    <p className="font-medium text-sm text-white">LKR {(item.product.salePrice ?? item.product.price).toFixed(2)}</p>
+                                    <p className="font-medium text-sm text-white">LKR {(item.product.salePrice ?? item.product.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                                 </div>
                             ))}
                         </div>
@@ -482,11 +482,11 @@ export default function CheckoutPage() {
                     <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                             <span className="text-neutral-400">Subtotal</span>
-                            <span className="font-semibold text-white">Rs {totalPrice.toFixed(2)}</span>
+                            <span className="font-semibold text-white">Rs {totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-neutral-400">Shipping</span>
-                            <span className="font-semibold text-white">{shippingCost > 0 ? `Rs ${shippingCost.toFixed(2)}` : 'Rs 0.00'}</span>
+                            <span className="font-semibold text-white">{shippingCost > 0 ? `Rs ${shippingCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Rs 0.00'}</span>
                         </div>
                     </div>
                     
@@ -496,7 +496,7 @@ export default function CheckoutPage() {
                         <span className="text-lg text-white">Total</span>
                         <div className="flex items-baseline gap-2">
                              <span className="text-sm text-neutral-400">LKR</span>
-                             <span className="text-2xl font-bold text-white">Rs {total.toFixed(2)}</span>
+                             <span className="text-2xl font-bold text-white">Rs {total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                     </div>
 
@@ -550,5 +550,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
-    

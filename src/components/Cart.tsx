@@ -52,15 +52,15 @@ export function Cart() {
                       {item.product.salePrice ? (
                           <div className="flex items-baseline gap-2">
                             <p className="text-sm text-neutral-500 line-through">
-                              Rs {item.product.price.toFixed(2)}
+                              Rs {item.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </p>
                             <p className="text-sm font-bold text-red-600">
-                              Rs {item.product.salePrice.toFixed(2)}
+                              Rs {item.product.salePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </p>
                           </div>
                       ) : (
                           <p className="text-sm font-bold text-neutral-800">
-                              Rs {item.product.price.toFixed(2)}
+                              Rs {item.product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </p>
                       )}
                       <div className="mt-2 flex items-center gap-2">
@@ -84,7 +84,7 @@ export function Cart() {
                       </div>
                     </div>
                     <div className="text-right">
-                        <p className="font-bold text-lg text-black">Rs {lineTotal.toFixed(2)}</p>
+                        <p className="font-bold text-lg text-black">Rs {lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                         <Button
                             variant="ghost"
                             size="icon"
@@ -104,7 +104,7 @@ export function Cart() {
             <div className="w-full space-y-4">
               <div className="flex justify-between text-lg font-bold text-black">
                 <span>Subtotal</span>
-                <span>Rs {totalPrice.toFixed(2)}</span>
+                <span>Rs {totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <SheetClose asChild>
                 <Link href="/checkout" className="w-full">

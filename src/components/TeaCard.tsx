@@ -103,15 +103,15 @@ export function TeaCard({ tea }: TeaCardProps) {
                   {hasSale ? (
                       <>
                           <p className="text-sm text-neutral-400 line-through">
-                              Rs {tea.price.toFixed(2)}
+                              Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </p>
                           <p className="text-lg font-bold text-red-500">
-                              Rs {tea.salePrice!.toFixed(2)}
+                              Rs {tea.salePrice!.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </p>
                       </>
                   ) : (
                       <p className="text-lg font-bold text-white">
-                          Rs {tea.price.toFixed(2)}
+                          Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </p>
                   )}
               </div>
