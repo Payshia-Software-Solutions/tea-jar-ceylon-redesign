@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 export default function TeaHeritagePage() {
     return (
         <div className="bg-[#f7f5f2] text-[#3c3c3c] pt-24 min-h-screen">
-            <main>
-                <section className="grid md:grid-cols-2 items-center">
-                    <div className="p-8 md:p-16 lg:p-24 flex justify-center">
+            <main className="md:min-h-[calc(100vh-6rem)]">
+                <section className="grid md:grid-cols-2 items-stretch h-full">
+                    <div className="p-8 md:p-16 lg:p-24 flex justify-center items-center">
                         <div className="max-w-md space-y-6">
                             <h1 className="font-headline text-3xl md:text-4xl">CEYLON TEA HERITAGE</h1>
                             <p className="text-sm md:text-base leading-relaxed">
@@ -32,7 +32,7 @@ export default function TeaHeritagePage() {
                             </p>
                         </div>
                     </div>
-                    <div className="h-64 md:h-auto min-h-[50vh] md:min-h-screen relative">
+                    <div className="h-64 md:h-full relative">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/heritage-image-optimized.webp"
                             alt="A woman enjoying a cup of Tea Jar tea, representing Ceylon Tea Heritage"
