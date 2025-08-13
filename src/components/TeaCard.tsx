@@ -50,11 +50,11 @@ export function TeaCard({ tea }: TeaCardProps) {
                     {discount}% OFF
                 </Badge>
             )}
-             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:flex items-end p-4 hidden">
               <Button
                 onClick={handleAddToCart}
                 size="lg"
-                className="w-full bg-white/90 text-black hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full bg-white/90 text-black hover:bg-white"
               >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
@@ -62,28 +62,40 @@ export function TeaCard({ tea }: TeaCardProps) {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-grow p-4">
-          <CardTitle className="font-bold text-lg leading-tight line-clamp-2">{tea.name}</CardTitle>
-        </CardContent>
-        <CardFooter className="p-4 pt-0 flex justify-between items-center">
-            <ShoppingBag className="w-6 h-6 text-neutral-400" />
-            <div className="text-right">
-                {hasSale ? (
-                    <>
-                        <p className="text-sm text-neutral-400 line-through">
-                            Rs {tea.price.toFixed(2)}
-                        </p>
-                        <p className="text-lg font-bold text-red-500">
-                            Rs {tea.salePrice!.toFixed(2)}
-                        </p>
-                    </>
-                ) : (
-                    <p className="text-lg font-bold text-white">
-                        Rs {tea.price.toFixed(2)}
-                    </p>
-                )}
-            </div>
-        </CardFooter>
+        <div className="flex flex-col flex-grow">
+          <CardContent className="flex-grow p-4">
+            <CardTitle className="font-bold text-lg leading-tight line-clamp-2">{tea.name}</CardTitle>
+          </CardContent>
+          <CardFooter className="p-4 pt-0 flex justify-between items-center">
+              <ShoppingBag className="w-6 h-6 text-neutral-400" />
+              <div className="text-right">
+                  {hasSale ? (
+                      <>
+                          <p className="text-sm text-neutral-400 line-through">
+                              Rs {tea.price.toFixed(2)}
+                          </p>
+                          <p className="text-lg font-bold text-red-500">
+                              Rs {tea.salePrice!.toFixed(2)}
+                          </p>
+                      </>
+                  ) : (
+                      <p className="text-lg font-bold text-white">
+                          Rs {tea.price.toFixed(2)}
+                      </p>
+                  )}
+              </div>
+          </CardFooter>
+        </div>
+        <div className="p-4 pt-0 md:hidden">
+            <Button
+                onClick={handleAddToCart}
+                size="lg"
+                className="w-full bg-white/90 text-black hover:bg-white"
+              >
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+            </Button>
+        </div>
       </Card>
     </Link>
   );
