@@ -85,13 +85,6 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
-      basis: {
-        '2/3': '66.666667%',
-        '2/5': '40%',
-        '2/7': '28.5714286%',
-        '2/9': '22.2222222%',
-        '2/11': '18.1818182%',
-      }
     },
   },
   plugins: [require('tailwindcss-animate')],
