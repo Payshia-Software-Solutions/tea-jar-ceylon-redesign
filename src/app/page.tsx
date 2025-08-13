@@ -5,9 +5,20 @@ import Image from 'next/image';
 import { Products } from '@/components/Products';
 import { RecommendedCollections } from '@/components/RecommendedCollections';
 import { StoreLocator } from '@/components/StoreLocator';
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 
 export default function Home() {
+  const [logoVisible, setLogoVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLogoVisible(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -30,7 +41,10 @@ export default function Home() {
             width={400}
             height={150}
             priority
-            className="object-contain drop-shadow-lg"
+            className={cn(
+                "object-contain drop-shadow-lg transition-opacity duration-1000",
+                logoVisible ? "opacity-100" : "opacity-0"
+            )}
           />
         </div>
       </div>
