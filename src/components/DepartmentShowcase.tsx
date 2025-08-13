@@ -80,8 +80,8 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
             }
 
             const images = productImages[apiProduct.product_id] || [];
-            const frontImage = images.find(img => img.image_prefix === 'Front Image');
-            const topViewImage = images.find(img => img.image_prefix === 'Top View');
+            const frontImage = Array.isArray(images) ? images.find(img => img.image_prefix === 'Front Image') : null;
+            const topViewImage = Array.isArray(images) ? images.find(img => img.image_prefix === 'Top View') : null;
 
             const mainImageUrl = frontImage
                 ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${frontImage.image_path}`
