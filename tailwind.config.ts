@@ -14,6 +14,7 @@ export default {
         headline: ['Italiana', 'serif'],
         secondary: ['Roboto', 'sans-serif'],
         handwritten: ['Parisienne', 'cursive'],
+        'handwritten-alt': ['"Shadows Into Light Two"', 'cursive'],
         code: ['monospace'],
       },
       colors: {
