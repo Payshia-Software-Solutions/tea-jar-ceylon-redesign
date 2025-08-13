@@ -6,7 +6,7 @@ import type { Tea, ApiProduct } from '@/lib/types';
 import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star } from 'lucide-react';
+import { Star, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -117,7 +117,10 @@ export default function WriteReviewPage() {
             <Image src={tea.image} alt={tea.name} width={80} height={80} className="rounded-md bg-white p-1" unoptimized />
             <div>
               <h3 className="text-xl font-semibold text-white">{tea.name}</h3>
-              <p className="text-neutral-400">Share your thoughts with the community!</p>
+              <Link href={`/products/${slug}`} className="text-sm text-amber-200/90 hover:text-amber-200 flex items-center gap-1.5 group mt-1">
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                Back to product
+              </Link>
             </div>
           </div>
         </CardHeader>
