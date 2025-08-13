@@ -54,6 +54,11 @@ const navMenuData = {
       ],
     },
   ],
+  about: [
+      { text: 'Tea Jar Story', href: '#' },
+      { text: 'Our Tea Heritage', href: '#' },
+      { text: 'KDU Group', href: '#' },
+  ]
 };
 
 
@@ -71,7 +76,7 @@ export function Header() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(pathname !== '/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isShopMenuOpen, setIsShopMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,7 +114,7 @@ export function Header() {
             <span>Enjoy 20% Off &amp; Island wide Free Delivery..!</span>
           </div>
         </div>
-        <div className="bg-black text-white" onMouseLeave={() => setIsShopMenuOpen(false)}>
+        <div className="bg-black text-white" onMouseLeave={() => setActiveMenu(null)}>
           <div className="container mx-auto flex h-20 items-center justify-between px-4">
             
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -174,14 +179,14 @@ export function Header() {
                 <div
                     key={link.href}
                     className="relative"
-                    onMouseEnter={() => link.label === 'Shop' && setIsShopMenuOpen(true)}
+                    onMouseEnter={() => (link.label === 'Shop' || link.label === 'About Us') && setActiveMenu(link.label)}
                 >
                     <Link
                     href={link.href}
                     className="text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
                     >
                     {link.label}
-                    {link.label === 'Shop' && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isShopMenuOpen ? 'rotate-180' : ''}`} />}
+                    {(link.label === 'Shop' || link.label === 'About Us') && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === link.label ? 'rotate-180' : ''}`} />}
                     </Link>
                 </div>
               ))}
@@ -213,12 +218,14 @@ export function Header() {
               </Sheet>
             </div>
           </div>
+            {/* Shop Menu */}
             <div 
                 className={cn(
                     "absolute w-full bg-[#2a2f28] text-white shadow-lg transition-all duration-300 ease-in-out",
-                    isShopMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                    activeMenu === 'Shop' ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
                 )}
-                onMouseLeave={() => setIsShopMenuOpen(false)}
+                onMouseEnter={() => setActiveMenu('Shop')}
+                onMouseLeave={() => setActiveMenu(null)}
             >
                 <div className="container mx-auto px-4 py-8 grid grid-cols-4 gap-8">
                     {navMenuData.shop.map(column => (
@@ -234,6 +241,24 @@ export function Header() {
                                 ))}
                             </ul>
                         </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* About Us Menu */}
+            <div 
+                className={cn(
+                    "absolute w-full bg-[#2a2f28] text-white shadow-lg transition-all duration-300 ease-in-out",
+                    activeMenu === 'About Us' ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
+                 onMouseEnter={() => setActiveMenu('About Us')}
+                 onMouseLeave={() => setActiveMenu(null)}
+            >
+                <div className="container mx-auto px-4 py-6 flex justify-center gap-16">
+                    {navMenuData.about.map(item => (
+                        <Link key={item.text} href={item.href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
+                           {item.text}
+                        </Link>
                     ))}
                 </div>
             </div>
