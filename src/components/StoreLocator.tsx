@@ -188,7 +188,7 @@ export function StoreLocator() {
   const [selectedStore, setSelectedStore] = useState(stores[0]);
 
   return (
-    <section className="relative w-full text-white overflow-hidden py-20 bg-[#2a2f28]">
+    <section className="relative w-full text-white overflow-hidden py-20 bg-[#353d32]">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <Image
           key={selectedStore.id}
@@ -198,7 +198,7 @@ export function StoreLocator() {
           className="object-cover animate-fade-in opacity-20"
           data-ai-hint={selectedStore.dataAiHint}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#353d32] via-[#353d32]/50 to-transparent" />
       </div>
 
       <div className="relative container mx-auto px-4 z-10">

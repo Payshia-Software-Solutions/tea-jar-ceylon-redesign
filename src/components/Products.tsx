@@ -72,7 +72,7 @@ export function Products() {
     }, []);
 
     return (
-        <section className="bg-[#3a4f3a] py-20 text-white pl-4" id="teas">
+        <section className="bg-[#2a2f28] py-20 text-white pl-4" id="teas">
             <div className="container mx-auto px-4">
                 <h2 className="font-headline text-4xl text-center mb-12">Shop Our Best Selling Products</h2>
             </div>
