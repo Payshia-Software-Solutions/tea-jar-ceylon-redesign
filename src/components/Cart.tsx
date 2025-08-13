@@ -35,12 +35,12 @@ export function Cart() {
             <div className="flex flex-col gap-6 p-6">
               {items.map((item) => (
                 <div key={item.product.id} className="flex items-center gap-4">
-                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-neutral-200">
+                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-neutral-200 bg-white">
                     <Image
                       src={item.product.image}
                       alt={item.product.name}
                       fill
-                      className="object-cover"
+                      className="object-contain p-1"
                       data-ai-hint={item.product.dataAiHint}
                       unoptimized
                     />
@@ -125,3 +125,5 @@ export function Cart() {
     </SheetContent>
   );
 }
+
+    

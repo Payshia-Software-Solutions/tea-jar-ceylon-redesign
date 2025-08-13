@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, Search, Menu, ChevronDown, User } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -169,49 +169,68 @@ export function Header() {
                             <Link href="/" className="text-lg py-2 text-neutral-300 hover:text-white transition-colors">Home</Link>
                         </SheetClose>
                         
-                        <Accordion type="single" collapsible className="w-full">
+                        <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg text-neutral-300 hover:text-white [&[data-state=open]]:text-white">
-                                    <Link href="/shop" onClick={(e) => e.stopPropagation()}>Shop</Link>
+                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
+                                    <Link href="/shop" onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsMobileMenuOpen(false);
+                                    }}>Shop</Link>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-4">
                                    <div className="flex flex-col gap-2 mt-2">
-                                       {navMenuData.shop.map(col => (
-                                         <div key={col.title} className="flex flex-col gap-2">
-                                            <h4 className="font-semibold text-neutral-400 mt-2">{col.title}</h4>
-                                            {col.links.map(link => (
-                                                <SheetClose asChild key={link.text}>
-                                                    <Link href={link.href} className="text-neutral-300 hover:text-white transition-colors pl-2">{link.text}</Link>
-                                                </SheetClose>
+                                       <Accordion type="multiple" className="w-full">
+                                            {navMenuData.shop.map(col => (
+                                                <div key={col.title}>
+                                                    {col.title === 'Shop Tea' ? (
+                                                        col.links.map(link => (
+                                                            <SheetClose asChild key={link.text}>
+                                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                            </SheetClose>
+                                                        ))
+                                                    ) : (
+                                                        <AccordionItem value={col.title} className="border-none">
+                                                            <AccordionTrigger className="py-2 hover:no-underline text-neutral-300 hover:text-white">
+                                                                {col.title}
+                                                            </AccordionTrigger>
+                                                            <AccordionContent className="pl-4">
+                                                                {col.links.map(link => (
+                                                                     <SheetClose asChild key={link.text}>
+                                                                        <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
+                                                                    </SheetClose>
+                                                                ))}
+                                                            </AccordionContent>
+                                                        </AccordionItem>
+                                                    )}
+                                                </div>
                                             ))}
-                                         </div>
-                                       ))}
+                                       </Accordion>
                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                              <AccordionItem value="about" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg text-neutral-300 hover:text-white [&[data-state=open]]:text-white">
+                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
                                     <span>About Us</span>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-4">
                                    <div className="flex flex-col gap-2 mt-2">
                                         {navMenuData.about.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="text-neutral-300 hover:text-white transition-colors">{link.text}</Link>
+                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
                                             </SheetClose>
                                         ))}
                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="our-teas" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg text-neutral-300 hover:text-white [&[data-state=open]]:text-white">
+                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
                                     <span>Our Teas</span>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-4">
                                    <div className="flex flex-col gap-2 mt-2">
                                         {navMenuData.ourTeas.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="text-neutral-300 hover:text-white transition-colors">{link.text}</Link>
+                                                <Link href={link.href} className="block text-neutral-300 hover:text-white transition-colors py-2">{link.text}</Link>
                                             </SheetClose>
                                         ))}
                                    </div>
@@ -249,7 +268,7 @@ export function Header() {
                     className="text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
                     >
                     {link.label}
-                    {['Shop', 'About Us', 'Our Teas'].includes(link.label) && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === link.label ? 'rotate-180' : ''}`} />}
+                    {['Shop', 'About Us', 'Our Teas'].includes(link.label) && <ChevronDown className={cn('w-4 h-4 transition-transform duration-200', activeMenu === link.label ? 'rotate-180' : '')} />}
                     </Link>
                 </div>
               ))}
@@ -270,7 +289,7 @@ export function Header() {
                     <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800">
                     <ShoppingCart className="h-6 w-6 text-white" />
                     {itemCount > 0 && (
-                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
+                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-amber-200 text-black text-xs font-bold">
                         {itemCount}
                         </span>
                     )}
@@ -361,3 +380,5 @@ export function Header() {
       </header>
   );
 }
+
+    
