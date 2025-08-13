@@ -72,9 +72,9 @@ export function Products() {
     }, []);
 
     return (
-        <section className="bg-[#353d32] py-20 text-white pl-4" id="teas">
+        <section className="bg-[#2a2f28] py-16 md:py-20 text-white pl-4" id="teas">
             <div className="container mx-auto px-4">
-                <h2 className="font-headline text-4xl text-center mb-12">Shop Our Best Selling Products</h2>
+                <h2 className="font-headline text-3xl md:text-4xl text-center mb-8 md:mb-12">Shop Our Best Selling Products</h2>
             </div>
             {loading ? (
                 <div className="w-full">
@@ -105,7 +105,7 @@ export function Products() {
                 >
                     <CarouselContent className="-ml-2">
                         {products.map((tea) => (
-                            <CarouselItem key={tea.id} className="pl-2 basis-2/3 sm:basis-2/5 md:basis-1/3 lg:basis-1/4 xl:basis-2/9">
+                            <CarouselItem key={tea.id} className="pl-2 basis-2/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
                                 <div className="p-1">
                                     <TeaCard tea={tea} />
                                 </div>

@@ -38,10 +38,10 @@ const faqData = [
 
 export function Faq() {
   return (
-    <section className="bg-[#353d32] py-20 text-white">
+    <section className="bg-[#2a2f28] py-16 md:py-20 text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-headline text-5xl text-white">
+          <h2 className="font-headline text-3xl md:text-5xl text-white">
             Frequently Asked Questions
           </h2>
         </div>
@@ -53,10 +53,10 @@ export function Faq() {
                 value={`item-${index}`}
                 className="border-b border-neutral-600/50"
               >
-                <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline py-6 text-neutral-100">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-left hover:no-underline py-6 text-neutral-100">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-base text-neutral-300 pb-6">
+                <AccordionContent className="text-sm md:text-base text-neutral-300 pb-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

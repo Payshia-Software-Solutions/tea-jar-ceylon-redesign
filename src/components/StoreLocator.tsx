@@ -188,7 +188,7 @@ export function StoreLocator() {
   const [selectedStore, setSelectedStore] = useState(stores[0]);
 
   return (
-    <section className="relative w-full text-white overflow-hidden py-20 bg-[#353d32]">
+    <section className="relative w-full text-white overflow-hidden py-16 md:py-20 bg-[#2a2f28]">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <Image
           key={selectedStore.id}
@@ -198,15 +198,15 @@ export function StoreLocator() {
           className="object-cover animate-fade-in opacity-20"
           data-ai-hint={selectedStore.dataAiHint}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#353d32] via-[#353d32]/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/50 to-transparent" />
       </div>
 
       <div className="relative container mx-auto px-4 z-10">
         <div className="text-center mb-12">
-            <h2 className="font-headline text-5xl text-white">Find Your Nearest Store</h2>
+            <h2 className="font-headline text-3xl md:text-5xl text-white">Find Your Nearest Store</h2>
         </div>
         
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid lg:grid-cols-3 gap-8 xl:gap-12">
             {/* Left Column: Store List */}
             <div className="lg:col-span-1">
                 <div className="space-y-4">
@@ -245,9 +245,9 @@ export function StoreLocator() {
             <div className="lg:col-span-2">
                  <div className="grid lg:grid-cols-2 gap-8 items-start">
                     <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
-                        <CardContent className="p-8 space-y-6 flex-grow">
+                        <CardContent className="p-6 md:p-8 space-y-6 flex-grow">
                             <div>
-                                <h3 className="font-headline text-4xl text-white mb-2">{selectedStore.name}</h3>
+                                <h3 className="font-headline text-3xl md:text-4xl text-white mb-2">{selectedStore.name}</h3>
                                 <p className="text-lg font-semibold text-amber-100/90">{selectedStore.location}</p>
                             </div>
                             <p className="text-neutral-300 leading-relaxed font-secondary text-sm">
@@ -288,8 +288,8 @@ export function StoreLocator() {
                         </div>
                         
                         {selectedStore.activities && selectedStore.activities.length > 0 && (
-                            <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-8">
-                                <CardContent className="p-8">
+                            <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-4 md:mt-8">
+                                <CardContent className="p-6 md:p-8">
                                     <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
                                         {selectedStore.activities.map(activity => {
@@ -314,5 +314,3 @@ export function StoreLocator() {
     </section>
   );
 }
-
-    

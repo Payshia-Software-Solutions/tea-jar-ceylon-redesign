@@ -40,9 +40,9 @@ export function RecommendedCollections() {
   const [activeVideo, setActiveVideo] = useState(collections[0].video);
 
   return (
-    <section className="bg-[#353d32] text-white">
+    <section className="bg-[#2a2f28] text-white">
       <div className="grid md:grid-cols-2">
-        <div className="relative min-h-[400px] md:min-h-[600px]">
+        <div className="relative min-h-[300px] md:min-h-[600px]">
            <video
             key={activeVideo}
             autoPlay
@@ -57,10 +57,10 @@ export function RecommendedCollections() {
            <div className="absolute inset-0 bg-black/20"></div>
         </div>
         <div className="p-8 md:p-16 flex flex-col justify-start">
-          <h2 className="font-headline text-4xl mb-8">Recommended Collections</h2>
+          <h2 className="font-headline text-3xl md:text-4xl mb-8">Recommended Collections</h2>
           <Tabs defaultValue="Classic" className="flex flex-col md:flex-row gap-8" orientation="vertical" onValueChange={(value) => setActiveVideo(collections.find(c => c.name === value)?.video || '')}>
             <TabsList className="bg-transparent flex-shrink-0 items-start p-0">
-                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible">
+                <div className="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0">
                     {collections.map((collection) => (
                         <TabsTrigger
                             key={collection.name}
