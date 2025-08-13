@@ -242,7 +242,7 @@ export function StoreLocator() {
 
         <div className="grid lg:grid-cols-5 gap-8 xl:gap-12">
             <div className="lg:col-span-3">
-                 <p className="text-neutral-300 leading-relaxed font-secondary text-base">
+                 <p className="text-neutral-300 leading-relaxed font-body text-base">
                     {store.description}
                 </p>
                 <div className="grid sm:grid-cols-2 gap-y-4 text-sm mt-8">
@@ -274,7 +274,7 @@ export function StoreLocator() {
                                     return (
                                         <div key={activity} className="flex flex-col items-center text-center gap-2">
                                             <Icon className="w-10 h-10 text-amber-200/80" />
-                                            <span className="text-xs font-medium tracking-wide">{activity}</span>
+                                            <span className="text-xs font-medium tracking-wide text-neutral-300">{activity}</span>
                                         </div>
                                     )
                                 })}
@@ -332,5 +332,3 @@ export function StoreLocator() {
     </section>
   );
 }
-
-    
