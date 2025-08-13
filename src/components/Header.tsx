@@ -216,8 +216,8 @@ export function Header() {
                             <Image
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
-                                width={120}
-                                height={40}
+                                width={100}
+                                height={33}
                                 className="object-contain"
                             />
                         </Link>
@@ -344,8 +344,8 @@ export function Header() {
                 <Image
                     src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
-                    width={100}
-                    height={30}
+                    width={80}
+                    height={24}
                     priority
                     className="object-contain"
                 />
