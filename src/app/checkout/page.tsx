@@ -23,22 +23,45 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CreditCard, Banknote, AlertTriangle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const checkoutSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
   emailOffers: z.boolean().optional(),
-  country: z.string().min(1, { message: 'Country is required.' }),
-  firstName: z.string().optional(),
-  lastName: z.string().min(1, { message: 'Last name is required.' }),
-  address: z.string().min(1, { message: 'Address is required.' }),
-  apartment: z.string().optional(),
-  city: z.string().min(1, { message: 'City is required.' }),
-  postalCode: z.string().min(1, { message: 'Postal code is required.' }),
-  phone: z.string().optional(),
+  // Shipping Address
+  shippingCountry: z.string().min(1, { message: 'Country is required.' }),
+  shippingFirstName: z.string().optional(),
+  shippingLastName: z.string().min(1, { message: 'Last name is required.' }),
+  shippingAddress: z.string().min(1, { message: 'Address is required.' }),
+  shippingApartment: z.string().optional(),
+  shippingCity: z.string().min(1, { message: 'City is required.' }),
+  shippingPostalCode: z.string().min(1, { message: 'Postal code is required.' }),
+  shippingPhone: z.string().optional(),
   saveInfo: z.boolean().optional(),
+  // Billing Logic
   billingAddress: z.enum(['same', 'different']).default('same'),
   paymentMethod: z.enum(['payhere', 'cod']).default('payhere'),
+  // Billing Address (optional based on selection)
+  billingCountry: z.string().optional(),
+  billingFirstName: z.string().optional(),
+  billingLastName: z.string().optional(),
+  billingAddressLine: z.string().optional(),
+  billingApartment: z.string().optional(),
+  billingCity: z.string().optional(),
+  billingPostalCode: z.string().optional(),
+  billingPhone: z.string().optional(),
+}).refine(data => {
+    if (data.billingAddress === 'different') {
+        return !!data.billingCountry && !!data.billingLastName && !!data.billingAddressLine && !!data.billingCity && !!data.billingPostalCode;
+    }
+    return true;
+}, {
+    message: "Billing address fields are required when using a different billing address.",
+    // We can't apply this to a specific path, so we'll just have to show a general error or handle it in the UI.
+    // This is a limitation of Zod's `refine` on the object level.
+    // We will handle required messages on the individual fields for better UX.
 });
+
 
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
@@ -53,19 +76,22 @@ export default function CheckoutPage() {
     defaultValues: {
         email: '',
         emailOffers: false,
-        country: 'Sri Lanka',
-        firstName: '',
-        lastName: '',
-        address: '',
-        apartment: '',
-        city: '',
-        postalCode: '',
-        phone: '',
+        shippingCountry: 'Sri Lanka',
+        shippingFirstName: '',
+        shippingLastName: '',
+        shippingAddress: '',
+        shippingApartment: '',
+        shippingCity: '',
+        shippingPostalCode: '',
+        shippingPhone: '',
         saveInfo: false,
         billingAddress: 'same',
         paymentMethod: 'payhere',
+        billingCountry: 'Sri Lanka',
     }
   });
+
+  const watchBillingAddress = form.watch('billingAddress');
 
   function onSubmit(data: CheckoutFormValues) {
     console.log('Form Submitted:', data);
@@ -123,7 +149,7 @@ export default function CheckoutPage() {
                                 <h2 className="text-xl font-semibold">Delivery</h2>
                                 <FormField
                                     control={form.control}
-                                    name="country"
+                                    name="shippingCountry"
                                     render={({ field }) => (
                                     <FormItem>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -145,7 +171,7 @@ export default function CheckoutPage() {
                                 <div className="grid md:grid-cols-2 gap-4">
                                      <FormField
                                         control={form.control}
-                                        name="firstName"
+                                        name="shippingFirstName"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
@@ -157,7 +183,7 @@ export default function CheckoutPage() {
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="lastName"
+                                        name="shippingLastName"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
@@ -170,7 +196,7 @@ export default function CheckoutPage() {
                                 </div>
                                 <FormField
                                     control={form.control}
-                                    name="address"
+                                    name="shippingAddress"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
@@ -182,7 +208,7 @@ export default function CheckoutPage() {
                                 />
                                 <FormField
                                     control={form.control}
-                                    name="apartment"
+                                    name="shippingApartment"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
@@ -194,7 +220,7 @@ export default function CheckoutPage() {
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
-                                        name="city"
+                                        name="shippingCity"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
@@ -206,7 +232,7 @@ export default function CheckoutPage() {
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="postalCode"
+                                        name="shippingPostalCode"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
@@ -219,7 +245,7 @@ export default function CheckoutPage() {
                                 </div>
                                  <FormField
                                     control={form.control}
-                                    name="phone"
+                                    name="shippingPhone"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
@@ -250,13 +276,13 @@ export default function CheckoutPage() {
                                     name="billingAddress"
                                     render={({ field }) => (
                                     <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
-                                        <div className="border border-neutral-700 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
+                                        <div className={cn("border border-neutral-700 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchBillingAddress === 'different' ? 'rounded-b-none' : 'rounded-b-md')}>
                                             <FormControl>
                                                 <RadioGroupItem value="same" id="same" className="border-neutral-500 text-amber-200" />
                                             </FormControl>
                                             <Label htmlFor="same" className="font-normal w-full text-neutral-300">Same as shipping address</Label>
                                         </div>
-                                         <div className="border border-t-0 border-neutral-700 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
+                                         <div className="border border-t-0 border-neutral-700 p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50 rounded-b-md">
                                             <FormControl>
                                                 <RadioGroupItem value="different" id="different" className="border-neutral-500 text-amber-200" />
                                             </FormControl>
@@ -265,6 +291,119 @@ export default function CheckoutPage() {
                                     </RadioGroup>
                                     )}
                                 />
+
+                                {watchBillingAddress === 'different' && (
+                                     <div className="border border-neutral-700 rounded-md p-4 space-y-4 bg-neutral-800/20">
+                                        <h3 className="font-semibold text-lg text-white">Enter Billing Address</h3>
+                                         <FormField
+                                            control={form.control}
+                                            name="billingCountry"
+                                            render={({ field }) => (
+                                            <FormItem>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-300 focus:ring-amber-300">
+                                                        <SelectValue placeholder="Select a country" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                                                    <SelectItem value="Sri Lanka">Sri Lanka</SelectItem>
+                                                    <SelectItem value="United States">United States</SelectItem>
+                                                    <SelectItem value="United Kingdom">United Kingdom</SelectItem>
+                                                </SelectContent>
+                                                </Select>
+                                                <FormMessage />
+                                            </FormItem>
+                                            )}
+                                        />
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="billingFirstName"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="First name (optional)" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="billingLastName"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="Last name" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <FormField
+                                            control={form.control}
+                                            name="billingAddressLine"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input placeholder="Address" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="billingApartment"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input placeholder="Apartment, suite, etc. (optional)" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="billingCity"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="City" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="billingPostalCode"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="Postal Code" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <FormField
+                                            control={form.control}
+                                            name="billingPhone"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input placeholder="Phone (optional)" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             {/* Shipping Method */}
