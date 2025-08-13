@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MapPin, Globe, Phone, Clock } from 'lucide-react';
+import { MapPin, Globe, Phone, Clock, ArrowLeft } from 'lucide-react';
 
 const icons = {
   'Tea Tasting': (props: React.SVGProps<SVGSVGElement>) => (
@@ -184,19 +184,132 @@ const stores = [
   }
 ];
 
+type Store = typeof stores[0];
+
 export function StoreLocator() {
-  const [selectedStore, setSelectedStore] = useState(stores[0]);
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+
+  const StoreCard = ({ store, onSelect }: { store: Store, onSelect: () => void }) => (
+    <div 
+        className="cursor-pointer group rounded-xl transition-all"
+        onClick={onSelect}
+    >
+        <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50 h-full">
+            <CardContent className="p-0">
+                <div className="relative aspect-video">
+                    <Image 
+                        src={store.images[0]} 
+                        alt={store.location} 
+                        fill 
+                        className="object-cover" 
+                        data-ai-hint="tea store facade" 
+                    />
+                </div>
+                <div className="p-4">
+                    <h4 className="font-headline text-xl text-white">{store.name}</h4>
+                    <p className="text-amber-100/90">{store.location}</p>
+                </div>
+            </CardContent>
+        </Card>
+    </div>
+  );
+
+  const StoreDetail = ({ store, onBack }: { store: Store, onBack: () => void }) => (
+     <div className="w-full">
+        <div 
+            className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden mb-8"
+        >
+            <Image
+            key={store.id}
+            src={store.bgImage}
+            alt={store.name}
+            fill
+            className="object-cover"
+            data-ai-hint={store.dataAiHint}
+            />
+            <div className="absolute inset-0 bg-black/40 flex items-end p-8">
+                <div>
+                     <h3 className="font-headline text-4xl md:text-5xl text-white mb-1">{store.name}</h3>
+                     <p className="text-xl font-semibold text-amber-100/90">{store.location}</p>
+                </div>
+            </div>
+        </div>
+
+        <Button onClick={onBack} variant="outline" className="mb-8 bg-transparent text-white border-neutral-500 hover:bg-neutral-800 hover:text-white">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to All Stores
+        </Button>
+
+        <div className="grid lg:grid-cols-5 gap-8 xl:gap-12">
+            <div className="lg:col-span-3">
+                 <p className="text-neutral-300 leading-relaxed font-secondary text-base">
+                    {store.description}
+                </p>
+                <div className="grid sm:grid-cols-2 gap-y-4 text-sm mt-8">
+                    <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                        <span>{store.address}</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                        <a href={`http://${store.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{store.website}</a>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                        <span>{store.phone}</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
+                        <span>{store.hours}</span>
+                    </div>
+                </div>
+
+                {store.activities && store.activities.length > 0 && (
+                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-8">
+                        <CardContent className="p-6">
+                            <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6">
+                                {store.activities.map(activity => {
+                                    const Icon = icons[activity];
+                                    return (
+                                        <div key={activity} className="flex flex-col items-center text-center gap-2">
+                                            <Icon className="w-10 h-10 text-amber-200/80" />
+                                            <span className="text-xs font-medium tracking-wide">{activity}</span>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
+            <div className="lg:col-span-2 space-y-4">
+                 <div className="grid grid-cols-2 gap-4">
+                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                        <Image src={store.images[0]} alt={`${store.name} gallery image 1`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
+                    </div>
+                    <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                        <Image src={store.images[1]} alt={`${store.name} gallery image 2`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
+                    </div>
+                </div>
+                <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg bg-white p-1">
+                    <Image src={store.images[2]} alt={`${store.name} gallery image 3`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
+                </div>
+            </div>
+        </div>
+    </div>
+  );
 
   return (
     <section className="relative w-full text-white overflow-hidden py-16 md:py-20 bg-[#2a2f28]">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
         <Image
-          key={selectedStore.id}
-          src={selectedStore.bgImage}
-          alt={selectedStore.name}
+          key={selectedStore?.id || 'default'}
+          src={selectedStore?.bgImage || stores[0].bgImage}
+          alt={selectedStore?.name || 'Tea Jar Stores'}
           fill
           className="object-cover animate-fade-in opacity-20"
-          data-ai-hint={selectedStore.dataAiHint}
+          data-ai-hint={selectedStore?.dataAiHint || 'tea background'}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/50 to-transparent" />
       </div>
@@ -206,111 +319,18 @@ export function StoreLocator() {
             <h2 className="font-headline text-3xl md:text-5xl text-white">Find Your Nearest Store</h2>
         </div>
         
-        <div className="grid lg:grid-cols-3 gap-8 xl:gap-12">
-            {/* Left Column: Store List */}
-            <div className="lg:col-span-1">
-                <div className="space-y-4">
+        {selectedStore ? (
+            <StoreDetail store={selectedStore} onBack={() => setSelectedStore(null)} />
+        ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {stores.map((store) => (
-                    <div 
-                        key={store.id}
-                        className={cn(
-                            "p-1 cursor-pointer group rounded-xl transition-all",
-                            selectedStore.id === store.id ? "ring-2 ring-amber-200/80" : "ring-2 ring-transparent"
-                        )}
-                        onClick={() => setSelectedStore(store)}
-                    >
-                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden transition-all duration-300 group-hover:border-amber-200/50">
-                        <CardContent className="p-4 flex items-center gap-4">
-                            <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0 bg-white p-1">
-                                <Image 
-                                    src={store.images[0]} 
-                                    alt={store.location} 
-                                    fill 
-                                    className="object-contain" 
-                                    data-ai-hint="tea store facade" 
-                                />
-                            </div>
-                            <div>
-                                <h4 className="font-headline text-xl text-white">{store.name}</h4>
-                                <p className="text-amber-100/90">{store.location}</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                    </div>
+                    <StoreCard key={store.id} store={store} onSelect={() => setSelectedStore(store)} />
                 ))}
-                </div>
             </div>
-
-            {/* Right Column: Store Details */}
-            <div className="lg:col-span-2">
-                 <div className="grid lg:grid-cols-2 gap-8 items-start">
-                    <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden h-full flex flex-col">
-                        <CardContent className="p-6 md:p-8 space-y-6 flex-grow">
-                            <div>
-                                <h3 className="font-headline text-3xl md:text-4xl text-white mb-2">{selectedStore.name}</h3>
-                                <p className="text-lg font-semibold text-amber-100/90">{selectedStore.location}</p>
-                            </div>
-                            <p className="text-neutral-300 leading-relaxed font-secondary text-sm">
-                                {selectedStore.description}
-                            </p>
-                            <div className="grid sm:grid-cols-1 gap-y-4 text-sm pt-4">
-                                <div className="flex items-start gap-3">
-                                    <MapPin className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                                    <span>{selectedStore.address}</span>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <Globe className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                                    <a href={`http://${selectedStore.website}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{selectedStore.website}</a>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <Phone className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                                    <span>{selectedStore.phone}</span>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <Clock className="w-5 h-5 mt-1 text-amber-200/80 flex-shrink-0"/>
-                                    <span>{selectedStore.hours}</span>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                                <Image src={selectedStore.images[0]} alt={`${selectedStore.name} gallery image 1`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea lounge interior"/>
-                            </div>
-                            <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                                <Image src={selectedStore.images[1]} alt={`${selectedStore.name} gallery image 2`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="tea selection display"/>
-                            </div>
-                        </div>
-                        <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg bg-white p-1">
-                            <Image src={selectedStore.images[2]} alt={`${selectedStore.name} gallery image 3`} fill className="object-contain transition-all duration-500 ease-in-out hover:scale-105" data-ai-hint="gourmet food pastry"/>
-                        </div>
-                        
-                        {selectedStore.activities && selectedStore.activities.length > 0 && (
-                            <Card className="bg-black/30 backdrop-blur-sm border-neutral-700/50 rounded-lg overflow-hidden mt-4 md:mt-8">
-                                <CardContent className="p-6 md:p-8">
-                                    <h4 className="font-headline text-2xl text-white mb-4">Things to Do</h4>
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-6">
-                                        {selectedStore.activities.map(activity => {
-                                            const Icon = icons[activity];
-                                            return (
-                                                <div key={activity} className="flex flex-col items-center text-center gap-2">
-                                                    <Icon className="w-10 h-10 text-amber-200/80" />
-                                                    <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(0,2).join(' ')}</span>
-                                                    {activity.split(' ').length > 2 && <span className="text-xs font-medium tracking-wide uppercase">{activity.split(' ').slice(2).join(' ')}</span>}
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </div>
+        )}
       </div>
     </section>
   );
 }
+
+    
