@@ -8,6 +8,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ShopFilters, type Filters } from '@/components/ShopFilters';
 import { DepartmentShowcase } from '@/components/DepartmentShowcase';
 import { useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Filter } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const MAX_PRICE = 10000;
 
@@ -17,6 +20,7 @@ function ShopPageContent() {
   const [allDepartments, setAllDepartments] = useState<Department[]>([]);
   const [allSections, setAllSections] = useState<Section[]>([]);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<Filters>({
@@ -126,6 +130,49 @@ function ShopPageContent() {
         </div>
         
         <Separator className="bg-neutral-700/50 my-8" />
+        
+        <div className="lg:hidden mb-6">
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="outline" className="w-full bg-transparent border-neutral-600 text-white hover:bg-neutral-800 hover:text-white">
+                        <Filter className="w-4 h-4 mr-2" />
+                        Filters
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="bg-[#353d32] text-white border-neutral-800 p-6">
+                    <SheetHeader>
+                        <SheetTitle className="font-headline text-2xl text-white">Filters</SheetTitle>
+                    </SheetHeader>
+                     {loading ? (
+                        <div className="space-y-8 mt-6">
+                            {Array.from({ length: 4 }).map((_, index) => (
+                                <div key={index}>
+                                    <Skeleton className="h-8 w-1/2 mb-4" />
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-6 w-3/4" />
+                                        <Skeleton className="h-6 w-full" />
+                                        <Skeleton className="h-6 w-5/6" />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <ShopFilters 
+                            filters={filters}
+                            onFilterChange={(newFilters) => {
+                                setFilters(newFilters);
+                                // Optional: close sheet on filter change
+                                // setIsSheetOpen(false);
+                            }}
+                            maxPrice={MAX_PRICE}
+                            allSections={allSections}
+                            allDepartments={allDepartments}
+                            allCategories={allCategories}
+                        />
+                    )}
+                </SheetContent>
+            </Sheet>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-x-12">
             <aside className="hidden lg:block lg:col-span-1">
