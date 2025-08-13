@@ -1,4 +1,6 @@
-import { teas } from '@/lib/tea-data';
+
+'use client';
+
 import type { Tea } from '@/lib/types';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -7,6 +9,8 @@ import { AddToCartButton } from '@/components/AddToCartButton';
 import { BrewingGuide } from '@/components/BrewingGuide';
 import { TeaCard } from '@/components/TeaCard';
 import { Separator } from '@/components/ui/separator';
+import { useEffect, useState } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface TeaPageProps {
   params: {
@@ -14,16 +18,122 @@ interface TeaPageProps {
   };
 }
 
+interface ApiProduct {
+    product_id: string;
+    product_name: string;
+    selling_price: string;
+    special_promo: string;
+    special_promo_type: string;
+    image_path: string;
+    slug: string;
+    description: string;
+    // Add other fields if needed
+}
+
 export default function TeaPage({ params }: TeaPageProps) {
-  const tea = teas.find((t) => t.id === params.id);
+  const [tea, setTea] = useState<Tea | null>(null);
+  const [recommendedTeas, setRecommendedTeas] = useState<Tea[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const response = await fetch(`https://kduserver.payshia.com/products/${params.id}`);
+        if (!response.ok) {
+            setLoading(false);
+            return;
+        }
+        const apiProduct: ApiProduct = await response.json();
+        
+        const price = parseFloat(apiProduct.selling_price);
+        let salePrice: number | undefined;
+
+        if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
+            const discount = parseFloat(apiProduct.special_promo);
+            salePrice = price - (price * discount / 100);
+        } else if (apiProduct.special_promo) {
+             salePrice = price - parseFloat(apiProduct.special_promo);
+        }
+
+        const formattedProduct: Tea = {
+            id: apiProduct.slug || apiProduct.product_id,
+            name: apiProduct.product_name.trim(),
+            description: '', 
+            longDescription: apiProduct.description || 'A delightful tea from Ceylon.',
+            price: price,
+            salePrice: salePrice,
+            image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
+            dataAiHint: 'tea product',
+            type: 'Black', // Placeholder
+            flavorProfile: [], // Placeholder
+            origin: 'Sri Lanka', // Placeholder
+        };
+        
+        setTea(formattedProduct);
+
+        // Fetch recommendations (using all products for now)
+        const allProductsResponse = await fetch('https://kduserver.payshia.com/products');
+        const allProductsData: ApiProduct[] = await allProductsResponse.json();
+        const allFormattedProducts: Tea[] = allProductsData.map(p => {
+            const p_price = parseFloat(p.selling_price);
+            let p_salePrice: number | undefined;
+            if (p.special_promo && p.special_promo_type === 'percentage') {
+                const discount = parseFloat(p.special_promo);
+                p_salePrice = p_price - (p_price * discount / 100);
+            } else if (p.special_promo) {
+                 p_salePrice = p_price - parseFloat(p.special_promo);
+            }
+            return {
+                id: p.slug || p.product_id,
+                name: p.product_name.trim(),
+                description: '',
+                longDescription: p.description || '',
+                price: p_price,
+                salePrice: p_salePrice,
+                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${p.product_id}/${p.image_path}`,
+                dataAiHint: 'tea product',
+                type: 'Black',
+                flavorProfile: [],
+                origin: 'Sri Lanka',
+            };
+        });
+
+        const recs = allFormattedProducts.filter(t => t.id !== formattedProduct.id).slice(0, 4);
+        setRecommendedTeas(recs);
+
+      } catch (error) {
+        console.error('Failed to fetch product:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProduct();
+  }, [params.id]);
+
+  if (loading) {
+      return (
+          <div className="container mx-auto px-4 py-12">
+              <div className="grid md:grid-cols-2 gap-12 items-start">
+                  <Skeleton className="aspect-square w-full rounded-xl" />
+                  <div className="space-y-6">
+                      <Skeleton className="h-6 w-1/4" />
+                      <Skeleton className="h-12 w-3/4" />
+                      <Skeleton className="h-20 w-full" />
+                      <Skeleton className="h-6 w-1/2" />
+                      <div className="flex items-baseline gap-4 pt-4">
+                        <Skeleton className="h-12 w-1/3" />
+                        <Skeleton className="h-12 w-1/3" />
+                      </div>
+                  </div>
+              </div>
+          </div>
+      )
+  }
 
   if (!tea) {
     notFound();
   }
-
-  const recommendedTeas = teas
-    .filter((t) => t.id !== tea.id && t.type === tea.type)
-    .slice(0, 4);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -36,6 +146,7 @@ export default function TeaPage({ params }: TeaPageProps) {
             className="object-cover"
             data-ai-hint={tea.dataAiHint}
             priority
+            unoptimized
           />
         </div>
         <div className="space-y-6">
@@ -55,7 +166,14 @@ export default function TeaPage({ params }: TeaPageProps) {
             ))}
           </div>
           <div className="flex items-baseline gap-4 pt-4">
-            <span className="text-4xl font-bold text-primary">${tea.price.toFixed(2)}</span>
+             {tea.salePrice ? (
+                <div className="flex items-baseline gap-2">
+                    <span className="text-2xl text-muted-foreground line-through">Rs{tea.price.toFixed(2)}</span>
+                    <span className="text-4xl font-bold text-red-500">Rs{tea.salePrice.toFixed(2)}</span>
+                </div>
+                ) : (
+                <span className="text-4xl font-bold text-primary">Rs{tea.price.toFixed(2)}</span>
+             )}
             <AddToCartButton tea={tea} />
           </div>
         </div>
@@ -78,10 +196,4 @@ export default function TeaPage({ params }: TeaPageProps) {
       )}
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return teas.map((tea) => ({
-    id: tea.id,
-  }));
 }
