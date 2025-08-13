@@ -376,7 +376,7 @@ export function Header() {
                         placeholder="Find products"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-56 text-white"
+                        className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-72 text-white"
                         />
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                         {searchQuery && (

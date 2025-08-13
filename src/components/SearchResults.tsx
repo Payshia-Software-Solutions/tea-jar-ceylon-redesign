@@ -3,6 +3,7 @@
 
 import type { ApiProduct } from '@/lib/types';
 import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface SearchResultsProps {
@@ -28,20 +29,34 @@ export function SearchResults({ results, isLoading, onClose }: SearchResultsProp
     }
 
     return (
-        <div className="absolute top-full mt-2 w-full max-h-96 overflow-y-auto rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50">
+        <div className="absolute top-full mt-2 w-full max-h-[60vh] overflow-y-auto rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50">
             <ul className="divide-y divide-neutral-700">
-                {results.map(product => (
-                    <li key={product.product_id}>
-                        <Link 
-                            href={`/products/${product.slug || product.product_id}`} 
-                            className="flex items-center justify-between gap-4 p-3 hover:bg-neutral-800 transition-colors"
-                            onClick={onClose}
-                        >
-                            <p className="font-semibold text-white line-clamp-2 flex-1">{product.product_name.trim()}</p>
-                            <p className="text-sm text-neutral-400">Rs {parseFloat(product.selling_price).toFixed(2)}</p>
-                        </Link>
-                    </li>
-                ))}
+                {results.map(product => {
+                    const imageUrl = `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`;
+                    return (
+                        <li key={product.product_id}>
+                            <Link 
+                                href={`/products/${product.slug || product.product_id}`} 
+                                className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
+                                onClick={onClose}
+                            >
+                                <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white">
+                                    <Image
+                                        src={imageUrl}
+                                        alt={product.product_name}
+                                        fill
+                                        className="object-contain p-1"
+                                        unoptimized
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-medium text-white text-sm line-clamp-2">{product.product_name.trim()}</p>
+                                    <p className="text-xs text-neutral-400 mt-1">Rs {parseFloat(product.selling_price).toFixed(2)}</p>
+                                </div>
+                            </Link>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );
