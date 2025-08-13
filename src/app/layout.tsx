@@ -6,8 +6,12 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Ceylon Calm',
-  description: 'A serene e-commerce app for Tea Jar Ceylon.',
+  title: {
+    default: 'Tea Jar | Finest Ceylon Tea in Sri Lanka',
+    template: '%s | Tea Jar',
+  },
+  description: 'Discover the finest, ethically sourced Ceylon teas from Tea Jar. Explore our collections of classic black tea, flavored blends, and exclusive organic teas, crafted with generations of expertise.',
+  keywords: ['Ceylon tea', 'Sri Lankan tea', 'Tea Jar', 'black tea', 'green tea', 'oolong tea', 'organic tea'],
 };
 
 export default function RootLayout({
