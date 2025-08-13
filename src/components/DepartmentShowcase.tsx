@@ -40,7 +40,11 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
                 
                 const imagesMap: Record<string, ApiImage[]> = {};
                 data.forEach((product, index) => {
-                    imagesMap[product.product_id] = imagesResults[index];
+                    if (Array.isArray(imagesResults[index])) {
+                        imagesMap[product.product_id] = imagesResults[index];
+                    } else {
+                        imagesMap[product.product_id] = [];
+                    }
                 });
 
                 setProductImages(imagesMap);
