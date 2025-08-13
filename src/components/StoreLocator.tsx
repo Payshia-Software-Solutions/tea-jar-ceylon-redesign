@@ -322,7 +322,7 @@ export function StoreLocator() {
         {selectedStore ? (
             <StoreDetail store={selectedStore} onBack={() => setSelectedStore(null)} />
         ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                 {stores.map((store) => (
                     <StoreCard key={store.id} store={store} onSelect={() => setSelectedStore(store)} />
                 ))}
