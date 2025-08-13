@@ -61,7 +61,7 @@ export default function StoryPage() {
                                 From harvest to the freshest bud along with its two leaves, to withering, rolling, drying, sorting, and packing, we take utmost care in conducting the entire process in line with international standards of quality and hygiene. Over the years, the reputation of “Tea Jar” has grown tremendously due to the consistency in quality, and the eminence in the richly aromatic and flavourful characters, being the obvious certainty in the journey of our success.
                             </p>
                              <Image
-                                src="https://payshia.com/wp-content/uploads/2023/11/lion-logo-e1700732386121.png"
+                                src="https://content-provider.payshia.com/tea-jar/ceylon-tea-logo.webp"
                                 alt="Ceylon Tea Lion Logo"
                                 width={80}
                                 height={100}
