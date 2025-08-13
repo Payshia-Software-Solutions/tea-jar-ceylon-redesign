@@ -32,15 +32,15 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body bg-background text-foreground antialiased flex flex-col min-h-screen">
+        <Suspense fallback={null}>
+          <ProgressBar />
+        </Suspense>
         <CartProvider>
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
         </CartProvider>
         <Toaster />
-        <Suspense fallback={null}>
-          <ProgressBar />
-        </Suspense>
       </body>
     </html>
   );

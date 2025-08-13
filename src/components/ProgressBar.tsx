@@ -5,61 +5,39 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
 
+// To handle start nprogress on link click
+if (typeof window !== 'undefined') {
+  const originalPushState = window.history.pushState;
+  window.history.pushState = function (...args) {
+    NProgress.start();
+    return originalPushState.apply(window.history, args);
+  };
+
+  const originalReplaceState = window.history.replaceState;
+  window.history.replaceState = function (...args) {
+    NProgress.start();
+    return originalReplaceState.apply(window.history, args);
+  };
+
+  window.addEventListener('popstate', () => {
+    NProgress.start();
+  });
+}
+
+
 export function ProgressBar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    NProgress.configure({ showSpinner: false });
-
-    const handleStart = () => NProgress.start();
-    const handleStop = () => NProgress.done();
-
-    // We need to use a mutation observer to listen for route changes
-    // in the Next.js App Router, as the router events are not
-    // consistently firing in all cases.
-    const observer = new MutationObserver((mutations) => {
-        const url = window.location.pathname + window.location.search;
-        const previousUrl = sessionStorage.getItem('previousUrl');
-        if (url !== previousUrl) {
-            sessionStorage.setItem('previousUrl', url);
-            handleStop();
-        }
-    });
-
-    const htmlElement = document.querySelector('html');
-    if (htmlElement) {
-        observer.observe(htmlElement, {
-          childList: true,
-          subtree: true,
-        });
-    }
-
-    // Fallback for initial load
-    handleStart();
-
-    // Fallback for when the page is fully loaded
-    const handleLoad = () => {
-        handleStop();
-    };
-    
-    if (document.readyState === 'complete') {
-        handleLoad();
-    } else {
-        window.addEventListener('load', handleLoad);
-        return () => window.removeEventListener('load', handleLoad);
-    }
-
-    return () => {
-        observer.disconnect();
-    };
-
-  }, []);
-
-  // Also trigger on pathname/searchParams change for client-side navigation
-  useEffect(() => {
     NProgress.done();
   }, [pathname, searchParams]);
+  
+  // This useEffect will run only once on component mount
+  useEffect(() => {
+    // Stop the progress bar on initial load
+    NProgress.done();
+  }, [])
 
   return null;
 }
