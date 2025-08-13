@@ -58,6 +58,14 @@ const navMenuData = {
       { text: 'Tea Jar Story', href: '#' },
       { text: 'Our Tea Heritage', href: '#' },
       { text: 'KDU Group', href: '#' },
+  ],
+  ourTeas: [
+    { text: 'Classic Teas', href: '#' },
+    { text: 'Flavoured Teas', href: '#' },
+    { text: 'Exceptional Teas', href: '#' },
+    { text: 'Exclusive Teas', href: '#' },
+    { text: 'Factory Teas', href: '#' },
+    { text: 'Organic Teas', href: '#' },
   ]
 };
 
@@ -97,6 +105,14 @@ export function Header() {
       setIsVisible(true);
     }
   }, [pathname]);
+
+  const handleMouseEnter = (label: string) => {
+    if (['Shop', 'About Us', 'Our Teas'].includes(label)) {
+      setActiveMenu(label);
+    } else {
+      setActiveMenu(null);
+    }
+  };
 
   return (
       <header
@@ -179,14 +195,14 @@ export function Header() {
                 <div
                     key={link.href}
                     className="relative"
-                    onMouseEnter={() => (link.label === 'Shop' || link.label === 'About Us') && setActiveMenu(link.label)}
+                    onMouseEnter={() => handleMouseEnter(link.label)}
                 >
                     <Link
                     href={link.href}
                     className="text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
                     >
                     {link.label}
-                    {(link.label === 'Shop' || link.label === 'About Us') && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === link.label ? 'rotate-180' : ''}`} />}
+                    {['Shop', 'About Us', 'Our Teas'].includes(link.label) && <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === link.label ? 'rotate-180' : ''}`} />}
                     </Link>
                 </div>
               ))}
@@ -260,6 +276,38 @@ export function Header() {
                            {item.text}
                         </Link>
                     ))}
+                </div>
+            </div>
+
+            {/* Our Teas Menu */}
+            <div 
+                className={cn(
+                    "absolute w-full bg-[#2a2f28] text-white shadow-lg transition-all duration-300 ease-in-out",
+                    activeMenu === 'Our Teas' ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
+                 onMouseEnter={() => setActiveMenu('Our Teas')}
+                 onMouseLeave={() => setActiveMenu(null)}
+            >
+                <div className="container mx-auto px-4 py-8">
+                   <div className="grid grid-cols-4 gap-x-8 gap-y-4">
+                     {navMenuData.ourTeas.slice(0, 4).map(item => (
+                        <Link key={item.text} href={item.href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200 text-center">
+                           {item.text}
+                        </Link>
+                    ))}
+                   </div>
+                   <div className="grid grid-cols-4 gap-x-8 gap-y-4 mt-4">
+                        <div className="col-start-2 flex justify-center">
+                             <Link href={navMenuData.ourTeas[4].href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
+                                {navMenuData.ourTeas[4].text}
+                            </Link>
+                        </div>
+                        <div className="flex justify-center">
+                             <Link href={navMenuData.ourTeas[5].href} className="hover:text-white transition-colors text-lg font-medium text-neutral-200">
+                                {navMenuData.ourTeas[5].text}
+                            </Link>
+                        </div>
+                   </div>
                 </div>
             </div>
         </div>
