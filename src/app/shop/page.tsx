@@ -78,7 +78,7 @@ function ShopPageContent() {
 
   const visibleDepartments = useMemo(() => {
     if (filters.departments.length === 0) {
-      return allDepartments.filter(dep => dep.department_name !== 'Special Offers');
+      return allDepartments;
     }
     return allDepartments.filter(dep => filters.departments.includes(dep.id));
   }, [allDepartments, filters.departments]);

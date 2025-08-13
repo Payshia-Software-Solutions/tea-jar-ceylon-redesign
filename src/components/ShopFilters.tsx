@@ -110,7 +110,7 @@ export function ShopFilters({
           <AccordionTrigger className="text-lg font-semibold text-neutral-200 hover:no-underline">Collections</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-2 pt-2">
-                {allDepartments.filter(dep => dep.department_name !== 'Special Offers').map(dep => (
+                {allDepartments.map(dep => (
                     <div key={dep.id} className="flex items-center space-x-2">
                         <Checkbox 
                             id={`dep-${dep.id}`} 
