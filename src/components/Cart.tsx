@@ -100,9 +100,13 @@ export function Cart() {
                 <span>Subtotal</span>
                 <span>Rs {totalPrice.toFixed(2)}</span>
               </div>
-              <Button size="lg" className="w-full bg-black text-white hover:bg-neutral-800">
-                Proceed to Checkout
-              </Button>
+              <SheetClose asChild>
+                <Link href="/checkout" className="w-full">
+                    <Button size="lg" className="w-full bg-black text-white hover:bg-neutral-800">
+                        Proceed to Checkout
+                    </Button>
+                </Link>
+              </SheetClose>
             </div>
           </SheetFooter>
         </>
