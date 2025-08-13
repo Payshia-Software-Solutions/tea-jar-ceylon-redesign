@@ -21,9 +21,9 @@ export function SubscriptionModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="p-0 max-w-xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black border-none">
+      <DialogContent className="p-0 max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black border-none">
         {/* Left Side (Image) */}
-        <div className="relative hidden md:block h-full">
+        <div className="relative h-48 md:h-full">
             <Image 
                 src="http://content-provider.payshia.com/tea-jar/august-banner.webp" 
                 alt="Exceptional Tea Collection" 
@@ -34,9 +34,9 @@ export function SubscriptionModal() {
         </div>
 
         {/* Right Side (Form) */}
-        <div className="relative p-8 md:p-12 flex flex-col justify-center">
+        <div className="relative p-8 flex flex-col justify-center">
             <div className="space-y-4 text-center">
-                <h2 className="font-headline text-2xl md:text-3xl font-bold">Life's better with tea, especially when it's 20% Off!</h2>
+                <h2 className="font-headline text-xl md:text-2xl font-bold">Life's better with tea, especially when it's 20% Off!</h2>
                 <p className="text-neutral-600 text-sm">Enjoy 20% Off + FREE Delivery on all Tea Jar products, because you deserve the best.👌</p>
                 <form className="space-y-4 pt-4">
                     <Input placeholder="Enter your name" className="bg-neutral-100 border-neutral-300 focus:ring-amber-300" />
