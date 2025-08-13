@@ -14,6 +14,7 @@ import { Star, ChevronRight, Minus, Plus, ShoppingBag, Droplets, Thermometer, Cl
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from 'next/link';
+import { ProductReviews } from '@/components/ProductReviews';
 
 interface TeaPageProps {
   params: {
@@ -320,6 +321,8 @@ export default function TeaPage({ params }: TeaPageProps) {
                  </div>
             </div>
 
+            <ProductReviews />
+
 
             {/* Recommendations */}
             {recommendedTeas.length > 0 && (
@@ -337,5 +340,3 @@ export default function TeaPage({ params }: TeaPageProps) {
     </div>
   );
 }
-
-    
