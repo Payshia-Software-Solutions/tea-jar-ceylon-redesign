@@ -90,7 +90,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                   <Button
                     onClick={handleAddToCart}
                     size="lg"
-                    className="w-full bg-white/90 text-black hover:bg-white disabled:bg-neutral-400 disabled:text-neutral-600"
+                    className="w-full bg-black/50 text-white backdrop-blur-sm border border-white/20 hover:bg-black/70 hover:border-white/40 disabled:bg-neutral-400 disabled:text-neutral-600"
                     disabled={isOutOfStock}
                   >
                     <ShoppingCart className="mr-2 h-5 w-5" />
@@ -127,7 +127,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                 <Button
                     onClick={handleAddToCart}
                     size="lg"
-                    className="w-full bg-white/90 text-black hover:bg-white disabled:bg-neutral-400 disabled:text-neutral-600"
+                    className="w-full bg-white text-black hover:bg-neutral-200 disabled:bg-neutral-400 disabled:text-neutral-600"
                     disabled={isOutOfStock}
                   >
                     <ShoppingCart className="mr-2 h-5 w-5" />
