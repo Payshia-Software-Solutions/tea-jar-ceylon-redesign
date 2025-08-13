@@ -21,6 +21,13 @@ interface TeaPageProps {
   };
 }
 
+interface ApiImage {
+    id: string;
+    product_id: string;
+    image_prefix: string;
+    image_path: string;
+}
+
 
 export default function TeaPage({ params }: TeaPageProps) {
   const [tea, setTea] = useState<Tea | null>(null);
@@ -51,15 +58,22 @@ export default function TeaPage({ params }: TeaPageProps) {
         
         const imageUrl = `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`;
 
+        // Fetch images
+        const imagesResponse = await fetch(`https://kduserver.payshia.com/product-images/get-by-product/${apiProduct.product_id}`);
+        const apiImages: ApiImage[] = await imagesResponse.json();
+        const galleryImages = apiImages.map(img => `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${img.image_path}`);
+
+
         const formattedProduct: Tea = {
             id: apiProduct.slug || apiProduct.product_id,
+            productId: apiProduct.product_id,
             name: apiProduct.product_name.trim(),
             description: apiProduct.product_description || 'A delightful tea from Ceylon.', // Using for tasting notes
             longDescription: apiProduct.how_to_use || '100% Ceylon black tea.', // Using for ingredients
             price: price,
             salePrice: salePrice,
             image: imageUrl,
-            images: [imageUrl, 'https://placehold.co/600x600.png', 'https://placehold.co/600x600.png', 'https://placehold.co/600x600.png', 'https://placehold.co/600x600.png'], // Placeholder for gallery
+            images: galleryImages.length > 0 ? galleryImages : [imageUrl],
             dataAiHint: 'tea product',
             type: 'Black', // Placeholder
             flavorProfile: [], // Placeholder
@@ -68,7 +82,7 @@ export default function TeaPage({ params }: TeaPageProps) {
         };
         
         setTea(formattedProduct);
-        setActiveImage(formattedProduct.image);
+        setActiveImage(galleryImages.length > 0 ? galleryImages[0] : imageUrl);
 
         // Fetch recommendations (using all products for now)
         const allProductsResponse = await fetch('https://kduserver.payshia.com/products');
@@ -84,6 +98,7 @@ export default function TeaPage({ params }: TeaPageProps) {
             }
             return {
                 id: p.slug || p.product_id,
+                productId: p.product_id,
                 name: p.product_name.trim(),
                 description: '',
                 longDescription: p.product_description || '',

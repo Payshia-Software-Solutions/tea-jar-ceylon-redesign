@@ -1,6 +1,7 @@
 
 export interface Tea {
   id: string;
+  productId: string;
   name: string;
   description: string;
   longDescription: string;
