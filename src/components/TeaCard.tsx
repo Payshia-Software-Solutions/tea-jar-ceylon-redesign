@@ -74,7 +74,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                     {discount}% OFF
                 </Badge>
             )}
-             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:flex items-end p-4 hidden">
+             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:flex items-end p-4 hidden">
               <Button
                 onClick={handleAddToCart}
                 size="lg"
