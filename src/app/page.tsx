@@ -119,8 +119,8 @@ export default function Home() {
             <Image 
                 src="https://content-provider.payshia.com/tea-jar/gold-chairman-sign.webp"
                 alt="Founder's Signature"
-                width={150}
-                height={100}
+                width={120}
+                height={80}
                 className="mx-auto my-4"
             />
             <p className="text-xs tracking-widest text-neutral-400">FOUNDER, SAMAN UPASENA</p>
