@@ -27,7 +27,7 @@ export default function TeaPage({ params }: TeaPageProps) {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await fetch(`https://kduserver.payshia.com/products/${params.id}`);
+        const response = await fetch(`https://kduserver.payshia.com/products/get-by-slug/${params.id}`);
         if (!response.ok) {
             setLoading(false);
             return;
