@@ -246,13 +246,7 @@ export function Header() {
                         <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
                                 <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
-                                    <Link href="/shop" className="w-full text-left" onClick={(e) => {
-                                        // Allow accordion to open, but also navigate if that's the only goal.
-                                        // To go to /shop, user can click the text. To open accordion, they click the chevron.
-                                        if (e.target === e.currentTarget) {
-                                            setIsMobileMenuOpen(false);
-                                        }
-                                    }}>Shop</Link>
+                                    <span className="flex-1 text-left">Shop</span>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
@@ -293,7 +287,7 @@ export function Header() {
                             </AccordionItem>
                              <AccordionItem value="about" className="border-none">
                                 <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
-                                    <span>About Us</span>
+                                    <span className="flex-1 text-left">About Us</span>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
@@ -310,7 +304,7 @@ export function Header() {
                             </AccordionItem>
                             <AccordionItem value="our-teas" className="border-none">
                                 <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
-                                    <span>Our Teas</span>
+                                    <span className="flex-1 text-left">Our Teas</span>
                                 </AccordionTrigger>
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
@@ -371,7 +365,7 @@ export function Header() {
                             <span className="sr-only">Open search</span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-black/80 backdrop-blur-sm text-white p-4 top-1/2 rounded-lg w-[90vw] max-w-md shadow-2xl border-none">
+                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-1/2 rounded-lg w-[90vw] max-w-md shadow-2xl">
                         <DialogHeader>
                             <DialogTitle>Search for products</DialogTitle>
                         </DialogHeader>
@@ -525,5 +519,3 @@ export function Header() {
       </header>
   );
 }
-
-    
