@@ -240,26 +240,29 @@ export function Header() {
                  <div className="p-6 flex-grow overflow-y-auto">
                     <nav className="flex flex-col gap-1">
                         <SheetClose asChild>
-                            <Link href="/" className="text-lg py-2 text-neutral-300 hover:text-white transition-colors">Home</Link>
+                            <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Home</Link>
                         </SheetClose>
                         
                         <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
-                                    <Link href="/shop" onClick={(e) => {
-                                        e.stopPropagation();
-                                        setIsMobileMenuOpen(false);
+                                <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
+                                    <Link href="/shop" className="w-full text-left" onClick={(e) => {
+                                        // Allow accordion to open, but also navigate if that's the only goal.
+                                        // To go to /shop, user can click the text. To open accordion, they click the chevron.
+                                        if (e.target === e.currentTarget) {
+                                            setIsMobileMenuOpen(false);
+                                        }
                                     }}>Shop</Link>
                                 </AccordionTrigger>
-                                <AccordionContent className="pl-4">
-                                   <div className="flex flex-col gap-2 mt-2">
+                                <AccordionContent className="pl-8">
+                                   <div className="flex flex-col gap-1 mt-2">
                                        <Accordion type="multiple" className="w-full">
                                             {navMenuData.shop.map(col => (
                                                 <div key={col.title}>
                                                     {col.title === 'Shop Tea' ? (
                                                         col.links.map(link => (
                                                             <SheetClose asChild key={link.text}>
-                                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
                                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                     <span>{link.text}</span>
                                                                 </Link>
@@ -267,13 +270,13 @@ export function Header() {
                                                         ))
                                                     ) : (
                                                         <AccordionItem value={col.title} className="border-none">
-                                                            <AccordionTrigger className="py-2 hover:no-underline text-neutral-300 hover:text-white">
+                                                            <AccordionTrigger className="py-3 px-4 rounded-md hover:no-underline text-neutral-300 hover:text-white hover:bg-neutral-800">
                                                                 {col.title}
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pl-4">
                                                                 {col.links.map(link => (
                                                                      <SheetClose asChild key={link.text}>
-                                                                        <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                                        <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
                                                                             <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                             <span>{link.text}</span>
                                                                         </Link>
@@ -289,14 +292,14 @@ export function Header() {
                                 </AccordionContent>
                             </AccordionItem>
                              <AccordionItem value="about" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
+                                <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
                                     <span>About Us</span>
                                 </AccordionTrigger>
-                                <AccordionContent className="pl-4">
-                                   <div className="flex flex-col gap-2 mt-2">
+                                <AccordionContent className="pl-8">
+                                   <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.about.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
                                                 </Link>
@@ -306,14 +309,14 @@ export function Header() {
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="our-teas" className="border-none">
-                                <AccordionTrigger className="hover:no-underline py-2 text-lg hover:text-white [&[data-state=open]]:text-white">
+                                <AccordionTrigger className="hover:no-underline py-3 px-4 rounded-md text-lg hover:text-white hover:bg-neutral-800 [&[data-state=open]]:text-white [&[data-state=open]]:bg-neutral-800">
                                     <span>Our Teas</span>
                                 </AccordionTrigger>
-                                <AccordionContent className="pl-4">
-                                   <div className="flex flex-col gap-2 mt-2">
+                                <AccordionContent className="pl-8">
+                                   <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.ourTeas.map(link => (
                                             <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors py-2 group">
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
                                                 </Link>
@@ -324,7 +327,7 @@ export function Header() {
                             </AccordionItem>
                         </Accordion>
                         <SheetClose asChild>
-                           <Link href="/contact" className="text-lg py-2 text-neutral-300 hover:text-white transition-colors">Contact Us</Link>
+                           <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Contact Us</Link>
                         </SheetClose>
                     </nav>
                  </div>
@@ -522,3 +525,5 @@ export function Header() {
       </header>
   );
 }
+
+    
