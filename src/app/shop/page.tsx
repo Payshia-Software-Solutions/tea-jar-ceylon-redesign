@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo, Suspense } from 'react';
+import { useState, useEffect, useMemo, Suspense, useRef } from 'react';
 import type { Tea, Department, Section, Category } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -26,6 +26,8 @@ function ShopPageContent() {
     categories: [],
     search: '',
   });
+  
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     async function fetchFilterData() {
@@ -80,6 +82,21 @@ function ShopPageContent() {
     }
     fetchFilterData();
   }, [searchParams]);
+  
+  useEffect(() => {
+    // Don't scroll on the initial render
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    // Scroll to the top of the main content area when filters change
+    const mainContent = document.querySelector('main');
+    if(mainContent){
+        mainContent.scrollIntoView({ behavior: 'smooth' });
+    }
+
+  }, [filters]);
 
   const visibleDepartments = useMemo(() => {
     let departments = allDepartments;
