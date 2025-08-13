@@ -186,7 +186,7 @@ export function Header() {
   };
   
   useEffect(() => {
-    if(isMobileSearchOpen) {
+    if(isMobileSearchOpen || isMobileMenuOpen) {
         document.body.style.overflow = 'hidden';
     } else {
         document.body.style.overflow = '';
@@ -194,7 +194,7 @@ export function Header() {
     return () => {
         document.body.style.overflow = '';
     }
-  }, [isMobileSearchOpen]);
+  }, [isMobileSearchOpen, isMobileMenuOpen]);
 
   return (
       <header
@@ -501,6 +501,7 @@ export function Header() {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
+                                    autoFocus
                                     />
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                                 </div>
@@ -524,3 +525,5 @@ export function Header() {
       </header>
   );
 }
+
+    
