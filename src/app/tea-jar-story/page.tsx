@@ -95,6 +95,13 @@ export default function StoryPage() {
                             </p>
                             <div className="pt-4">
                                 <p className="font-handwritten text-xl">Warm regards,</p>
+                                <Image
+                                    src="https://content-provider.payshia.com/tea-jar/saman-sign.webp"
+                                    alt="Saman Upasena's Signature"
+                                    width={120}
+                                    height={60}
+                                    className="object-contain my-2"
+                                />
                                 <p className="font-semibold">Saman Upasena</p>
                                 <p className="text-sm text-neutral-600">Founder, Tea Taster</p>
                             </div>
