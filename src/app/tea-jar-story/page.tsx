@@ -72,8 +72,8 @@ export default function StoryPage() {
                 </section>
 
                 {/* Section 3: Founder's Message */}
-                 <section className="grid md:grid-cols-2 items-center">
-                    <div className="h-64 md:h-auto min-h-[40vh] md:min-h-screen relative">
+                 <section className="grid md:grid-cols-3 items-center">
+                    <div className="md:col-span-2 h-64 md:h-auto min-h-[40vh] md:min-h-screen relative">
                         <Image
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
                             alt="Saman Upasena, Founder of Tea Jar"
@@ -81,7 +81,7 @@ export default function StoryPage() {
                             className="object-contain object-bottom"
                         />
                     </div>
-                    <div className="bg-white p-8 md:p-16 lg:p-24 flex justify-center">
+                    <div className="bg-white p-8 md:p-16 flex justify-center">
                         <div className="max-w-md space-y-6">
                             <h2 className="font-headline text-3xl md:text-4xl">Founder&apos;s Message</h2>
                             <p className="text-sm md:text-base leading-relaxed">
