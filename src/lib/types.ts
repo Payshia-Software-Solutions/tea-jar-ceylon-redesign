@@ -9,6 +9,7 @@ export interface Tea {
   salePrice?: number;
   image: string;
   images?: string[];
+  hoverImage?: string;
   dataAiHint: string;
   type: 'Black' | 'Green' | 'Oolong' | 'Herbal' | 'White' | string; // Allow string for dynamic values
   flavorProfile: string[];

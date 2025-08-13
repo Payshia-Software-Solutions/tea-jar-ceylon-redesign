@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import type { Tea, ApiProduct } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage } from '@/lib/types';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Filters } from './ShopFilters';
@@ -19,25 +19,40 @@ interface DepartmentShowcaseProps {
 
 export function DepartmentShowcase({ department, filters }: DepartmentShowcaseProps) {
     const [products, setProducts] = useState<ApiProduct[]>([]);
+    const [productImages, setProductImages] = useState<Record<string, ApiImage[]>>({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!department.id) return;
 
-        async function fetchProducts() {
+        async function fetchProductsAndImages() {
             setLoading(true);
             try {
                 const response = await fetch(`https://kduserver.payshia.com/products/get-by-department/${department.id}`);
                 const data: ApiProduct[] = await response.json();
                 setProducts(data);
+
+                const imagePromises = data.map(product =>
+                    fetch(`https://kduserver.payshia.com/product-images/get-by-product/${product.product_id}`).then(res => res.json())
+                );
+                
+                const imagesResults = await Promise.all(imagePromises);
+                
+                const imagesMap: Record<string, ApiImage[]> = {};
+                data.forEach((product, index) => {
+                    imagesMap[product.product_id] = imagesResults[index];
+                });
+
+                setProductImages(imagesMap);
+
             } catch (error) {
-                console.error(`Failed to fetch products for department ${department.id}:`, error);
+                console.error(`Failed to fetch products or images for department ${department.id}:`, error);
             } finally {
                 setLoading(false);
             }
         }
 
-        fetchProducts();
+        fetchProductsAndImages();
     }, [department.id]);
     
     const filteredAndFormattedTeas = useMemo(() => {
@@ -64,21 +79,35 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
                 salePrice = price - parseFloat(apiProduct.special_promo);
             }
 
+            const images = productImages[apiProduct.product_id] || [];
+            const frontImage = images.find(img => img.image_prefix === 'Front Image');
+            const topViewImage = images.find(img => img.image_prefix === 'Top View');
+
+            const mainImageUrl = frontImage
+                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${frontImage.image_path}`
+                : `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`;
+
+            const hoverImageUrl = topViewImage
+                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${topViewImage.image_path}`
+                : undefined;
+
             return {
                 id: apiProduct.slug || apiProduct.product_id,
+                productId: apiProduct.product_id,
                 name: apiProduct.product_name.trim(),
                 description: '',
                 longDescription: apiProduct.product_description || '',
                 price: price,
                 salePrice: salePrice,
-                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
+                image: mainImageUrl,
+                hoverImage: hoverImageUrl,
                 dataAiHint: 'tea product',
                 type: 'Black',
                 flavorProfile: [],
                 origin: 'Sri Lanka',
             };
           });
-    }, [products, filters]);
+    }, [products, filters, productImages]);
 
 
     if (loading) {

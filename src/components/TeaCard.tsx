@@ -10,6 +10,8 @@ import { Sparkle, ShoppingBag, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
 import { useCart } from '@/hooks/use-cart';
 import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface TeaCardProps {
   tea: Tea;
@@ -20,6 +22,7 @@ export function TeaCard({ tea }: TeaCardProps) {
   const discount = hasSale ? Math.round(((tea.price - tea.salePrice!) / tea.price) * 100) : 0;
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,7 +35,12 @@ export function TeaCard({ tea }: TeaCardProps) {
   };
 
   return (
-    <Link href={`/products/${tea.id}`} className="block group">
+    <Link 
+        href={`/products/${tea.id}`} 
+        className="block group"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+    >
       <Card className="h-full flex flex-col transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:-translate-y-1 border-neutral-700 bg-[#2a2f28] text-white rounded-lg overflow-hidden">
         <CardHeader className="p-0">
           <div className="aspect-square overflow-hidden relative">
@@ -40,10 +48,26 @@ export function TeaCard({ tea }: TeaCardProps) {
               src={tea.image}
               alt={tea.name}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className={cn(
+                "object-cover transition-opacity duration-300",
+                isHovered && tea.hoverImage ? 'opacity-0' : 'opacity-100'
+              )}
               data-ai-hint={tea.dataAiHint}
               unoptimized
             />
+            {tea.hoverImage && (
+                 <Image
+                    src={tea.hoverImage}
+                    alt={`${tea.name} (Top View)`}
+                    fill
+                    className={cn(
+                        "object-cover transition-opacity duration-300",
+                        isHovered ? 'opacity-100' : 'opacity-0'
+                    )}
+                    data-ai-hint={tea.dataAiHint}
+                    unoptimized
+                />
+            )}
             {hasSale && (
                 <Badge variant="destructive" className="absolute top-4 right-4 text-base py-1 px-3 z-10">
                     <Sparkle className="w-4 h-4 mr-1.5" />
