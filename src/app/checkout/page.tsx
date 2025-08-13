@@ -29,7 +29,7 @@ const checkoutSchema = z.object({
   emailOffers: z.boolean().optional(),
   country: z.string().min(1, { message: 'Country is required.' }),
   firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  lastName: z.string().min(1, { message: 'Last name is required.' }),
   address: z.string().min(1, { message: 'Address is required.' }),
   apartment: z.string().optional(),
   city: z.string().min(1, { message: 'City is required.' }),
@@ -76,13 +76,13 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-white text-black min-h-screen font-sans">
-        <div className="grid lg:grid-cols-2 min-h-screen">
+    <div className="bg-[#353d32] text-white min-h-screen font-sans">
+        <div className="grid lg:grid-cols-2 min-h-screen pt-24">
             
             {/* Left Side - Form */}
-            <div className="py-8 px-4 sm:px-6 lg:px-12 border-r border-neutral-200 flex flex-col items-end">
+            <div className="py-8 px-4 sm:px-6 lg:px-12 border-r border-neutral-700 flex flex-col items-end">
                 <div className="max-w-xl w-full mx-auto lg:mr-0 space-y-8">
-                    <h1 className="font-headline text-3xl mb-2 text-left text-black">Tea Jar</h1>
+                    <h1 className="font-headline text-3xl mb-2 text-left text-white">Tea Jar</h1>
                     
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
@@ -90,7 +90,7 @@ export default function CheckoutPage() {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center">
                                     <h2 className="text-xl font-semibold">Contact</h2>
-                                    <Link href="#" className="text-sm text-blue-600 hover:underline">Log in</Link>
+                                    <Link href="#" className="text-sm text-blue-400 hover:underline">Log in</Link>
                                 </div>
                                 <FormField
                                     control={form.control}
@@ -98,7 +98,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <Input placeholder="Enter your email" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                <Input placeholder="Enter your email" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -110,9 +110,9 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem className="flex items-center space-x-2 space-y-0">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
                                             </FormControl>
-                                            <Label htmlFor="emailOffers" className="font-normal">Email me with news and offers</Label>
+                                            <Label htmlFor="emailOffers" className="font-normal text-neutral-300">Email me with news and offers</Label>
                                         </FormItem>
                                     )}
                                 />
@@ -128,11 +128,11 @@ export default function CheckoutPage() {
                                     <FormItem>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger className="bg-white border-neutral-300 focus:border-black focus:ring-black">
+                                            <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white focus:border-amber-300 focus:ring-amber-300">
                                                 <SelectValue placeholder="Select a country" />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent className="bg-white border-neutral-300 text-black">
+                                        <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
                                             <SelectItem value="Sri Lanka">Sri Lanka</SelectItem>
                                             <SelectItem value="United States">United States</SelectItem>
                                             <SelectItem value="United Kingdom">United Kingdom</SelectItem>
@@ -149,7 +149,7 @@ export default function CheckoutPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="First name (optional)" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                    <Input placeholder="First name (optional)" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -161,7 +161,7 @@ export default function CheckoutPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="Last name" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                    <Input placeholder="Last name" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                                 </FormControl>
                                                  <FormMessage />
                                             </FormItem>
@@ -174,7 +174,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <Input placeholder="Address" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                <Input placeholder="Address" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -186,7 +186,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <Input placeholder="Apartment, suite, etc. (optional)" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                <Input placeholder="Apartment, suite, etc. (optional)" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                             </FormControl>
                                         </FormItem>
                                     )}
@@ -198,7 +198,7 @@ export default function CheckoutPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="City" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                    <Input placeholder="City" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -210,7 +210,7 @@ export default function CheckoutPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="Postal Code" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                    <Input placeholder="Postal Code" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -223,7 +223,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <Input placeholder="Phone" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                                <Input placeholder="Phone" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                                             </FormControl>
                                         </FormItem>
                                     )}
@@ -234,9 +234,9 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem className="flex items-center space-x-2 space-y-0 pt-2">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
                                             </FormControl>
-                                            <Label htmlFor="saveInfo" className="font-normal">Save this information for next time</Label>
+                                            <Label htmlFor="saveInfo" className="font-normal text-neutral-300">Save this information for next time</Label>
                                         </FormItem>
                                     )}
                                 />
@@ -250,17 +250,17 @@ export default function CheckoutPage() {
                                     name="billingAddress"
                                     render={({ field }) => (
                                     <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
-                                        <div className="border border-neutral-300 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                                        <div className="border border-neutral-700 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
                                             <FormControl>
-                                                <RadioGroupItem value="same" id="same" />
+                                                <RadioGroupItem value="same" id="same" className="border-neutral-500 text-amber-200" />
                                             </FormControl>
-                                            <Label htmlFor="same" className="font-normal w-full">Same as shipping address</Label>
+                                            <Label htmlFor="same" className="font-normal w-full text-neutral-300">Same as shipping address</Label>
                                         </div>
-                                         <div className="border border-t-0 border-neutral-300 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                                         <div className="border border-t-0 border-neutral-700 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
                                             <FormControl>
-                                                <RadioGroupItem value="different" id="different" />
+                                                <RadioGroupItem value="different" id="different" className="border-neutral-500 text-amber-200" />
                                             </FormControl>
-                                            <Label htmlFor="different" className="font-normal w-full">Use a different billing address</Label>
+                                            <Label htmlFor="different" className="font-normal w-full text-neutral-300">Use a different billing address</Label>
                                         </div>
                                     </RadioGroup>
                                     )}
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
                             {/* Shipping Method */}
                             <div className="space-y-4">
                                 <h2 className="text-xl font-semibold">Shipping method</h2>
-                                <div className="border border-neutral-300 rounded-md p-4 flex justify-between items-center bg-neutral-100/50">
+                                <div className="border border-neutral-700 rounded-md p-4 flex justify-between items-center bg-neutral-800/50">
                                     <p>Standard Shipping</p>
                                     <p className="font-semibold">Rs 0</p>
                                 </div>
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
                     </Form>
 
                     <div className="py-8">
-                        <Link href="/shop" className="text-blue-600 text-sm hover:underline">
+                        <Link href="/shop" className="text-blue-400 text-sm hover:underline">
                            &larr; Return to cart
                         </Link>
                     </div>
@@ -287,13 +287,13 @@ export default function CheckoutPage() {
             </div>
 
             {/* Right Side - Order Summary */}
-            <div className="py-8 px-4 sm:px-6 lg:px-12 bg-neutral-50/70 flex flex-col items-start">
+            <div className="py-8 px-4 sm:px-6 lg:px-12 bg-[#2a2f28] flex flex-col items-start">
                  <div className="max-w-xl w-full mx-auto lg:ml-0 space-y-6">
                     {items.length > 0 ? (
                         <div className="space-y-4">
                             {items.map(item => (
                                 <div key={item.product.id} className="flex items-center gap-4">
-                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-300 bg-white">
+                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-700 bg-white">
                                         <Image
                                         src={item.product.image}
                                         alt={item.product.name}
@@ -301,25 +301,25 @@ export default function CheckoutPage() {
                                         className="object-contain p-1"
                                         unoptimized
                                         />
-                                        <div className="absolute -top-2 -right-2 bg-neutral-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                        <div className="absolute -top-2 -right-2 bg-neutral-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                             {item.quantity}
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="font-semibold text-sm">{item.product.name}</h3>
+                                        <h3 className="font-semibold text-sm text-white">{item.product.name}</h3>
                                         <div className="flex items-baseline gap-2 text-xs">
                                             {item.product.salePrice ? (
                                                 <>
-                                                  <span className="text-neutral-500 line-through">LKR {item.product.price.toFixed(2)}</span>
-                                                  <span className="text-black font-medium">LKR {item.product.salePrice.toFixed(2)}</span>
+                                                  <span className="text-neutral-400 line-through">LKR {item.product.price.toFixed(2)}</span>
+                                                  <span className="text-white font-medium">LKR {item.product.salePrice.toFixed(2)}</span>
                                                 </>
                                             ): (
-                                                 <span className="text-black font-medium">LKR {item.product.price.toFixed(2)}</span>
+                                                 <span className="text-white font-medium">LKR {item.product.price.toFixed(2)}</span>
                                             )}
                                             
                                         </div>
                                     </div>
-                                    <p className="font-medium text-sm">LKR {(item.product.salePrice ?? item.product.price).toFixed(2)}</p>
+                                    <p className="font-medium text-sm text-white">LKR {(item.product.salePrice ?? item.product.price).toFixed(2)}</p>
                                 </div>
                             ))}
                         </div>
@@ -329,64 +329,64 @@ export default function CheckoutPage() {
                         </div>
                     )}
                     
-                    <Separator className="my-6 bg-neutral-300" />
+                    <Separator className="my-6 bg-neutral-700" />
 
                     <div className="flex items-center gap-4">
-                        <Input placeholder="Discount code or gift card" className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
-                        <Button className="bg-neutral-300 text-neutral-600 hover:bg-neutral-400" >Apply</Button>
+                        <Input placeholder="Discount code or gift card" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                        <Button className="bg-neutral-600 text-neutral-200 hover:bg-neutral-700" >Apply</Button>
                     </div>
 
-                    <Separator className="my-6 bg-neutral-300" />
+                    <Separator className="my-6 bg-neutral-700" />
 
                     <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-neutral-600">Subtotal</span>
-                            <span className="font-semibold">Rs {totalPrice.toFixed(2)}</span>
+                            <span className="text-neutral-400">Subtotal</span>
+                            <span className="font-semibold text-white">Rs {totalPrice.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-neutral-600">Shipping</span>
-                            <span className="font-semibold">{shippingCost > 0 ? `Rs ${shippingCost.toFixed(2)}` : 'Rs 0.00'}</span>
+                            <span className="text-neutral-400">Shipping</span>
+                            <span className="font-semibold text-white">{shippingCost > 0 ? `Rs ${shippingCost.toFixed(2)}` : 'Rs 0.00'}</span>
                         </div>
                     </div>
                     
-                    <Separator className="my-6 bg-neutral-300" />
+                    <Separator className="my-6 bg-neutral-700" />
 
                     <div className="flex justify-between items-baseline">
-                        <span className="text-lg">Total</span>
+                        <span className="text-lg text-white">Total</span>
                         <div className="flex items-baseline gap-2">
-                             <span className="text-sm text-neutral-600">LKR</span>
-                             <span className="text-2xl font-bold">Rs {total.toFixed(2)}</span>
+                             <span className="text-sm text-neutral-400">LKR</span>
+                             <span className="text-2xl font-bold text-white">Rs {total.toFixed(2)}</span>
                         </div>
                     </div>
 
                     {/* Payment Section */}
                     <div className="space-y-6 pt-6">
                         <div>
-                            <h2 className="text-xl font-semibold">Payment</h2>
-                            <p className="text-sm text-neutral-600">All transactions are secure and encrypted.</p>
+                            <h2 className="text-xl font-semibold text-white">Payment</h2>
+                            <p className="text-sm text-neutral-400">All transactions are secure and encrypted.</p>
                         </div>
                         <RadioGroup name="paymentMethod" defaultValue="payhere" className="space-y-0">
-                            <div className="border border-blue-500 rounded-t-md has-[:checked]:bg-blue-50">
+                            <div className="border border-amber-300/80 rounded-t-md has-[:checked]:bg-amber-200/10">
                                 <div className="p-4 flex items-center space-x-3">
-                                    <RadioGroupItem value="payhere" id="payhere" />
-                                    <Label htmlFor="payhere" className="font-normal w-full">Bank Card / Bank Account - PayHere</Label>
+                                    <RadioGroupItem value="payhere" id="payhere" className="border-neutral-500 text-amber-200" />
+                                    <Label htmlFor="payhere" className="font-normal w-full text-neutral-300">Bank Card / Bank Account - PayHere</Label>
                                 </div>
-                                <div className="bg-neutral-100/80 px-4 py-6 text-center text-neutral-600 text-sm space-y-4">
+                                <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
                                      <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
                                      <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
                                 </div>
                             </div>
-                            <div className="border border-t-0 border-neutral-300 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
-                                <RadioGroupItem value="cod" id="cod" />
-                                <Label htmlFor="cod" className="font-normal w-full">Cash On Delivery</Label>
+                            <div className="border border-t-0 border-neutral-700 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
+                                <RadioGroupItem value="cod" id="cod" className="border-neutral-500 text-amber-200" />
+                                <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
                             </div>
                         </RadioGroup>
                     </div>
 
-                    <Alert className="bg-yellow-100 border-yellow-300 text-yellow-800">
-                        <AlertTriangle className="h-5 w-5 text-yellow-600" />
-                        <AlertTitle className="font-semibold">Important Notice</AlertTitle>
-                        <AlertDescription className="text-xs">
+                    <Alert className="bg-yellow-900/30 border-yellow-300/30 text-yellow-200">
+                        <AlertTriangle className="h-5 w-5 text-yellow-400" />
+                        <AlertTitle className="font-semibold text-yellow-300">Important Notice</AlertTitle>
+                        <AlertDescription className="text-xs text-yellow-300/80">
                            Please do not close your tab or browser after completing your payment. Kindly remain on this tab/browser until you are redirected to the order confirmation page to ensure that your transaction is processed successfully.
                         </AlertDescription>
                     </Alert>
@@ -395,7 +395,7 @@ export default function CheckoutPage() {
                         <Button 
                             onClick={form.handleSubmit(onSubmit)} 
                             size="lg" 
-                            className="w-full bg-black text-white hover:bg-neutral-800 text-lg font-bold"
+                            className="w-full bg-white text-black hover:bg-neutral-200 text-lg font-bold"
                             disabled={items.length === 0}
                         >
                             Pay Now
@@ -409,3 +409,5 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+    
