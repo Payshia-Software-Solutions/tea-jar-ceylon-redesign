@@ -117,27 +117,27 @@ export default function TeaPage({ params }: TeaPageProps) {
 
   if (loading) {
       return (
-        <div className="min-h-screen pt-12">
+        <div className="bg-[#353d32] text-white min-h-screen pt-32">
           <div className="container mx-auto px-4 py-12">
               <div className="grid md:grid-cols-2 gap-12 items-start">
                   <div className="space-y-4">
-                     <Skeleton className="aspect-square w-full rounded-xl bg-neutral-200" />
+                     <Skeleton className="aspect-square w-full rounded-xl bg-neutral-700" />
                      <div className="grid grid-cols-5 gap-4">
-                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-200" />
-                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-200" />
-                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-200" />
-                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-200" />
-                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-200" />
+                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-700" />
+                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-700" />
+                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-700" />
+                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-700" />
+                        <Skeleton className="aspect-square w-full rounded-md bg-neutral-700" />
                      </div>
                   </div>
                   <div className="space-y-6">
-                      <Skeleton className="h-4 w-1/3 bg-neutral-200" />
-                      <Skeleton className="h-12 w-3/4 bg-neutral-200" />
-                      <Skeleton className="h-20 w-full bg-neutral-200" />
-                      <Skeleton className="h-6 w-1/2 bg-neutral-200" />
+                      <Skeleton className="h-4 w-1/3 bg-neutral-700" />
+                      <Skeleton className="h-12 w-3/4 bg-neutral-700" />
+                      <Skeleton className="h-20 w-full bg-neutral-700" />
+                      <Skeleton className="h-6 w-1/2 bg-neutral-700" />
                       <div className="flex items-baseline gap-4 pt-4">
-                        <Skeleton className="h-12 w-1/3 bg-neutral-200" />
-                        <Skeleton className="h-12 w-1/3 bg-neutral-200" />
+                        <Skeleton className="h-12 w-1/3 bg-neutral-700" />
+                        <Skeleton className="h-12 w-1/3 bg-neutral-700" />
                       </div>
                   </div>
               </div>
@@ -151,12 +151,12 @@ export default function TeaPage({ params }: TeaPageProps) {
   }
 
   return (
-    <div className="min-h-screen pt-32">
+    <div className="bg-[#353d32] text-white min-h-screen pt-32">
         <div className="container mx-auto px-4 py-8">
-            <div className="flex items-center text-sm text-muted-foreground mb-8">
-                <Link href="/shop" className="hover:text-foreground">Products</Link>
+            <div className="flex items-center text-sm text-neutral-300 mb-8">
+                <Link href="/shop" className="hover:text-white">Products</Link>
                 <ChevronRight className="w-4 h-4 mx-1" />
-                <span className="font-medium text-foreground">{tea.name}</span>
+                <span className="font-medium text-white">{tea.name}</span>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -177,7 +177,7 @@ export default function TeaPage({ params }: TeaPageProps) {
                         {tea.images?.map((img, index) => (
                             <div 
                                 key={index} 
-                                className={`aspect-square relative rounded-md overflow-hidden cursor-pointer border-2 bg-white ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
+                                className={`aspect-square relative rounded-md overflow-hidden cursor-pointer border-2 bg-white ${activeImage === img ? 'border-amber-300' : 'border-transparent'}`}
                                 onClick={() => setActiveImage(img)}
                             >
                                 <Image
@@ -195,13 +195,13 @@ export default function TeaPage({ params }: TeaPageProps) {
                 {/* Product Info */}
                 <div className="space-y-6">
                     <div className="space-y-4">
-                        <h1 className="font-headline text-4xl md:text-5xl text-primary">{tea.name}</h1>
+                        <h1 className="font-headline text-4xl md:text-5xl text-white">{tea.name}</h1>
                         <div className="flex items-center gap-2">
                             {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-500 fill-yellow-500' : 'text-neutral-300'}`} />
+                                <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-400 fill-yellow-400' : 'text-neutral-500'}`} />
                             ))}
                         </div>
-                        <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-6 text-sm text-neutral-300">
                              <div className="flex items-center gap-2">
                                 <Coffee className="w-5 h-5"/>
                                 <span>175 servings per pack</span>
@@ -214,59 +214,59 @@ export default function TeaPage({ params }: TeaPageProps) {
                         <div className="flex items-baseline gap-4 pt-2">
                             {tea.salePrice ? (
                                 <div className="flex items-baseline gap-3">
-                                    <span className="text-2xl text-muted-foreground line-through">Rs {tea.price.toFixed(2)}</span>
-                                    <span className="text-4xl font-bold text-red-600">Rs {tea.salePrice.toFixed(2)}</span>
+                                    <span className="text-2xl text-neutral-400 line-through">Rs {tea.price.toFixed(2)}</span>
+                                    <span className="text-4xl font-bold text-red-500">Rs {tea.salePrice.toFixed(2)}</span>
                                 </div>
                             ) : (
-                                <span className="text-4xl font-bold text-primary">Rs {tea.price.toFixed(2)}</span>
+                                <span className="text-4xl font-bold text-white">Rs {tea.price.toFixed(2)}</span>
                             )}
-                            <Badge className="bg-green-100 text-green-800 border border-green-200">IN STOCK</Badge>
+                            <Badge className="bg-green-200 text-green-900 border border-green-300">IN STOCK</Badge>
                         </div>
-                         <p className="text-sm text-muted-foreground">Shipping calculated at checkout.</p>
+                         <p className="text-sm text-neutral-400">Shipping calculated at checkout.</p>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center border rounded-md">
-                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)}><Minus className="w-4 h-4" /></Button>
+                        <div className="flex items-center border border-neutral-600 rounded-md">
+                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="text-white hover:bg-neutral-700 hover:text-white"><Minus className="w-4 h-4" /></Button>
                             <span className="w-10 text-center font-medium">{quantity}</span>
-                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)}><Plus className="w-4 h-4" /></Button>
+                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-white hover:bg-neutral-700 hover:text-white"><Plus className="w-4 h-4" /></Button>
                         </div>
-                        <AddToCartButton tea={tea} quantity={quantity} className="flex-grow bg-black text-white hover:bg-neutral-800" />
-                        <Button variant="outline" size="icon" className="border-green-600 text-green-600 hover:bg-green-50 hover:text-green-700">
+                        <AddToCartButton tea={tea} quantity={quantity} className="flex-grow bg-white text-black hover:bg-neutral-200" />
+                        <Button variant="outline" size="icon" className="border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300">
                             <ShoppingBag className="w-5 h-5" />
                         </Button>
                     </div>
                     
                     <Tabs defaultValue="features" className="w-full pt-4">
-                      <TabsList className="grid w-full grid-cols-2 bg-neutral-100">
-                        <TabsTrigger value="features">Tasting Note & Distinctive Features</TabsTrigger>
-                        <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
+                      <TabsList className="grid w-full grid-cols-2 bg-neutral-800 text-neutral-300">
+                        <TabsTrigger value="features" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white">Tasting Note & Distinctive Features</TabsTrigger>
+                        <TabsTrigger value="ingredients" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white">Ingredients</TabsTrigger>
                       </TabsList>
-                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md bg-white">
-                        <p className="text-muted-foreground">{tea.description}</p>
+                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700">
+                        <p className="text-neutral-300">{tea.description}</p>
                         <div className="mt-6 space-y-4">
-                            <h4 className="font-semibold text-foreground">Net Weight</h4>
-                            <p className="text-muted-foreground">{tea.netWeight}</p>
+                            <h4 className="font-semibold text-white">Net Weight</h4>
+                            <p className="text-neutral-300">{tea.netWeight}</p>
                              <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <h4 className="font-semibold text-foreground mb-2">Caffeine</h4>
+                                    <h4 className="font-semibold text-white mb-2">Caffeine</h4>
                                     <div className="flex items-center gap-2">
-                                        <Coffee className="w-5 h-5 text-amber-700" />
-                                        <span className="text-muted-foreground">Medium</span>
+                                        <Coffee className="w-5 h-5 text-amber-400" />
+                                        <span className="text-neutral-300">Medium</span>
                                     </div>
                                 </div>
                                  <div>
-                                    <h4 className="font-semibold text-foreground mb-2">Time of Day</h4>
+                                    <h4 className="font-semibold text-white mb-2">Time of Day</h4>
                                     <div className="flex items-center gap-2">
-                                        <Clock className="w-5 h-5 text-amber-700" />
-                                        <span className="text-muted-foreground">Evening</span>
+                                        <Clock className="w-5 h-5 text-amber-400" />
+                                        <span className="text-neutral-300">Evening</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       </TabsContent>
-                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md bg-white">
-                        <p className="text-muted-foreground">{tea.longDescription}</p>
+                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700">
+                        <p className="text-neutral-300">{tea.longDescription}</p>
                       </TabsContent>
                     </Tabs>
 
@@ -274,33 +274,33 @@ export default function TeaPage({ params }: TeaPageProps) {
             </div>
 
             {/* Brewing Info */}
-            <div className="mt-16 md:mt-24 text-center bg-card py-12 rounded-xl">
-                 <h2 className="font-headline text-3xl md:text-4xl text-primary mb-10">Brewing Information</h2>
+            <div className="mt-16 md:mt-24 text-center bg-[#2a2f28] py-12 rounded-xl border border-neutral-700">
+                 <h2 className="font-headline text-3xl md:text-4xl text-white mb-10">Brewing Information</h2>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
                     <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
-                            <Droplets className="w-8 h-8 text-amber-700" />
+                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                            <Droplets className="w-8 h-8 text-amber-400" />
                         </div>
                         <p className="font-semibold">Recommended to use Spring Water</p>
                     </div>
                     <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
-                            <Thermometer className="w-8 h-8 text-amber-700" />
+                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                            <Thermometer className="w-8 h-8 text-amber-400" />
                         </div>
                         <p className="font-semibold">95°C – 100°C</p>
                     </div>
                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
-                            <Users className="w-8 h-8 text-amber-700" />
+                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                            <Users className="w-8 h-8 text-amber-400" />
                         </div>
                         <p className="font-semibold">220ml of water per person</p>
                     </div>
                     <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
-                            <Clock className="w-8 h-8 text-amber-700" />
+                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                            <Clock className="w-8 h-8 text-amber-400" />
                         </div>
                         <p className="font-semibold">3 - 5 Minutes</p>
-                        <p className="text-xs text-muted-foreground">(5 minutes for a strong cup)</p>
+                        <p className="text-xs text-neutral-400">(5 minutes for a strong cup)</p>
                     </div>
                  </div>
             </div>
@@ -309,8 +309,8 @@ export default function TeaPage({ params }: TeaPageProps) {
             {/* Recommendations */}
             {recommendedTeas.length > 0 && (
                 <div className="mt-16 md:mt-24">
-                <Separator className="my-8 bg-border" />
-                <h2 className="font-headline text-4xl text-center text-primary mb-12">You Might Also Like</h2>
+                <Separator className="my-8 bg-neutral-700" />
+                <h2 className="font-headline text-4xl text-center text-white mb-12">You Might Also Like</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {recommendedTeas.map((recTea) => (
                     <TeaCard key={recTea.id} tea={recTea} />
@@ -322,3 +322,5 @@ export default function TeaPage({ params }: TeaPageProps) {
     </div>
   );
 }
+
+    

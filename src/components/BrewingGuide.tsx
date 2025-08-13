@@ -63,7 +63,7 @@ export function BrewingGuide({ teaType }: BrewingGuideProps) {
 
 
   return (
-    <Card className="bg-black/20 border-neutral-700/50">
+    <Card className="bg-[#2a2f28] border-neutral-700/50">
       <CardHeader className="text-center">
         <div className="mx-auto bg-amber-200/10 p-3 rounded-full w-fit mb-4">
             <Leaf className="h-8 w-8 text-amber-200/80" />
@@ -150,3 +150,5 @@ export function BrewingGuide({ teaType }: BrewingGuideProps) {
     </Card>
   );
 }
+
+    
