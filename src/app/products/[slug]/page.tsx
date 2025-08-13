@@ -117,7 +117,7 @@ export default function TeaPage({ params }: TeaPageProps) {
 
   if (loading) {
       return (
-        <div className="bg-white text-black min-h-screen pt-12">
+        <div className="min-h-screen pt-12">
           <div className="container mx-auto px-4 py-12">
               <div className="grid md:grid-cols-2 gap-12 items-start">
                   <div className="space-y-4">
@@ -151,18 +151,18 @@ export default function TeaPage({ params }: TeaPageProps) {
   }
 
   return (
-    <div className="bg-white text-neutral-800 min-h-screen pt-32">
+    <div className="min-h-screen pt-32">
         <div className="container mx-auto px-4 py-8">
-            <div className="flex items-center text-sm text-neutral-500 mb-8">
-                <Link href="/shop" className="hover:text-neutral-800">Products</Link>
+            <div className="flex items-center text-sm text-muted-foreground mb-8">
+                <Link href="/shop" className="hover:text-foreground">Products</Link>
                 <ChevronRight className="w-4 h-4 mx-1" />
-                <span className="font-medium text-neutral-800">{tea.name}</span>
+                <span className="font-medium text-foreground">{tea.name}</span>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
                 {/* Image Gallery */}
                 <div className="space-y-4">
-                    <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-md border">
+                    <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-md border bg-white">
                         <Image
                             src={activeImage}
                             alt={tea.name}
@@ -177,7 +177,7 @@ export default function TeaPage({ params }: TeaPageProps) {
                         {tea.images?.map((img, index) => (
                             <div 
                                 key={index} 
-                                className={`aspect-square relative rounded-md overflow-hidden cursor-pointer border-2 ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
+                                className={`aspect-square relative rounded-md overflow-hidden cursor-pointer border-2 bg-white ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
                                 onClick={() => setActiveImage(img)}
                             >
                                 <Image
@@ -195,13 +195,13 @@ export default function TeaPage({ params }: TeaPageProps) {
                 {/* Product Info */}
                 <div className="space-y-6">
                     <div className="space-y-4">
-                        <h1 className="font-headline text-4xl md:text-5xl text-neutral-900">{tea.name}</h1>
+                        <h1 className="font-headline text-4xl md:text-5xl text-primary">{tea.name}</h1>
                         <div className="flex items-center gap-2">
                             {[...Array(5)].map((_, i) => (
                                 <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-500 fill-yellow-500' : 'text-neutral-300'}`} />
                             ))}
                         </div>
-                        <div className="flex items-center gap-6 text-sm text-neutral-600">
+                        <div className="flex items-center gap-6 text-sm text-muted-foreground">
                              <div className="flex items-center gap-2">
                                 <Coffee className="w-5 h-5"/>
                                 <span>175 servings per pack</span>
@@ -214,15 +214,15 @@ export default function TeaPage({ params }: TeaPageProps) {
                         <div className="flex items-baseline gap-4 pt-2">
                             {tea.salePrice ? (
                                 <div className="flex items-baseline gap-3">
-                                    <span className="text-2xl text-neutral-400 line-through">Rs {tea.price.toFixed(2)}</span>
+                                    <span className="text-2xl text-muted-foreground line-through">Rs {tea.price.toFixed(2)}</span>
                                     <span className="text-4xl font-bold text-red-600">Rs {tea.salePrice.toFixed(2)}</span>
                                 </div>
                             ) : (
-                                <span className="text-4xl font-bold text-neutral-900">Rs {tea.price.toFixed(2)}</span>
+                                <span className="text-4xl font-bold text-primary">Rs {tea.price.toFixed(2)}</span>
                             )}
                             <Badge className="bg-green-100 text-green-800 border border-green-200">IN STOCK</Badge>
                         </div>
-                         <p className="text-sm text-neutral-500">Shipping calculated at checkout.</p>
+                         <p className="text-sm text-muted-foreground">Shipping calculated at checkout.</p>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -242,31 +242,31 @@ export default function TeaPage({ params }: TeaPageProps) {
                         <TabsTrigger value="features">Tasting Note & Distinctive Features</TabsTrigger>
                         <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
                       </TabsList>
-                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md">
-                        <p className="text-neutral-600">{tea.description}</p>
+                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md bg-white">
+                        <p className="text-muted-foreground">{tea.description}</p>
                         <div className="mt-6 space-y-4">
-                            <h4 className="font-semibold text-neutral-800">Net Weight</h4>
-                            <p className="text-neutral-600">{tea.netWeight}</p>
+                            <h4 className="font-semibold text-foreground">Net Weight</h4>
+                            <p className="text-muted-foreground">{tea.netWeight}</p>
                              <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <h4 className="font-semibold text-neutral-800 mb-2">Caffeine</h4>
+                                    <h4 className="font-semibold text-foreground mb-2">Caffeine</h4>
                                     <div className="flex items-center gap-2">
                                         <Coffee className="w-5 h-5 text-amber-700" />
-                                        <span className="text-neutral-600">Medium</span>
+                                        <span className="text-muted-foreground">Medium</span>
                                     </div>
                                 </div>
                                  <div>
-                                    <h4 className="font-semibold text-neutral-800 mb-2">Time of Day</h4>
+                                    <h4 className="font-semibold text-foreground mb-2">Time of Day</h4>
                                     <div className="flex items-center gap-2">
                                         <Clock className="w-5 h-5 text-amber-700" />
-                                        <span className="text-neutral-600">Evening</span>
+                                        <span className="text-muted-foreground">Evening</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       </TabsContent>
-                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md">
-                        <p className="text-neutral-600">{tea.longDescription}</p>
+                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md bg-white">
+                        <p className="text-muted-foreground">{tea.longDescription}</p>
                       </TabsContent>
                     </Tabs>
 
@@ -274,8 +274,8 @@ export default function TeaPage({ params }: TeaPageProps) {
             </div>
 
             {/* Brewing Info */}
-            <div className="mt-16 md:mt-24 text-center bg-neutral-50 py-12 rounded-xl">
-                 <h2 className="font-headline text-3xl md:text-4xl text-neutral-900 mb-10">Brewing Information</h2>
+            <div className="mt-16 md:mt-24 text-center bg-card py-12 rounded-xl">
+                 <h2 className="font-headline text-3xl md:text-4xl text-primary mb-10">Brewing Information</h2>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
                     <div className="flex flex-col items-center gap-3">
                         <div className="w-16 h-16 rounded-full bg-white border flex items-center justify-center">
@@ -300,7 +300,7 @@ export default function TeaPage({ params }: TeaPageProps) {
                             <Clock className="w-8 h-8 text-amber-700" />
                         </div>
                         <p className="font-semibold">3 - 5 Minutes</p>
-                        <p className="text-xs text-neutral-500">(5 minutes for a strong cup)</p>
+                        <p className="text-xs text-muted-foreground">(5 minutes for a strong cup)</p>
                     </div>
                  </div>
             </div>
@@ -309,8 +309,8 @@ export default function TeaPage({ params }: TeaPageProps) {
             {/* Recommendations */}
             {recommendedTeas.length > 0 && (
                 <div className="mt-16 md:mt-24">
-                <Separator className="my-8 bg-neutral-200" />
-                <h2 className="font-headline text-4xl text-center text-neutral-900 mb-12">You Might Also Like</h2>
+                <Separator className="my-8 bg-border" />
+                <h2 className="font-headline text-4xl text-center text-primary mb-12">You Might Also Like</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {recommendedTeas.map((recTea) => (
                     <TeaCard key={recTea.id} tea={recTea} />
@@ -322,5 +322,3 @@ export default function TeaPage({ params }: TeaPageProps) {
     </div>
   );
 }
-
-    
