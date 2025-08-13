@@ -19,13 +19,9 @@ export function SubscriptionModal() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="p-0 max-w-xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black">
+      <DialogContent className="p-0 max-w-xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-white text-black border-none">
         {/* Left Side (Image) */}
         <div className="relative hidden md:block h-full">
             <Image 
