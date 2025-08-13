@@ -16,7 +16,7 @@ export function ProductGrid({ teas }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-8">
       {teas.map(tea => (
         <TeaCard key={tea.id} tea={tea} />
       ))}
