@@ -5,8 +5,8 @@ const footerSections = [
     {
         title: 'Our Story',
         links: [
-            { text: 'The Tea Jar Story', href: '#' },
-            { text: 'Our Tea Heritage', href: '#' },
+            { text: 'The Tea Jar Story', href: '/tea-jar-story' },
+            { text: 'Our Tea Heritage', href: '/tea-heritage' },
             { text: 'KDU Group', href: '#' },
         ],
     },
