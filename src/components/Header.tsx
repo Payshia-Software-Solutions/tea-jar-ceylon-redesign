@@ -124,14 +124,16 @@ export function Header() {
         const response = await fetch('https://kduserver.payshia.com/products');
         const apiProducts: ApiProduct[] = await response.json();
         
-        const filteredProducts = apiProducts.filter(p => p.product_name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()));
+        const filteredProducts = apiProducts
+          .filter(p => p.product_name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
+          .slice(0, 5);
 
         const formattedProducts: Tea[] = filteredProducts.map(p => {
              const price = parseFloat(p.selling_price);
             let salePrice: number | undefined;
             if (p.special_promo && p.special_promo_type === 'percentage') {
                 const discount = parseFloat(p.special_promo);
-                p_salePrice = price - (price * discount / 100);
+                salePrice = price - (price * discount / 100);
             } else if (p.special_promo) {
                  salePrice = price - parseFloat(p.special_promo);
             }
