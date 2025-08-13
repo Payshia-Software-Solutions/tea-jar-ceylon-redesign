@@ -1,3 +1,5 @@
+'use client';
+
 import type { Tea } from '@/lib/types';
 import Link from 'next/link';
 import Image from 'next/image';
