@@ -78,7 +78,7 @@ export default function StoryPage() {
                             src="https://content-provider.payshia.com/tea-jar/saman_nbgv1.webp"
                             alt="Saman Upasena, Founder of Tea Jar"
                             fill
-                            className="object-cover object-bottom"
+                            className="object-cover object-top"
                         />
                     </div>
                     <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
@@ -109,7 +109,7 @@ export default function StoryPage() {
                             src="https://content-provider.payshia.com/tea-jar/deelaka_nbg.webp"
                             alt="Deelaka Upasena, Managing Director of Tea Jar"
                             fill
-                            className="object-cover object-bottom"
+                            className="object-cover object-top"
                         />
                     </div>
                     <div className="w-full md:w-2/3 bg-white p-8 md:p-16 flex justify-start items-center">
