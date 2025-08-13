@@ -213,9 +213,11 @@ export function Header() {
               </Sheet>
             </div>
           </div>
-          {isShopMenuOpen && (
             <div 
-                className="absolute w-full bg-[#2a2f28] text-white shadow-lg"
+                className={cn(
+                    "absolute w-full bg-[#2a2f28] text-white shadow-lg transition-all duration-300 ease-in-out",
+                    isShopMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
                 onMouseLeave={() => setIsShopMenuOpen(false)}
             >
                 <div className="container mx-auto px-4 py-8 grid grid-cols-4 gap-8">
@@ -235,7 +237,6 @@ export function Header() {
                     ))}
                 </div>
             </div>
-          )}
         </div>
       </header>
   );
