@@ -19,19 +19,25 @@ import {
     SelectValue,
   } from '@/components/ui/select';
 import Link from 'next/link';
-import { ArrowLeft, CreditCard, Tag } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { CreditCard, Banknote, AlertTriangle } from 'lucide-react';
 
 const checkoutSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
+  emailOffers: z.boolean().optional(),
   country: z.string().min(1, { message: 'Country is required.' }),
-  firstName: z.string().min(1, { message: 'First name is required.' }),
-  lastName: z.string().min(1, { message: 'Last name is required.' }),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   address: z.string().min(1, { message: 'Address is required.' }),
   apartment: z.string().optional(),
   city: z.string().min(1, { message: 'City is required.' }),
   postalCode: z.string().min(1, { message: 'Postal code is required.' }),
   phone: z.string().optional(),
   saveInfo: z.boolean().optional(),
+  billingAddress: z.enum(['same', 'different']).default('same'),
+  paymentMethod: z.enum(['payhere', 'cod']).default('payhere'),
 });
 
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
@@ -46,6 +52,7 @@ export default function CheckoutPage() {
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
         email: '',
+        emailOffers: false,
         country: 'Sri Lanka',
         firstName: '',
         lastName: '',
@@ -55,6 +62,8 @@ export default function CheckoutPage() {
         postalCode: '',
         phone: '',
         saveInfo: false,
+        billingAddress: 'same',
+        paymentMethod: 'payhere',
     }
   });
 
@@ -67,59 +76,63 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-[#1a1a1a] text-white min-h-screen">
+    <div className="bg-white text-black min-h-screen font-sans">
         <div className="grid lg:grid-cols-2 min-h-screen">
             
             {/* Left Side - Form */}
-            <div className="py-12 px-4 sm:px-6 lg:px-12 bg-[#2a2f28] flex flex-col justify-center">
-                <div className="max-w-lg mx-auto w-full">
-                    <h1 className="font-headline text-3xl mb-2 text-center text-white">Tea Jar</h1>
-                    <nav className="text-sm text-center text-neutral-300 mb-10" aria-label="Breadcrumb">
-                        <ol className="flex items-center justify-center space-x-2">
-                            <li><Link href="/cart" className="hover:text-white">Cart</Link></li>
-                            <li><span className="text-neutral-500">›</span></li>
-                            <li className="font-semibold text-white">Information</li>
-                            <li><span className="text-neutral-500">›</span></li>
-                            <li className="text-neutral-500">Shipping</li>
-                             <li><span className="text-neutral-500">›</span></li>
-                            <li className="text-neutral-500">Payment</li>
-                        </ol>
-                    </nav>
+            <div className="py-8 px-4 sm:px-6 lg:px-12 border-r border-neutral-200 flex flex-col items-end">
+                <div className="max-w-xl w-full mx-auto lg:mr-0 space-y-8">
+                    <h1 className="font-headline text-3xl mb-2 text-left text-black">Tea Jar</h1>
                     
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+                            {/* Contact */}
                             <div className="space-y-4">
-                                <h2 className="text-xl font-semibold">Contact Information</h2>
+                                <div className="flex justify-between items-center">
+                                    <h2 className="text-xl font-semibold">Contact</h2>
+                                    <Link href="#" className="text-sm text-blue-600 hover:underline">Log in</Link>
+                                </div>
                                 <FormField
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter your email" {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
-                                        </FormControl>
-                                        <FormMessage />
+                                            <FormControl>
+                                                <Input placeholder="Enter your email" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="emailOffers"
+                                    render={({ field }) => (
+                                        <FormItem className="flex items-center space-x-2 space-y-0">
+                                            <FormControl>
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                            </FormControl>
+                                            <Label htmlFor="emailOffers" className="font-normal">Email me with news and offers</Label>
                                         </FormItem>
                                     )}
                                 />
                             </div>
-                            
-                            <div className="space-y-4">
-                                <h2 className="text-xl font-semibold">Shipping Address</h2>
+
+                            {/* Delivery */}
+                             <div className="space-y-4">
+                                <h2 className="text-xl font-semibold">Delivery</h2>
                                 <FormField
                                     control={form.control}
                                     name="country"
                                     render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Country/Region</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white">
+                                            <SelectTrigger className="bg-white border-neutral-300 focus:border-black focus:ring-black">
                                                 <SelectValue placeholder="Select a country" />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                                        <SelectContent className="bg-white border-neutral-300 text-black">
                                             <SelectItem value="Sri Lanka">Sri Lanka</SelectItem>
                                             <SelectItem value="United States">United States</SelectItem>
                                             <SelectItem value="United Kingdom">United Kingdom</SelectItem>
@@ -135,9 +148,8 @@ export default function CheckoutPage() {
                                         name="firstName"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>First Name</FormLabel>
                                                 <FormControl>
-                                                    <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                    <Input placeholder="First name (optional)" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -148,9 +160,8 @@ export default function CheckoutPage() {
                                         name="lastName"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Last Name</FormLabel>
                                                 <FormControl>
-                                                    <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                    <Input placeholder="Last name" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                                 </FormControl>
                                                  <FormMessage />
                                             </FormItem>
@@ -162,9 +173,8 @@ export default function CheckoutPage() {
                                     name="address"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Address</FormLabel>
                                             <FormControl>
-                                                <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                <Input placeholder="Address" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -175,9 +185,8 @@ export default function CheckoutPage() {
                                     name="apartment"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Apartment, suite, etc. (optional)</FormLabel>
                                             <FormControl>
-                                                <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                <Input placeholder="Apartment, suite, etc. (optional)" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                             </FormControl>
                                         </FormItem>
                                     )}
@@ -188,9 +197,8 @@ export default function CheckoutPage() {
                                         name="city"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>City</FormLabel>
                                                 <FormControl>
-                                                    <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                    <Input placeholder="City" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -201,9 +209,8 @@ export default function CheckoutPage() {
                                         name="postalCode"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Postal Code</FormLabel>
                                                 <FormControl>
-                                                    <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                    <Input placeholder="Postal Code" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -215,40 +222,78 @@ export default function CheckoutPage() {
                                     name="phone"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Phone (optional)</FormLabel>
                                             <FormControl>
-                                                <Input {...field} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
+                                                <Input placeholder="Phone" {...field} className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
                                             </FormControl>
                                         </FormItem>
                                     )}
                                 />
+                                 <FormField
+                                    control={form.control}
+                                    name="saveInfo"
+                                    render={({ field }) => (
+                                        <FormItem className="flex items-center space-x-2 space-y-0 pt-2">
+                                            <FormControl>
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                            </FormControl>
+                                            <Label htmlFor="saveInfo" className="font-normal">Save this information for next time</Label>
+                                        </FormItem>
+                                    )}
+                                />
                             </div>
-                            
-                             <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 pt-4">
-                                <Link href="/shop" className="text-amber-200/80 hover:text-amber-200/100 flex items-center gap-2 text-sm">
-                                    <ArrowLeft className="w-4 h-4" />
-                                    Return to shop
-                                </Link>
-                                <Button type="submit" size="lg" className="w-full sm:w-auto bg-amber-200/80 text-black hover:bg-amber-200/100">
-                                    Continue to Shipping
-                                </Button>
+
+                             {/* Billing Address */}
+                            <div className="space-y-4">
+                                <h2 className="text-xl font-semibold">Billing Address</h2>
+                                <FormField
+                                    control={form.control}
+                                    name="billingAddress"
+                                    render={({ field }) => (
+                                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
+                                        <div className="border border-neutral-300 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                                            <FormControl>
+                                                <RadioGroupItem value="same" id="same" />
+                                            </FormControl>
+                                            <Label htmlFor="same" className="font-normal w-full">Same as shipping address</Label>
+                                        </div>
+                                         <div className="border border-t-0 border-neutral-300 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                                            <FormControl>
+                                                <RadioGroupItem value="different" id="different" />
+                                            </FormControl>
+                                            <Label htmlFor="different" className="font-normal w-full">Use a different billing address</Label>
+                                        </div>
+                                    </RadioGroup>
+                                    )}
+                                />
+                            </div>
+
+                            {/* Shipping Method */}
+                            <div className="space-y-4">
+                                <h2 className="text-xl font-semibold">Shipping method</h2>
+                                <div className="border border-neutral-300 rounded-md p-4 flex justify-between items-center bg-neutral-100/50">
+                                    <p>Standard Shipping</p>
+                                    <p className="font-semibold">Rs 0</p>
+                                </div>
                             </div>
                         </form>
                     </Form>
 
-                    <Separator className="my-8 bg-neutral-700" />
-                     <p className="text-xs text-center text-neutral-400">All rights reserved Tea Jar</p>
+                    <div className="py-8">
+                        <Link href="/shop" className="text-blue-600 text-sm hover:underline">
+                           &larr; Return to cart
+                        </Link>
+                    </div>
                 </div>
             </div>
 
             {/* Right Side - Order Summary */}
-            <div className="py-12 px-4 sm:px-6 lg:px-12 bg-[#1a1a1a] flex flex-col justify-center">
-                 <div className="max-w-lg mx-auto w-full">
+            <div className="py-8 px-4 sm:px-6 lg:px-12 bg-neutral-50/70 flex flex-col items-start">
+                 <div className="max-w-xl w-full mx-auto lg:ml-0 space-y-6">
                     {items.length > 0 ? (
                         <div className="space-y-4">
                             {items.map(item => (
                                 <div key={item.product.id} className="flex items-center gap-4">
-                                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-700 bg-white">
+                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-300 bg-white">
                                         <Image
                                         src={item.product.image}
                                         alt={item.product.name}
@@ -256,62 +301,103 @@ export default function CheckoutPage() {
                                         className="object-contain p-1"
                                         unoptimized
                                         />
-                                        <div className="absolute -top-2 -right-2 bg-neutral-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                                        <div className="absolute -top-2 -right-2 bg-neutral-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                             {item.quantity}
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="font-semibold">{item.product.name}</h3>
-                                        <p className="text-sm text-neutral-400">Weight: 175g</p>
+                                        <h3 className="font-semibold text-sm">{item.product.name}</h3>
+                                        <div className="flex items-baseline gap-2 text-xs">
+                                            {item.product.salePrice ? (
+                                                <>
+                                                  <span className="text-neutral-500 line-through">LKR {item.product.price.toFixed(2)}</span>
+                                                  <span className="text-black font-medium">LKR {item.product.salePrice.toFixed(2)}</span>
+                                                </>
+                                            ): (
+                                                 <span className="text-black font-medium">LKR {item.product.price.toFixed(2)}</span>
+                                            )}
+                                            
+                                        </div>
                                     </div>
-                                    <p className="font-semibold">Rs {(item.product.salePrice ?? item.product.price).toFixed(2)}</p>
+                                    <p className="font-medium text-sm">LKR {(item.product.salePrice ?? item.product.price).toFixed(2)}</p>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div className="text-center py-10">
-                            <p className="text-neutral-400">Your cart is empty.</p>
+                            <p className="text-neutral-500">Your cart is empty.</p>
                         </div>
                     )}
                     
-                    <Separator className="my-6 bg-neutral-700" />
+                    <Separator className="my-6 bg-neutral-300" />
 
                     <div className="flex items-center gap-4">
-                        <Input placeholder="Discount code" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400" />
-                        <Button className="bg-neutral-700 text-white hover:bg-neutral-600" >Apply</Button>
+                        <Input placeholder="Discount code or gift card" className="bg-white border-neutral-300 focus:border-black focus:ring-black" />
+                        <Button className="bg-neutral-300 text-neutral-600 hover:bg-neutral-400" >Apply</Button>
                     </div>
 
-                    <Separator className="my-6 bg-neutral-700" />
+                    <Separator className="my-6 bg-neutral-300" />
 
                     <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-neutral-400">Subtotal</span>
+                            <span className="text-neutral-600">Subtotal</span>
                             <span className="font-semibold">Rs {totalPrice.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-neutral-400">Shipping</span>
-                            <span className="font-semibold">{shippingCost > 0 ? `Rs ${shippingCost.toFixed(2)}` : 'Free'}</span>
+                            <span className="text-neutral-600">Shipping</span>
+                            <span className="font-semibold">{shippingCost > 0 ? `Rs ${shippingCost.toFixed(2)}` : 'Rs 0.00'}</span>
                         </div>
                     </div>
                     
-                    <Separator className="my-6 bg-neutral-700" />
+                    <Separator className="my-6 bg-neutral-300" />
 
                     <div className="flex justify-between items-baseline">
                         <span className="text-lg">Total</span>
                         <div className="flex items-baseline gap-2">
-                             <span className="text-xs text-neutral-400">LKR</span>
+                             <span className="text-sm text-neutral-600">LKR</span>
                              <span className="text-2xl font-bold">Rs {total.toFixed(2)}</span>
                         </div>
                     </div>
+
+                    {/* Payment Section */}
+                    <div className="space-y-6 pt-6">
+                        <div>
+                            <h2 className="text-xl font-semibold">Payment</h2>
+                            <p className="text-sm text-neutral-600">All transactions are secure and encrypted.</p>
+                        </div>
+                        <RadioGroup name="paymentMethod" defaultValue="payhere" className="space-y-0">
+                            <div className="border border-blue-500 rounded-t-md has-[:checked]:bg-blue-50">
+                                <div className="p-4 flex items-center space-x-3">
+                                    <RadioGroupItem value="payhere" id="payhere" />
+                                    <Label htmlFor="payhere" className="font-normal w-full">Bank Card / Bank Account - PayHere</Label>
+                                </div>
+                                <div className="bg-neutral-100/80 px-4 py-6 text-center text-neutral-600 text-sm space-y-4">
+                                     <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
+                                     <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
+                                </div>
+                            </div>
+                            <div className="border border-t-0 border-neutral-300 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                                <RadioGroupItem value="cod" id="cod" />
+                                <Label htmlFor="cod" className="font-normal w-full">Cash On Delivery</Label>
+                            </div>
+                        </RadioGroup>
+                    </div>
+
+                    <Alert className="bg-yellow-100 border-yellow-300 text-yellow-800">
+                        <AlertTriangle className="h-5 w-5 text-yellow-600" />
+                        <AlertTitle className="font-semibold">Important Notice</AlertTitle>
+                        <AlertDescription className="text-xs">
+                           Please do not close your tab or browser after completing your payment. Kindly remain on this tab/browser until you are redirected to the order confirmation page to ensure that your transaction is processed successfully.
+                        </AlertDescription>
+                    </Alert>
 
                     <div className="mt-8">
                         <Button 
                             onClick={form.handleSubmit(onSubmit)} 
                             size="lg" 
-                            className="w-full bg-amber-200/80 text-black hover:bg-amber-200/100 text-lg font-bold"
+                            className="w-full bg-black text-white hover:bg-neutral-800 text-lg font-bold"
                             disabled={items.length === 0}
                         >
-                            <CreditCard className="w-5 h-5 mr-2" />
                             Pay Now
                         </Button>
                     </div>
