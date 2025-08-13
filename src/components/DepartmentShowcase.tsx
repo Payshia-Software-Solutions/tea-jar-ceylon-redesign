@@ -64,8 +64,7 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
             const priceMatch = price >= minPrice && price <= maxPrice;
             const sectionMatch = filters.sections.length === 0 || filters.sections.includes(product.section_id);
             const categoryMatch = filters.categories.length === 0 || filters.categories.includes(product.category_id);
-
-            // Department filter is handled by which components are rendered in page.tsx
+            
             return priceMatch && sectionMatch && categoryMatch;
           })
           .map((apiProduct): Tea => {
