@@ -81,7 +81,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                                 <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-400 fill-yellow-400' : 'text-neutral-500'}`} />
                             ))}
                         </div>
-                        <div className="flex items-center gap-6 text-sm text-neutral-300">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 text-sm text-neutral-300">
                              <div className="flex items-center gap-2">
                                 <Coffee className="w-5 h-5"/>
                                 <span>175 servings per pack</span>
@@ -91,7 +91,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                                 <span>175 grams per pack</span>
                              </div>
                         </div>
-                        <div className="flex items-baseline gap-4 pt-2">
+                        <div className="flex items-baseline flex-wrap gap-x-4 gap-y-2 pt-2">
                             {tea.salePrice ? (
                                 <div className="flex items-baseline gap-3">
                                     <span className="text-2xl text-neutral-400 line-through">Rs {tea.price.toFixed(2)}</span>
@@ -105,14 +105,14 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                          <p className="text-sm text-neutral-400">Shipping calculated at checkout.</p>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center border border-neutral-600 rounded-md">
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                        <div className="flex w-full sm:w-auto items-center border border-neutral-600 rounded-md">
                             <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="text-white hover:bg-neutral-700 hover:text-white"><Minus className="w-4 h-4" /></Button>
-                            <span className="w-10 text-center font-medium">{quantity}</span>
+                            <span className="w-full sm:w-10 text-center font-medium">{quantity}</span>
                             <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-white hover:bg-neutral-700 hover:text-white"><Plus className="w-4 h-4" /></Button>
                         </div>
-                        <AddToCartButton tea={tea} quantity={quantity} className="flex-grow bg-white text-black hover:bg-neutral-200" />
-                        <Button variant="outline" size="icon" className="border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300">
+                        <AddToCartButton tea={tea} quantity={quantity} className="flex-grow w-full sm:w-auto bg-white text-black hover:bg-neutral-200" />
+                        <Button variant="outline" size="icon" className="border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300 hidden sm:inline-flex">
                             <ShoppingBag className="w-5 h-5" />
                         </Button>
                     </div>
