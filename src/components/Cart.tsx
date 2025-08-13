@@ -47,9 +47,20 @@ export function Cart() {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-headline text-lg text-black">{item.product.name}</h3>
-                    <p className="text-sm font-bold text-neutral-800">
-                      Rs {item.product.salePrice ? item.product.salePrice.toFixed(2) : item.product.price.toFixed(2)}
-                    </p>
+                    {item.product.salePrice ? (
+                        <div className="flex items-baseline gap-2">
+                           <p className="text-sm text-neutral-500 line-through">
+                             Rs {item.product.price.toFixed(2)}
+                           </p>
+                           <p className="text-sm font-bold text-red-600">
+                             Rs {item.product.salePrice.toFixed(2)}
+                           </p>
+                        </div>
+                    ) : (
+                         <p className="text-sm font-bold text-neutral-800">
+                            Rs {item.product.price.toFixed(2)}
+                         </p>
+                    )}
                     <div className="mt-2 flex items-center gap-2">
                       <Button
                         variant="outline"
