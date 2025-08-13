@@ -158,7 +158,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
             {/* Brewing Info */}
             <div className="mt-16 md:mt-24 text-center bg-[#2a2f28] py-12 rounded-xl border border-neutral-700">
                  <h2 className="font-headline text-3xl md:text-4xl text-white mb-10">Brewing Information</h2>
-                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto px-4">
                     <div className="flex flex-col items-center gap-3">
                         <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
                             <Droplets className="w-8 h-8 text-amber-400" />
