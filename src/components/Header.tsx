@@ -1,10 +1,10 @@
 
 'use client';
 
-import { Leaf, ShoppingCart, Truck, User, Search } from 'lucide-react';
+import { Leaf, ShoppingCart, Truck, User, Search, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/hooks/use-cart.tsx';
-import { Sheet, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Cart } from './Cart';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Input } from './ui/input';
 import Image from 'next/image';
+import { Separator } from './ui/separator';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -26,6 +27,7 @@ export function Header() {
   const itemCount = getItemCount();
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(pathname !== '/');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +50,6 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <Sheet>
       <header
         className={cn(
           'fixed top-0 z-40 w-full transition-transform duration-500 ease-in-out',
@@ -66,6 +67,58 @@ export function Header() {
         </div>
         <div className="bg-black text-white">
           <div className="container mx-auto flex h-20 items-center justify-between px-4">
+            
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                 <Button variant="ghost" size="icon" className="md:hidden hover:bg-neutral-800">
+                    <Menu className="h-6 w-6 text-white" />
+                    <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+               <SheetContent side="left" className="bg-black text-white border-neutral-800 p-0">
+                 <SheetHeader className="p-6 border-b border-neutral-800">
+                    <SheetTitle>
+                       <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Image
+                                src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
+                                alt="Tea Jar Logo"
+                                width={120}
+                                height={40}
+                                className="object-contain"
+                            />
+                        </Link>
+                    </SheetTitle>
+                 </SheetHeader>
+                 <div className="p-6">
+                    <div className="relative mb-6">
+                        <Input
+                        type="search"
+                        placeholder="Find products"
+                        className="bg-neutral-800 border-neutral-700 rounded-full pl-10 h-10 w-full text-white"
+                        />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                    </div>
+                    <nav className="flex flex-col gap-4">
+                        {navLinks.map((link) => (
+                            <SheetClose asChild key={link.href}>
+                                <Link
+                                href={link.href}
+                                className="text-lg text-neutral-300 hover:text-white transition-colors"
+                                >
+                                {link.label}
+                                </Link>
+                            </SheetClose>
+                        ))}
+                    </nav>
+                    <Separator className="my-6 bg-neutral-800"/>
+                     <Button variant="outline" className="w-full justify-start gap-2 border-neutral-800 hover:bg-neutral-800 hover:text-white">
+                        <User className="h-5 w-5" />
+                        <span>My Account</span>
+                    </Button>
+                 </div>
+               </SheetContent>
+            </Sheet>
+
             <Link href="/" className="flex items-center">
                 <Image
                     src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
@@ -89,7 +142,7 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <div className="relative hidden lg:block">
                 <Input
                   type="search"
@@ -98,18 +151,21 @@ export function Header() {
                 />
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
               </div>
-
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800">
-                  <ShoppingCart className="h-6 w-6 text-white" />
-                  {itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
-                      {itemCount}
-                    </span>
-                  )}
-                  <span className="sr-only">Open cart</span>
-                </Button>
-              </SheetTrigger>
+              
+              <Sheet>
+                 <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="relative hover:bg-neutral-800">
+                    <ShoppingCart className="h-6 w-6 text-white" />
+                    {itemCount > 0 && (
+                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
+                        {itemCount}
+                        </span>
+                    )}
+                    <span className="sr-only">Open cart</span>
+                    </Button>
+                </SheetTrigger>
+                <Cart />
+              </Sheet>
               
               <Button variant="ghost" size="icon" className="hidden sm:inline-flex hover:bg-neutral-800">
                 <User className="h-6 w-6 text-white" />
@@ -119,7 +175,5 @@ export function Header() {
           </div>
         </div>
       </header>
-      <Cart />
-    </Sheet>
   );
 }
