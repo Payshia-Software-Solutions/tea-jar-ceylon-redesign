@@ -1,9 +1,14 @@
 
 'use client';
 
-import type { Filters } from '@/app/shop/page';
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
+
+// This is a placeholder for future filter additions.
+// The current shop page is organized by departments.
+export type Filters = {
+  priceRange: [number, number];
+};
 
 interface ShopFiltersProps {
   filters: Filters;
