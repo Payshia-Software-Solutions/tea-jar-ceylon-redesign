@@ -50,11 +50,11 @@ export function TeaCard({ tea }: TeaCardProps) {
                     {discount}% OFF
                 </Badge>
             )}
-             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
+             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center p-4">
               <Button
                 onClick={handleAddToCart}
                 size="lg"
-                className="w-full bg-[#2a2f28] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full bg-white/90 text-black hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
@@ -78,7 +78,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                         </p>
                     </>
                 ) : (
-                    <p className="text-lg font-bold text-primary">
+                    <p className="text-lg font-bold text-white">
                         Rs {tea.price.toFixed(2)}
                     </p>
                 )}

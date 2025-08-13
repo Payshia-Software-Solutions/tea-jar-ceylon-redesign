@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { Tea, ApiProduct } from '@/lib/types';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from './ui/separator';
+import type { Filters } from './ShopFilters';
 
 interface Department {
     id: string;
@@ -14,10 +14,11 @@ interface Department {
 
 interface DepartmentShowcaseProps {
     department: Department;
+    filters: Filters;
 }
 
-export function DepartmentShowcase({ department }: DepartmentShowcaseProps) {
-    const [products, setProducts] = useState<Tea[]>([]);
+export function DepartmentShowcase({ department, filters }: DepartmentShowcaseProps) {
+    const [products, setProducts] = useState<ApiProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,34 +29,7 @@ export function DepartmentShowcase({ department }: DepartmentShowcaseProps) {
             try {
                 const response = await fetch(`https://kduserver.payshia.com/products/get-by-department/${department.id}`);
                 const data: ApiProduct[] = await response.json();
-                
-                const formattedProducts: Tea[] = data.map(apiProduct => {
-                    const price = parseFloat(apiProduct.selling_price);
-                    let salePrice: number | undefined;
-
-                    if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
-                        const discount = parseFloat(apiProduct.special_promo);
-                        salePrice = price - (price * discount / 100);
-                    } else if (apiProduct.special_promo && apiProduct.special_promo_type === 'fixed') {
-                        salePrice = price - parseFloat(apiProduct.special_promo);
-                    }
-
-                    return {
-                        id: apiProduct.slug || apiProduct.product_id,
-                        name: apiProduct.product_name.trim(),
-                        description: '', 
-                        longDescription: '',
-                        price: price,
-                        salePrice: salePrice,
-                        image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
-                        dataAiHint: 'tea product',
-                        type: 'Black', 
-                        flavorProfile: [],
-                        origin: 'Sri Lanka',
-                    };
-                });
-                
-                setProducts(formattedProducts);
+                setProducts(data);
             } catch (error) {
                 console.error(`Failed to fetch products for department ${department.id}:`, error);
             } finally {
@@ -64,14 +38,55 @@ export function DepartmentShowcase({ department }: DepartmentShowcaseProps) {
         }
 
         fetchProducts();
-    }, [department.id, department.department_name]);
+    }, [department.id]);
+    
+    const filteredAndFormattedTeas = useMemo(() => {
+        return products
+          .filter(product => {
+            const price = parseFloat(product.selling_price);
+            const [minPrice, maxPrice] = filters.priceRange;
+            
+            const priceMatch = price >= minPrice && price <= maxPrice;
+            const sectionMatch = filters.sections.length === 0 || filters.sections.includes(product.section_id);
+            const categoryMatch = filters.categories.length === 0 || filters.categories.includes(product.category_id);
+
+            // Department filter is handled by which components are rendered in page.tsx
+            return priceMatch && sectionMatch && categoryMatch;
+          })
+          .map((apiProduct): Tea => {
+            const price = parseFloat(apiProduct.selling_price);
+            let salePrice: number | undefined;
+
+            if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
+                const discount = parseFloat(apiProduct.special_promo);
+                salePrice = price - (price * discount / 100);
+            } else if (apiProduct.special_promo) {
+                salePrice = price - parseFloat(apiProduct.special_promo);
+            }
+
+            return {
+                id: apiProduct.slug || apiProduct.product_id,
+                name: apiProduct.product_name.trim(),
+                description: '',
+                longDescription: apiProduct.product_description || '',
+                price: price,
+                salePrice: salePrice,
+                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
+                dataAiHint: 'tea product',
+                type: 'Black',
+                flavorProfile: [],
+                origin: 'Sri Lanka',
+            };
+          });
+    }, [products, filters]);
+
 
     if (loading) {
         return (
             <div className="space-y-8">
                 <h2 className="font-headline text-4xl text-center text-white">{department.department_name}</h2>
-                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-                    {Array.from({ length: 4 }).map((_, i) => (
+                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10">
+                    {Array.from({ length: 3 }).map((_, i) => (
                         <div key={i} className="p-1 space-y-4">
                             <Skeleton className="h-[250px] w-full rounded-lg" />
                             <Skeleton className="h-4 w-3/4" />
@@ -83,14 +98,15 @@ export function DepartmentShowcase({ department }: DepartmentShowcaseProps) {
         );
     }
     
-    if (products.length === 0) {
-        return null; // Don't render anything if a department has no products
+    // Only render the section if there are products to display after filtering
+    if (filteredAndFormattedTeas.length === 0) {
+        return null; 
     }
 
     return (
         <section>
             <h2 className="font-headline text-4xl text-center text-white mb-8">{department.department_name}</h2>
-            <ProductGrid teas={products} />
+            <ProductGrid teas={filteredAndFormattedTeas} />
         </section>
     );
 }
