@@ -8,6 +8,7 @@ import { StoreLocator } from '@/components/StoreLocator';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Faq } from '@/components/Faq';
+import { SubscriptionModal } from '@/components/SubscriptionModal';
 
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
 
   return (
     <>
+      <SubscriptionModal />
       <div className="relative h-screen w-full overflow-hidden bg-[#eafde9]">
         <video
           autoPlay
