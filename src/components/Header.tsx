@@ -110,11 +110,6 @@ export function Header() {
                             </SheetClose>
                         ))}
                     </nav>
-                    <Separator className="my-6 bg-neutral-800"/>
-                     <Button variant="outline" className="w-full justify-start gap-2 border-neutral-800 hover:bg-neutral-800 hover:text-white">
-                        <User className="h-5 w-5" />
-                        <span>My Account</span>
-                    </Button>
                  </div>
                </SheetContent>
             </Sheet>
@@ -167,10 +162,6 @@ export function Header() {
                 <Cart />
               </Sheet>
               
-              <Button variant="ghost" size="icon" className="hidden sm:inline-flex hover:bg-neutral-800">
-                <User className="h-6 w-6 text-white" />
-                <span className="sr-only">User profile</span>
-              </Button>
             </div>
           </div>
         </div>
