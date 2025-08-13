@@ -61,9 +61,9 @@ export default function ShopPage() {
     <div className="bg-[#353d32] text-white min-h-screen">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="text-center mb-12">
-          <h1 className="font-headline text-5xl md:text-6xl">Our Tea Collection</h1>
+          <h1 className="font-headline text-5xl md:text-6xl">Tea by Collection</h1>
           <p className="text-lg text-neutral-300 mt-4 max-w-2xl mx-auto">
-            Explore our curated selection of the finest Ceylon teas.
+            Your virtual guide to tea! Discover all types of tea, from herbal infusions to black teas and matcha.
           </p>
         </div>
         
