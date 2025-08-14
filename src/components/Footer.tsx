@@ -98,19 +98,34 @@ export function Footer() {
 
                         {/* Contact Info */}
                         <div className="lg:col-span-3">
-                            <h3 className="font-semibold text-white mb-5">Contact Us</h3>
-                            <div className="text-sm space-y-3 text-neutral-400">
-                                <p>
-                                    <span className="font-semibold text-white/90 block">Corporate Office:</span> KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka
-                                </p>
+                             <h3 className="font-semibold text-white mb-5">Contact Us</h3>
+                             <div className="text-xs space-y-4 text-neutral-400">
                                  <p>
-                                    <span className="font-semibold text-white/90 block">Customer Service:</span> (+94)70 55 08 800
-                                </p>
-                                <p>
-                                    <span className="font-semibold text-white/90 block">Email:</span> marketing@teajarceylon.com
-                                </p>
-                            </div>
-                        </div>
+                                     <span className="font-semibold text-white/90 block mb-1">Corporate Office:</span>
+                                     KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka
+                                 </p>
+                                 <p>
+                                     <span className="font-semibold text-white/90 block mb-1">Factory:</span>
+                                     KDU Exports PVT LTD, Galpadithanna Tea Factory, Lellopitiya, Rathnapura.
+                                 </p>
+                                 <p>
+                                     <span className="font-semibold text-white/90 block">Customer Service:</span>
+                                     (+94)70 55 08 800
+                                 </p>
+                                 <p>
+                                    <span className="font-semibold text-white/90 block">Service Hours:</span>
+                                    Daily 9 am - 6 pm
+                                 </p>
+                                  <p>
+                                    <span className="font-semibold text-white/90 block">Wholesale Inquiries:</span>
+                                    (+94)70 55 08 800
+                                 </p>
+                                 <p>
+                                     <span className="font-semibold text-white/90 block">Email:</span>
+                                     marketing@teajarceylon.com
+                                 </p>
+                             </div>
+                         </div>
                     </div>
                 </div>
                 <div className="border-t border-neutral-800">
