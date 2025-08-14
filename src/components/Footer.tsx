@@ -75,12 +75,12 @@ export function Footer() {
                         <div className="lg:col-span-3">
                              <Link href="/" className="mb-6 inline-block">
                                 <Image
-                                    src="http://content-provider.payshia.com/tea-jar/white-logo.png"
+                                    src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                     alt="Tea Jar Logo"
                                     width={120}
-                                    height={42}
+                                    height={60}
                                     priority
-                                    className="object-contain h-12"
+                                    className="object-contain h-20"
                                 />
                             </Link>
                             <p className="text-sm text-neutral-400 mb-6 max-w-xs">

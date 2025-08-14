@@ -231,8 +231,8 @@ export function Header() {
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
                                 width={80}
-                                height={28}
-                                className="object-contain h-10"
+                                height={40}
+                                className="object-contain h-16"
                             />
                         </Link>
                     </SheetTitle>
@@ -330,12 +330,12 @@ export function Header() {
 
             <Link href="/" className="flex items-center">
                 <Image
-                    src="http://content-provider.payshia.com/tea-jar/white-logo.png"
+                    src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                     alt="Tea Jar Logo"
                     width={80}
-                    height={28}
+                    height={40}
                     priority
-                    className="object-contain h-10"
+                    className="object-contain h-16"
                 />
             </Link>
 
