@@ -34,11 +34,11 @@ export default function ContactPage() {
 
       {/* Main Content */}
       <section className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-5 gap-16">
 
           {/* Left Column - Contact Info */}
           <div className="lg:col-span-2">
-            <div className="bg-[#2a2f28] border border-neutral-700 p-8 rounded-lg space-y-8">
+            <div className="bg-[#2a2f28] border border-neutral-700 p-8 rounded-lg space-y-8 h-full">
               <div className="flex items-start gap-4">
                 <Phone className="w-6 h-6 text-amber-300/80 mt-1" />
                 <div>
