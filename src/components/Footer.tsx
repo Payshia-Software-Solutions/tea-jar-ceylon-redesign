@@ -1,9 +1,9 @@
 
 'use client';
 
-import { Facebook, Instagram, Phone, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Phone } from 'lucide-react';
 
 const footerSections = [
     {
@@ -36,17 +36,34 @@ const footerSections = [
     },
 ];
 
-const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-1.15-6.42-3.05-1.44-1.72-2.14-3.88-2.07-6.03.04-1.1.25-2.2.62-3.25.5-1.42 1.34-2.71 2.41-3.79s2.4-1.93 3.87-2.44c.03-3.34.02-6.67.02-10.01z" />
-    </svg>
-);
+const socialLinks = [
+    {
+        name: 'Facebook',
+        href: 'https://web.facebook.com/teajarceylon',
+        icon: 'http://content-provider.payshia.com/tea-jar/social/facebook.webp',
+    },
+    {
+        name: 'Instagram',
+        href: 'https://www.instagram.com/tea_jar_/',
+        icon: 'http://content-provider.payshia.com/tea-jar/social/instagram.webp',
+    },
+    {
+        name: 'TikTok',
+        href: 'https://www.tiktok.com/@tea_jar_01',
+        icon: 'http://content-provider.payshia.com/tea-jar/social/tiktok.webp',
+    },
+    {
+        name: 'WhatsApp',
+        href: "https://wa.me/94705508800?text=Hi!%20I'm%20interested%20in%20your%20services.",
+        icon: 'http://content-provider.payshia.com/tea-jar/social/whatsapp.webp',
+    },
+    {
+        name: 'YouTube',
+        href: 'https://www.youtube.com/your-channel',
+        icon: 'http://content-provider.payshia.com/tea-jar/social/youtube.webp',
+    },
+];
 
-const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M16.75 13.96c.27.13.41.41.41.71v1.36c0 .83-.67 1.5-1.5 1.5-.28 0-.55-.07-.8-.21-1.3-.76-2.59-1.88-3.67-3.21-1.09-1.34-1.88-2.85-2.28-4.48-.05-.21-.08-.42-.08-.63 0-.83.67-1.5 1.5-1.5h1.36c.3 0 .58.15.71.41.21.4.46.81.76 1.21.24.32.18.77-.11 1.02l-.46.4c-.34.28-.32.81.04.11.83.67 1.56 1.28 2.24 1.96.68.68 1.29 1.41 1.96 2.24.32.36.83.38 1.11.04l.4-.46c.25-.29.7-.35 1.02-.11.4.3.81.55 1.21.76zM12 2a10 10 0 100 20 10 10 0 000-20z" />
-    </svg>
-);
 
 export function Footer() {
     return (
@@ -70,11 +87,11 @@ export function Footer() {
                                 Mastering the art of world renowned, single origin Ceylon tea since 1978.
                             </p>
                             <div className="flex items-center gap-3">
-                                <Link href="https://web.facebook.com/teajarceylon" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Facebook className="w-5 h-5" /></Link>
-                                <Link href="https://www.instagram.com/tea_jar_/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Instagram className="w-5 h-5" /></Link>
-                                <Link href="https://www.tiktok.com/@tea_jar_01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><TikTokIcon /></Link>
-                                <Link href="https://wa.me/94705508800?text=Hi!%20I'm%20interested%20in%20your%20services." target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><WhatsAppIcon /></Link>
-                                <Link href="https://www.youtube.com/your-channel" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Youtube className="w-5 h-5" /></Link>
+                                {socialLinks.map(social => (
+                                    <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-neutral-700 transition-colors">
+                                        <Image src={social.icon} alt={social.name} width={20} height={20} className="object-contain h-5 w-5" />
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
