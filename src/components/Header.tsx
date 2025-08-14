@@ -232,7 +232,7 @@ export function Header() {
                                 alt="Tea Jar Logo"
                                 width={80}
                                 height={28}
-                                className="object-contain h-7"
+                                className="object-contain h-10"
                             />
                         </Link>
                     </SheetTitle>
@@ -335,7 +335,7 @@ export function Header() {
                     width={80}
                     height={28}
                     priority
-                    className="object-contain h-7"
+                    className="object-contain h-10"
                 />
             </Link>
 

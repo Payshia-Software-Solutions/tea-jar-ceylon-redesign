@@ -80,7 +80,7 @@ export function Footer() {
                                     width={120}
                                     height={42}
                                     priority
-                                    className="object-contain h-10"
+                                    className="object-contain h-12"
                                 />
                             </Link>
                             <p className="text-sm text-neutral-400 mb-6 max-w-xs">
