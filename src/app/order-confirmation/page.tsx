@@ -150,7 +150,7 @@ function OrderConfirmationContent() {
                     <Mail className="w-6 h-6 text-amber-300/80" />
                     <div>
                         <p className="text-neutral-400">Email</p>
-                        <p className="font-semibold text-white">{order.customer_code}</p>
+                        <p className="font-semibold text-white truncate">{order.customer_code}</p>
                     </div>
                 </div>
                  <div className="flex items-center gap-3">
