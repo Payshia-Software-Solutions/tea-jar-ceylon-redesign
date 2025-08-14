@@ -12,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ApiProduct } from '@/lib/types';
 import { format } from 'date-fns';
+import * as fbq from '@/lib/fpixel';
 
 interface Order {
   id: string;
@@ -84,6 +85,16 @@ function OrderConfirmationContent() {
 
         setOrder(orderData);
         setItems(itemsWithProductInfo);
+
+        // Fire Purchase event
+        fbq.event('Purchase', {
+          content_ids: itemsWithProductInfo.map(item => item.product_id),
+          content_type: 'product',
+          value: parseFloat(orderData.grand_total),
+          currency: 'LKR',
+          order_id: orderData.invoice_number,
+        });
+
 
       } catch (e: any) {
         setError(e.message || 'An unexpected error occurred.');

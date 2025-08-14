@@ -24,6 +24,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CreditCard, Banknote, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import * as fbq from '@/lib/fpixel';
+import { useEffect } from 'react';
 
 const checkoutSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
@@ -92,6 +94,10 @@ export default function CheckoutPage() {
   });
 
   const watchBillingAddress = form.watch('billingAddress');
+
+  useEffect(() => {
+    fbq.event('InitiateCheckout');
+  }, []);
 
   function onSubmit(data: CheckoutFormValues) {
     console.log('Form Submitted:', data);
