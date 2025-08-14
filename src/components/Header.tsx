@@ -330,7 +330,7 @@ export function Header() {
 
             <Link href="/" className="flex items-center">
                 <Image
-                    src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
+                    src="http://content-provider.payshia.com/tea-jar/white-logo.png"
                     alt="Tea Jar Logo"
                     width={80}
                     height={28}
@@ -347,7 +347,7 @@ export function Header() {
                     onMouseEnter={() => handleMouseEnter(link.label)}
                 >
                     <Link
-                    href={link.href}
+                    href={link.label === 'Contact Us' ? '/contact' : link.href}
                     className="text-neutral-300 hover:text-white transition-colors flex items-center gap-1"
                     >
                     {link.label}
