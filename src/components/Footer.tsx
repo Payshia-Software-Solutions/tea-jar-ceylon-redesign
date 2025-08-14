@@ -68,11 +68,11 @@ export function Footer() {
                                 Mastering the art of world renowned, single origin Ceylon tea since 1978.
                             </p>
                             <div className="flex items-center gap-3">
-                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Facebook className="w-5 h-5" /></Link>
-                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Instagram className="w-5 h-5" /></Link>
-                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><TikTokIcon /></Link>
-                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><WhatsAppIcon /></Link>
-                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Youtube className="w-5 h-5" /></Link>
+                                <Link href="https://web.facebook.com/teajarceylon" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Facebook className="w-5 h-5" /></Link>
+                                <Link href="https://www.instagram.com/tea_jar_/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Instagram className="w-5 h-5" /></Link>
+                                <Link href="https://www.tiktok.com/@tea_jar_01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><TikTokIcon /></Link>
+                                <Link href="https://wa.me/94705508800?text=Hi!%20I'm%20interested%20in%20your%20services." target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><WhatsAppIcon /></Link>
+                                <Link href="https://www.youtube.com/your-channel" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Youtube className="w-5 h-5" /></Link>
                             </div>
                         </div>
 
