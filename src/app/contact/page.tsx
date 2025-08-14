@@ -18,7 +18,7 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="relative h-60 w-full flex items-center justify-center">
         <Image
-          src="https://placehold.co/1920x1080.png"
+          src="https://content-provider.payshia.com/tea-jar/61.webp"
           alt="Contact Us Background"
           fill
           className="object-cover"
