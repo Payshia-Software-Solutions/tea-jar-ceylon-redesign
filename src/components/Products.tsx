@@ -50,40 +50,47 @@ export function Products() {
     }, []);
 
     const formattedProducts = useMemo((): Tea[] => {
-        return apiProducts.map(apiProduct => {
-            const price = parseFloat(apiProduct.selling_price);
-            let salePrice: number | undefined;
+        const productIds = ['55', '56', '5', '11', '34', '15', '4', '9', '39', '43'];
+        
+        const productMap = new Map(apiProducts.map(p => [p.product_id, p]));
 
-            if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
-                const discount = parseFloat(apiProduct.special_promo);
-                salePrice = price - (price * discount / 100);
-            } else if (apiProduct.special_promo) {
-                 salePrice = price - parseFloat(apiProduct.special_promo);
-            }
+        return productIds
+            .map(id => productMap.get(id))
+            .filter((apiProduct): apiProduct is ApiProduct => !!apiProduct)
+            .map(apiProduct => {
+                const price = parseFloat(apiProduct.selling_price);
+                let salePrice: number | undefined;
 
-            const images = productImages[apiProduct.product_id] || [];
-            const otherImage = images.find(img => img.image_prefix === 'Other');
+                if (apiProduct.special_promo && apiProduct.special_promo_type === 'percentage') {
+                    const discount = parseFloat(apiProduct.special_promo);
+                    salePrice = price - (price * discount / 100);
+                } else if (apiProduct.special_promo) {
+                    salePrice = price - parseFloat(apiProduct.special_promo);
+                }
 
-            const hoverImageUrl = otherImage
-                ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${otherImage.image_path}`
-                : undefined;
+                const images = productImages[apiProduct.product_id] || [];
+                const otherImage = images.find(img => img.image_prefix === 'Other');
 
-            return {
-                id: apiProduct.slug || apiProduct.product_id,
-                productId: apiProduct.product_id,
-                name: apiProduct.product_name.trim(),
-                description: '',
-                longDescription: '',
-                price: price,
-                salePrice: salePrice,
-                image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
-                hoverImage: hoverImageUrl,
-                dataAiHint: 'tea product',
-                type: 'Black',
-                flavorProfile: [],
-                origin: 'Sri Lanka',
-                stock_status: apiProduct.stock_status,
-            };
+                const hoverImageUrl = otherImage
+                    ? `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${otherImage.image_path}`
+                    : undefined;
+
+                return {
+                    id: apiProduct.slug || apiProduct.product_id,
+                    productId: apiProduct.product_id,
+                    name: apiProduct.product_name.trim(),
+                    description: '',
+                    longDescription: '',
+                    price: price,
+                    salePrice: salePrice,
+                    image: `https://kdu-admin.payshia.com/pos-system/assets/images/products/${apiProduct.product_id}/${apiProduct.image_path}`,
+                    hoverImage: hoverImageUrl,
+                    dataAiHint: 'tea product',
+                    type: 'Black',
+                    flavorProfile: [],
+                    origin: 'Sri Lanka',
+                    stock_status: apiProduct.stock_status,
+                };
         });
     }, [apiProducts, productImages]);
 
