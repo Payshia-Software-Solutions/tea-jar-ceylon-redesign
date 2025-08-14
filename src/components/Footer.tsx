@@ -1,5 +1,7 @@
+
 import { Facebook, Instagram, Phone, Youtube } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const footerSections = [
     {
@@ -23,7 +25,7 @@ const footerSections = [
         title: 'Quick Links',
         links: [
             { text: 'Search', href: '#' },
-            { text: 'Contact', href: '#' },
+            { text: 'Contact', href: '/contact' },
             { text: 'Store Locator', href: '#' },
             { text: 'Tea Menu', href: '#' },
             { text: 'Wholesale Program', href: '#' },
@@ -49,41 +51,60 @@ export function Footer() {
         <>
             <footer className="bg-[#1a1a1a] text-neutral-300">
                 <div className="container mx-auto px-4 py-16">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                        {/* Links Sections */}
-                        {footerSections.map((section) => (
-                            <div key={section.title}>
-                                <h3 className="font-bold text-white mb-6">{section.title}</h3>
-                                <ul className="space-y-3">
-                                    {section.links.map((link) => (
-                                        <li key={link.text}>
-                                            <Link href={link.href} className="hover:text-white transition-colors text-sm">
-                                                {link.text}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        {/* Logo & Socials */}
+                        <div className="lg:col-span-3">
+                             <Link href="/" className="mb-6 inline-block">
+                                <Image
+                                    src="http://content-provider.payshia.com/tea-jar/white-logo.png"
+                                    alt="Tea Jar Logo"
+                                    width={120}
+                                    height={42}
+                                    priority
+                                    className="object-contain h-10"
+                                />
+                            </Link>
+                            <p className="text-sm text-neutral-400 mb-6 max-w-xs">
+                                Mastering the art of world renowned, single origin Ceylon tea since 1978.
+                            </p>
+                            <div className="flex items-center gap-3">
+                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Facebook className="w-5 h-5" /></Link>
+                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Instagram className="w-5 h-5" /></Link>
+                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><TikTokIcon /></Link>
+                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><WhatsAppIcon /></Link>
+                                <Link href="#" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Youtube className="w-5 h-5" /></Link>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Links Sections */}
+                         <div className="lg:col-span-6">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                                {footerSections.map((section) => (
+                                    <div key={section.title}>
+                                        <h3 className="font-semibold text-white mb-5">{section.title}</h3>
+                                        <ul className="space-y-3">
+                                            {section.links.map((link) => (
+                                                <li key={link.text}>
+                                                    <Link href={link.href} className="hover:text-white transition-colors text-sm text-neutral-400 hover:underline underline-offset-4">
+                                                        {link.text}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                         </div>
 
                         {/* Contact Info */}
-                        <div>
-                            <h3 className="font-bold text-white mb-6">Tea Jar</h3>
-                            <div className="text-sm space-y-3">
+                        <div className="lg:col-span-3">
+                            <h3 className="font-semibold text-white mb-5">Contact Us</h3>
+                            <div className="text-sm space-y-3 text-neutral-400">
                                 <p>
                                     <span className="font-semibold text-white/90 block">Corporate Office:</span> KDU Exports PVT LTD, 427 A, Galle Road, Colombo 03, Sri Lanka
                                 </p>
-                                <p>
-                                    <span className="font-semibold text-white/90 block">Factory:</span> KDU Exports PVT LTD, Galpadithanna Tea Factory, Lellopitiya,Rathnapura.
-                                </p>
-                                <p>
+                                 <p>
                                     <span className="font-semibold text-white/90 block">Customer Service:</span> (+94)70 55 08 800
-                                </p>
-                                <p>
-                                    <span className="font-semibold text-white/90 block">Service Hours:</span> Daily 9 am - 6 pm
-                                </p>
-                                <p>
-                                    <span className="font-semibold text-white/90 block">Wholesale Inquiries:</span> (+94)70 55 08 800
                                 </p>
                                 <p>
                                     <span className="font-semibold text-white/90 block">Email:</span> marketing@teajarceylon.com
@@ -91,30 +112,18 @@ export function Footer() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Follow Us */}
-                    <div className="text-center mt-16">
-                        <h3 className="font-bold text-white mb-4">Follow Us</h3>
-                        <div className="flex justify-center items-center gap-4">
-                            <Link href="#" className="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Facebook className="w-5 h-5" /></Link>
-                            <Link href="#" className="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Instagram className="w-5 h-5" /></Link>
-                            <Link href="#" className="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><TikTokIcon /></Link>
-                            <Link href="#" className="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors p-2"><WhatsAppIcon /></Link>
-                            <Link href="#" className="w-10 h-10 bg-neutral-700 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"><Youtube className="w-5 h-5" /></Link>
-                        </div>
-                    </div>
                 </div>
                 <div className="border-t border-neutral-800">
                     <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between text-sm">
                         <p className="text-neutral-500 mb-4 md:mb-0">&copy; {new Date().getFullYear()} Tea Jar. All rights reserved.</p>
                         <p className="text-neutral-500">
-                            Powered by <Link href="#" className="hover:text-white transition-colors">Payshia Software Solutions</Link>
+                            Powered by <Link href="https://payshia.com" className="hover:text-white transition-colors">Payshia Software Solutions</Link>
                         </p>
                     </div>
                 </div>
             </footer>
             {/* Floating Phone Icon */}
-            <Link href="tel:+94705508800" className="fixed bottom-6 right-6 bg-green-500 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg hover:bg-green-600 transition-transform hover:scale-110">
+            <Link href="tel:+94705508800" className="fixed bottom-6 right-6 bg-green-500 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg hover:bg-green-600 transition-transform hover:scale-110 z-50">
                 <Phone className="w-7 h-7" />
                 <span className="sr-only">Call us</span>
             </Link>
