@@ -8,6 +8,7 @@ import { Footer } from '@/components/Footer';
 import { ProgressBar } from '@/components/ProgressBar';
 import { Suspense } from 'react';
 import { MotionWrapper } from '@/components/MotionWrapper';
+import { Analytics } from '@/components/Analytics';
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className="font-body bg-background text-foreground antialiased flex flex-col min-h-screen">
         <Suspense fallback={null}>
           <ProgressBar />
+          <Analytics />
         </Suspense>
         <CartProvider>
           <Header />
