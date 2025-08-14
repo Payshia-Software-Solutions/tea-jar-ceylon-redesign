@@ -38,7 +38,7 @@ export default function Home() {
         </video>
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center text-white p-4">
           <Image
-            src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
+            src="https://content-provider.payshia.com/tea-jar/white-logo.webp"
             alt="Tea Jar Logo"
             width={400}
             height={150}
