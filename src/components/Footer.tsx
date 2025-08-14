@@ -88,7 +88,7 @@ export function Footer() {
                             </p>
                             <div className="flex items-center gap-3">
                                 {socialLinks.map(social => (
-                                    <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center text-white hover:bg-neutral-700 transition-colors">
+                                    <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-white hover:bg-neutral-200 transition-colors">
                                         <Image src={social.icon} alt={social.name} width={20} height={20} className="object-contain h-5 w-5" />
                                     </Link>
                                 ))}
