@@ -146,9 +146,9 @@ function OrderConfirmationContent() {
                         <p className="font-semibold text-white">{format(new Date(order.invoice_date), 'MMMM dd, yyyy')}</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    <Mail className="w-6 h-6 text-amber-300/80" />
-                    <div>
+                <div className="flex items-center gap-3 min-w-0">
+                    <Mail className="w-6 h-6 text-amber-300/80 flex-shrink-0" />
+                    <div className="min-w-0">
                         <p className="text-neutral-400">Email</p>
                         <p className="font-semibold text-white truncate">{order.customer_code}</p>
                     </div>
