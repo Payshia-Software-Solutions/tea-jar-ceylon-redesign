@@ -81,28 +81,32 @@ export default function ContactPage() {
           
           {/* Right Column - Contact Form */}
           <div className="lg:col-span-3">
-             <form className="space-y-6">
-                 <Input placeholder="Full Name" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
-                 <Input type="email" placeholder="Email" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
-                 <Input type="tel" placeholder="Phone Number" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
-                 <Input placeholder="Subject Topic" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
-                 <Textarea placeholder="Message" rows={6} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
-                 <div className="space-y-4">
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="newsletter" className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
-                        <label htmlFor="newsletter" className="text-sm font-medium text-neutral-300 leading-none">
-                            Signup for Our Newsletter
-                        </label>
+             <div className="bg-[#2a2f28] border border-neutral-700 p-8 rounded-lg">
+                <form className="space-y-6">
+                    <Input placeholder="Full Name" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Input type="email" placeholder="Email" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                        <Input type="tel" placeholder="Phone Number" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
                     </div>
-                     <div className="flex items-center space-x-2">
-                        <Checkbox id="privacy" className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black"/>
-                        <label htmlFor="privacy" className="text-sm font-medium text-neutral-300 leading-none">
-                            Confirm acceptance of our Privacy Policy
-                        </label>
+                    <Input placeholder="Subject Topic" className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                    <Textarea placeholder="Message" rows={6} className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-amber-300 focus:ring-amber-300" />
+                    <div className="space-y-4">
+                        <div className="flex items-center space-x-2">
+                            <Checkbox id="newsletter" className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
+                            <label htmlFor="newsletter" className="text-sm font-medium text-neutral-300 leading-none">
+                                Signup for Our Newsletter
+                            </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Checkbox id="privacy" className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black"/>
+                            <label htmlFor="privacy" className="text-sm font-medium text-neutral-300 leading-none">
+                                Confirm acceptance of our Privacy Policy
+                            </label>
+                        </div>
                     </div>
-                 </div>
-                 <Button type="submit" className="bg-white text-black hover:bg-neutral-200">SEND</Button>
-             </form>
+                    <Button type="submit" className="bg-white text-black hover:bg-neutral-200 w-full">SEND</Button>
+                </form>
+             </div>
           </div>
 
         </div>
