@@ -24,7 +24,7 @@ const navMenuData = {
       title: 'Shop Tea',
       links: [
         { text: 'Shop All Teas', href: '/shop' },
-        { text: 'Advent Calender', href: '/shop?department=Advent%20Calender' },
+        { text: 'Advent Calender', href: '/products/christmas-tea-advent-calendar--24-individually-wrapped-tea-bags' },
       ],
     },
     {
