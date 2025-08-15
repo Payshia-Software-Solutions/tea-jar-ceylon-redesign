@@ -98,7 +98,9 @@ export default function CheckoutPage() {
 
 
   useEffect(() => {
-    fbq.event('InitiateCheckout');
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+        fbq.event('InitiateCheckout');
+    }
   }, []);
 
   function onSubmit(data: CheckoutFormValues) {
@@ -426,7 +428,7 @@ export default function CheckoutPage() {
 
                     <div className="py-8">
                         <Link href="/shop">
-                            <Button variant="outline" className="text-white border-neutral-500 hover:bg-neutral-700 hover:text-white">
+                            <Button variant="outline" className="text-white border-current hover:bg-white/10">
                                &larr; Return to Shopping
                             </Button>
                         </Link>
@@ -592,4 +594,5 @@ export default function CheckoutPage() {
   );
 }
 
+    
     
