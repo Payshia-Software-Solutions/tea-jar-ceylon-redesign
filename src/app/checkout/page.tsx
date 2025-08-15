@@ -116,9 +116,6 @@ export default function CheckoutPage() {
             {/* Left Side - Form */}
             <div className="py-8 px-4 sm:px-6 lg:px-12 border-r border-neutral-700 flex flex-col items-end">
                 <div className="max-w-xl w-full mx-auto lg:mr-0 space-y-8">
-                    <Link href="/">
-                        <Image src="https://content-provider.payshia.com/tea-jar/gold-logo.webp" alt="Tea Jar Logo" width={120} height={60} className="h-16" />
-                    </Link>
                     
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
@@ -594,3 +591,5 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+    
