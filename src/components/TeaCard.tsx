@@ -126,7 +126,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                         )}
                     </div>
                   </div>
-                  {!isOutOfStock && <MintPay price={displayPrice} />}
+                  <MintPay price={displayPrice} />
               </CardFooter>
             </div>
             <div className="p-4 pt-0 md:hidden">
