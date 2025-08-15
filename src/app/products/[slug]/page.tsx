@@ -1,5 +1,5 @@
 
-import type { Tea, ApiProduct, ApiImage, Department } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Department, Category } from '@/lib/types';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
@@ -12,11 +12,25 @@ interface TeaPageProps {
 
 async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: Tea[], departmentName: string | null}> {
     try {
-        const response = await fetch(`https://kduserver.payshia.com/products/get-by-slug/${slug}`);
-        if (!response.ok) {
+        const [
+            productResponse, 
+            allDeptsRes, 
+            allCategoriesRes
+        ] = await Promise.all([
+            fetch(`https://kduserver.payshia.com/products/get-by-slug/${slug}`),
+            fetch('https://kduserver.payshia.com/departments'),
+            fetch('https://kduserver.payshia.com/categories')
+        ]);
+        
+        if (!productResponse.ok) {
             return { tea: null, relatedTeas: [], departmentName: null };
         }
-        const apiProduct: ApiProduct = await response.json();
+        
+        const apiProduct: ApiProduct = await productResponse.json();
+        const allDepts: Department[] = await allDeptsRes.json();
+        const allCategories: Category[] = await allCategoriesRes.json();
+        
+        const categoryMap = new Map(allCategories.map(c => [c.id, c.category_name]));
 
         const price = parseFloat(apiProduct.selling_price);
         let salePrice: number | undefined;
@@ -50,6 +64,8 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
             origin: 'Sri Lanka',
             netWeight: '350.00 g',
             departmentId: apiProduct.department_id,
+            categoryId: apiProduct.category_id,
+            categoryName: categoryMap.get(apiProduct.category_id),
         };
 
         let departmentName: string | null = null;
@@ -57,8 +73,6 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
         
         if(formattedProduct.departmentId){
             // Fetch department name
-            const deptRes = await fetch('https://kduserver.payshia.com/departments');
-            const allDepts: Department[] = await deptRes.json();
             const currentDept = allDepts.find(d => d.id === formattedProduct.departmentId);
             if (currentDept) {
                 departmentName = currentDept.department_name;
@@ -92,6 +106,8 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
                         type: 'Black',
                         flavorProfile: [],
                         origin: 'Sri Lanka',
+                        categoryId: p.category_id,
+                        categoryName: categoryMap.get(p.category_id),
                     };
                 });
         }

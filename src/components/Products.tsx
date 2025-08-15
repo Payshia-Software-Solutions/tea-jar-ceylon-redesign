@@ -5,7 +5,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { TeaCard } from '@/components/TeaCard';
 import { Button } from '@/components/ui/button';
-import type { Tea, ApiProduct, ApiImage } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Category } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 import 'swiper/css';
 import Link from 'next/link';
@@ -13,14 +13,21 @@ import Link from 'next/link';
 export function Products() {
     const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
     const [productImages, setProductImages] = useState<Record<string, ApiImage[]>>({});
+    const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchProductsAndImages() {
             try {
-                const response = await fetch('https://kduserver.payshia.com/products');
-                const data: ApiProduct[] = await response.json();
+                const [productsResponse, categoriesResponse] = await Promise.all([
+                    fetch('https://kduserver.payshia.com/products'),
+                    fetch('https://kduserver.payshia.com/categories')
+                ]);
+
+                const data: ApiProduct[] = await productsResponse.json();
+                const categoriesData: Category[] = await categoriesResponse.json();
                 setApiProducts(data);
+                setCategories(categoriesData);
 
                 const imagePromises = data.map(product =>
                     fetch(`https://kduserver.payshia.com/product-images/get-by-product/${product.product_id}`).then(res => res.json())
@@ -51,7 +58,7 @@ export function Products() {
 
     const formattedProducts = useMemo((): Tea[] => {
         const productIds = ['55', '56', '5', '11', '34', '15', '4', '9', '39', '43'];
-        
+        const categoryMap = new Map(categories.map(c => [c.id, c.category_name]));
         const productMap = new Map(apiProducts.map(p => [p.product_id, p]));
 
         return productIds
@@ -90,9 +97,11 @@ export function Products() {
                     flavorProfile: [],
                     origin: 'Sri Lanka',
                     stock_status: apiProduct.stock_status,
+                    categoryId: apiProduct.category_id,
+                    categoryName: categoryMap.get(apiProduct.category_id),
                 };
         });
-    }, [apiProducts, productImages]);
+    }, [apiProducts, productImages, categories]);
 
     return (
         <section className="bg-[#353d32] py-16 md:py-20 text-white" id="teas">

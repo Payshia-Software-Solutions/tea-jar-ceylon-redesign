@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { Sparkle, ShoppingBag, ShoppingCart } from 'lucide-react';
+import { Sparkle, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
 import { useCart } from '@/hooks/use-cart';
 import { useToast } from '@/hooks/use-toast';
@@ -17,6 +17,27 @@ import { MintPay } from './MintPay';
 
 interface TeaCardProps {
   tea: Tea;
+}
+
+function CategoryIcon({ categoryName }: { categoryName?: string }) {
+    if (!categoryName) {
+        return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+    }
+  
+    const normalizedCategory = categoryName.toLowerCase();
+  
+    if (normalizedCategory.includes('loose leaf')) {
+      return <Image src="https://content-provider.payshia.com/tea-jar/loose-leaf-icon.svg" alt="Loose Leaf" width={24} height={24} className="w-6 h-6" unoptimized />;
+    }
+    if (normalizedCategory.includes('luxury leaf tea bag')) {
+      return <Image src="https://content-provider.payshia.com/tea-jar/teabag-icon.svg" alt="Luxury Leaf Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+    }
+    if (normalizedCategory.includes('tea bag')) {
+      return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+    }
+  
+    // Default icon
+    return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
 }
 
 export function TeaCard({ tea }: TeaCardProps) {
@@ -108,7 +129,7 @@ export function TeaCard({ tea }: TeaCardProps) {
               </CardContent>
               <CardFooter className="p-4 pt-0 flex flex-col items-end">
                   <div className="flex justify-between items-center w-full">
-                    <ShoppingBag className="w-6 h-6 text-neutral-400" />
+                    <CategoryIcon categoryName={tea.categoryName} />
                     <div className="text-right">
                         {hasSale ? (
                             <>

@@ -17,6 +17,8 @@ export interface Tea {
   netWeight?: string;
   departmentId?: string;
   stock_status?: string;
+  categoryId?: string;
+  categoryName?: string;
 }
 
 export interface ApiProduct {

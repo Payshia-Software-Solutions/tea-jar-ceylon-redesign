@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import type { Tea, ApiProduct, ApiImage } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Category } from '@/lib/types';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Filters } from './ShopFilters';
@@ -20,6 +20,7 @@ interface DepartmentShowcaseProps {
 export function DepartmentShowcase({ department, filters }: DepartmentShowcaseProps) {
     const [products, setProducts] = useState<ApiProduct[]>([]);
     const [productImages, setProductImages] = useState<Record<string, ApiImage[]>>({});
+    const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,9 +29,15 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
         async function fetchProductsAndImages() {
             setLoading(true);
             try {
-                const response = await fetch(`https://kduserver.payshia.com/products/get-by-department/${department.id}`);
-                const data: ApiProduct[] = await response.json();
+                const [productsRes, categoriesRes] = await Promise.all([
+                    fetch(`https://kduserver.payshia.com/products/get-by-department/${department.id}`),
+                    fetch(`https://kduserver.payshia.com/categories`)
+                ]);
+                
+                const data: ApiProduct[] = await productsRes.json();
+                const categoriesData: Category[] = await categoriesRes.json();
                 setProducts(data);
+                setCategories(categoriesData);
 
                 const imagePromises = data.map(product =>
                     fetch(`https://kduserver.payshia.com/product-images/get-by-product/${product.product_id}`).then(res => res.json())
@@ -60,6 +67,8 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
     }, [department.id]);
     
     const filteredAndFormattedTeas = useMemo(() => {
+        const categoryMap = new Map(categories.map(c => [c.id, c.category_name]));
+
         return products
           .filter(product => {
             const price = parseFloat(product.selling_price);
@@ -110,9 +119,11 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
                 flavorProfile: [],
                 origin: 'Sri Lanka',
                 stock_status: apiProduct.stock_status,
+                categoryId: apiProduct.category_id,
+                categoryName: categoryMap.get(apiProduct.category_id),
             };
           });
-    }, [products, filters, productImages]);
+    }, [products, filters, productImages, categories]);
 
 
     if (loading) {
