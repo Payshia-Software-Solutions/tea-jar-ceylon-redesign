@@ -556,17 +556,12 @@ export default function CheckoutPage() {
                                         )}
                                     </div>
                                     {/* Cash on Delivery Option */}
-                                    <FormField
-                                        control={form.control}
-                                        name="paymentMethod"
-                                    >
-                                        <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
-                                            <FormControl>
-                                                <RadioGroupItem value="cod" id="cod" />
-                                            </FormControl>
-                                            <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
-                                        </div>
-                                    </FormField>
+                                    <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
+                                        <FormControl>
+                                            <RadioGroupItem value="cod" id="cod" />
+                                        </FormControl>
+                                        <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
+                                    </div>
                                 </RadioGroup>
                                 )}
                             />
@@ -599,7 +594,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
-    
-
-    
