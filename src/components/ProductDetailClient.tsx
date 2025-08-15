@@ -16,6 +16,7 @@ import { Badge } from './ui/badge';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useToast } from '@/hooks/use-toast';
+import { MintPay } from './MintPay';
 
 interface ProductDetailClientProps {
   tea: Tea;
@@ -66,6 +67,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
        }
     }
   };
+  const displayPrice = tea.salePrice ?? tea.price;
 
   return (
     <div className="bg-[#353d32] text-white min-h-screen pt-32">
@@ -128,17 +130,20 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                                 <span>175 grams per pack</span>
                              </div>
                         </div>
-                        <div className="flex items-baseline flex-wrap gap-x-4 gap-y-2 pt-2">
-                            {tea.salePrice ? (
-                                <div className="flex items-baseline gap-3">
-                                    <span className="text-2xl text-neutral-400 line-through">Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                                    <span className="text-4xl font-bold text-red-500">Rs {tea.salePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                                </div>
-                            ) : (
-                                <span className="text-4xl font-bold text-white">Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            )}
-                            <Badge className="bg-green-200 text-green-900 border border-green-300">IN STOCK</Badge>
-                        </div>
+                        <div className="flex flex-col items-end">
+                            <div className="flex items-baseline flex-wrap gap-x-4 gap-y-2 pt-2 w-full">
+                                {tea.salePrice ? (
+                                    <div className="flex items-baseline gap-3">
+                                        <span className="text-2xl text-neutral-400 line-through">Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                        <span className="text-4xl font-bold text-red-500">Rs {tea.salePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    </div>
+                                ) : (
+                                    <span className="text-4xl font-bold text-white">Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                )}
+                                <Badge className="bg-green-200 text-green-900 border border-green-300">IN STOCK</Badge>
+                            </div>
+                            <MintPay price={displayPrice}/>
+                         </div>
                          <p className="text-sm text-neutral-400">Shipping calculated at checkout.</p>
                     </div>
 
