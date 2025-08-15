@@ -428,7 +428,7 @@ export default function CheckoutPage() {
 
                     <div className="py-8">
                         <Link href="/shop">
-                            <Button variant="outline" className="bg-white text-black hover:bg-neutral-200">
+                            <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black">
                                &larr; Return to Shopping
                             </Button>
                         </Link>
@@ -457,6 +457,9 @@ export default function CheckoutPage() {
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="font-semibold text-sm text-white">{item.product.name}</h3>
+                                        <p className="text-neutral-400 text-xs">
+                                          Qty: {item.quantity}
+                                        </p>
                                         <div className="flex items-baseline gap-2 text-xs">
                                             {item.product.salePrice ? (
                                                 <>
@@ -469,7 +472,7 @@ export default function CheckoutPage() {
                                             
                                         </div>
                                     </div>
-                                    <p className="font-medium text-sm text-white">LKR {(item.product.salePrice ?? item.product.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                                    <p className="font-medium text-sm text-white">LKR {(item.quantity * (item.product.salePrice ?? item.product.price)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                                 </div>
                             ))}
                         </div>
@@ -596,4 +599,6 @@ export default function CheckoutPage() {
 
     
     
+    
+
     
