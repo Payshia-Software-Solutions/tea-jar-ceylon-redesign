@@ -27,13 +27,13 @@ function CategoryIcon({ categoryId }: { categoryId?: string }) {
     };
 
     const iconSrc = categoryId ? iconMap[categoryId] : iconMap['1'];
-    const altText = categoryId === '3' ? "Loose Leaf" : categoryId === '2' ? "Luxury Leaf Tea Bag" : "Tea Bag";
+    const altText = categoryId === '3' ? "Loose Leaf Tea" : categoryId === '2' ? "Luxury Leaf Tea Bag" : "Tea Bag";
 
     if (!iconSrc) {
-         return <Image src={iconMap['1']} alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+         return <Image src={iconMap['1']} alt="Tea Bag" width={24} height={24} className="w-6 h-6 filter brightness-0 invert" unoptimized />;
     }
 
-    return <Image src={iconSrc} alt={altText} width={24} height={24} className="w-6 h-6" unoptimized />;
+    return <Image src={iconSrc} alt={altText} width={24} height={24} className="w-6 h-6 filter brightness-0 invert" unoptimized />;
 }
 
 export function TeaCard({ tea }: TeaCardProps) {
