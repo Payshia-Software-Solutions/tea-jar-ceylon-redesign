@@ -88,7 +88,7 @@ export default function Home() {
             <p className="max-w-4xl text-neutral-200 leading-loose tracking-wider mb-12 md:mb-16 font-secondary text-base md:text-lg">
                 Our single-origin Ceylon teas are ethically sourced and crafted to ensure factory-fresh quality, reflecting the rich heritage and values of Ceylon tea. Enjoy the true essence of Ceylon tea with Tea Jar.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-sm md:max-w-3xl">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 w-full max-w-4xl">
                 <div className="flex flex-col items-center gap-4">
                     <Image src="https://content-provider.payshia.com/tea-jar/ethically-grown.webp" alt="Ethically Grown" width={80} height={80} className="object-contain" />
                     <h3 className="font-headline text-xl text-neutral-100">Ethically Grown</h3>
