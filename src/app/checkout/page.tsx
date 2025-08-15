@@ -451,7 +451,7 @@ export default function CheckoutPage() {
                                         className="object-contain p-1"
                                         unoptimized
                                         />
-                                        <div className="absolute -top-2 -right-2 bg-neutral-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                        <div className="absolute -top-2 -right-2 bg-amber-200 text-black font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                             {item.quantity}
                                         </div>
                                     </div>
