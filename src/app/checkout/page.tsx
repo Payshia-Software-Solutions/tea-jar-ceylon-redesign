@@ -428,7 +428,7 @@ export default function CheckoutPage() {
 
                     <div className="py-8">
                         <Link href="/shop">
-                            <Button variant="outline" className="text-white border-current hover:bg-white/10">
+                            <Button variant="outline" className="bg-white text-black hover:bg-neutral-200">
                                &larr; Return to Shopping
                             </Button>
                         </Link>
@@ -594,5 +594,6 @@ export default function CheckoutPage() {
   );
 }
 
+    
     
     
