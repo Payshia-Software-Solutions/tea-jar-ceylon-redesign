@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { MintPay } from './MintPay';
 
 interface TeaCardProps {
   tea: Tea;
@@ -37,14 +38,16 @@ export function TeaCard({ tea }: TeaCardProps) {
     });
   };
 
+  const displayPrice = hasSale ? tea.salePrice! : tea.price;
+
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className="h-full"
     >
-        <Link 
-            href={`/products/${tea.id}`} 
+        <Link
+            href={`/products/${tea.id}`}
             className="block group h-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -103,24 +106,27 @@ export function TeaCard({ tea }: TeaCardProps) {
               <CardContent className="flex-grow p-4">
                 <CardTitle className="font-bold text-lg leading-tight line-clamp-2">{tea.name}</CardTitle>
               </CardContent>
-              <CardFooter className="p-4 pt-0 flex justify-between items-center">
-                  <ShoppingBag className="w-6 h-6 text-neutral-400" />
-                  <div className="text-right">
-                      {hasSale ? (
-                          <>
-                              <p className="text-sm text-neutral-400 line-through">
-                                  Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </p>
-                              <p className="text-lg font-bold text-red-500">
-                                  Rs {tea.salePrice!.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </p>
-                          </>
-                      ) : (
-                          <p className="text-lg font-bold text-white">
-                              Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                          </p>
-                      )}
+              <CardFooter className="p-4 pt-0 flex flex-col items-end">
+                  <div className="flex justify-between items-center w-full">
+                    <ShoppingBag className="w-6 h-6 text-neutral-400" />
+                    <div className="text-right">
+                        {hasSale ? (
+                            <>
+                                <p className="text-sm text-neutral-400 line-through">
+                                    Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </p>
+                                <p className="text-lg font-bold text-red-500">
+                                    Rs {tea.salePrice!.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </p>
+                            </>
+                        ) : (
+                            <p className="text-lg font-bold text-white">
+                                Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </p>
+                        )}
+                    </div>
                   </div>
+                  {!isOutOfStock && <MintPay price={displayPrice} />}
               </CardFooter>
             </div>
             <div className="p-4 pt-0 md:hidden">
