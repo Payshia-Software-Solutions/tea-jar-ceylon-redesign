@@ -12,7 +12,7 @@ export function MintPay({ price }: MintPayProps) {
     <div className="flex items-center justify-end gap-2 text-xs text-neutral-400 mt-2 w-full">
       <span>or 3 X Rs {installmentPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} with</span>
       <Image
-        src="https://static.mintpay.lk/mintpay-logo-light.svg"
+        src="https://content-provider.payshia.com/tea-jar/mintpay-pill.png"
         alt="Mintpay"
         width={60}
         height={16}
