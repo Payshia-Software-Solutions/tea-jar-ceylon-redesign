@@ -24,15 +24,15 @@ function CategoryIcon({ categoryName }: { categoryName?: string }) {
         return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
     }
   
-    const normalizedCategory = categoryName.toLowerCase();
+    const normalizedCategory = categoryName.toLowerCase().trim();
   
-    if (normalizedCategory.includes('loose leaf')) {
+    if (normalizedCategory === 'loose leaf') {
       return <Image src="https://content-provider.payshia.com/tea-jar/loose-leaf-icon.svg" alt="Loose Leaf" width={24} height={24} className="w-6 h-6" unoptimized />;
     }
-    if (normalizedCategory.includes('luxury leaf tea bag')) {
+    if (normalizedCategory === 'luxury leaf tea bags') {
       return <Image src="https://content-provider.payshia.com/tea-jar/teabag-icon.svg" alt="Luxury Leaf Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
     }
-    if (normalizedCategory.includes('tea bag')) {
+    if (normalizedCategory === 'tea bags') {
       return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
     }
   
@@ -166,3 +166,5 @@ export function TeaCard({ tea }: TeaCardProps) {
     </motion.div>
   );
 }
+
+    
