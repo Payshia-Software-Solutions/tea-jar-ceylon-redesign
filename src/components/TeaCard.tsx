@@ -19,25 +19,21 @@ interface TeaCardProps {
   tea: Tea;
 }
 
-function CategoryIcon({ categoryName }: { categoryName?: string }) {
-    if (!categoryName) {
-        return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+function CategoryIcon({ categoryId }: { categoryId?: string }) {
+    const iconMap: Record<string, string> = {
+        '1': "https://content-provider.payshia.com/tea-jar/tea-bag.webp",
+        '2': "https://content-provider.payshia.com/tea-jar/teabag-icon.svg",
+        '3': "https://content-provider.payshia.com/tea-jar/loose-leaf-icon.svg",
+    };
+
+    const iconSrc = categoryId ? iconMap[categoryId] : iconMap['1'];
+    const altText = categoryId === '3' ? "Loose Leaf" : categoryId === '2' ? "Luxury Leaf Tea Bag" : "Tea Bag";
+
+    if (!iconSrc) {
+         return <Image src={iconMap['1']} alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
     }
-  
-    const normalizedCategory = categoryName.toLowerCase().trim();
-  
-    if (normalizedCategory === 'loose leaf') {
-      return <Image src="https://content-provider.payshia.com/tea-jar/loose-leaf-icon.svg" alt="Loose Leaf" width={24} height={24} className="w-6 h-6" unoptimized />;
-    }
-    if (normalizedCategory === 'luxury leaf tea bags') {
-      return <Image src="https://content-provider.payshia.com/tea-jar/teabag-icon.svg" alt="Luxury Leaf Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
-    }
-    if (normalizedCategory === 'tea bags') {
-      return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
-    }
-  
-    // Default icon
-    return <Image src="https://content-provider.payshia.com/tea-jar/tea-bag.webp" alt="Tea Bag" width={24} height={24} className="w-6 h-6" unoptimized />;
+
+    return <Image src={iconSrc} alt={altText} width={24} height={24} className="w-6 h-6" unoptimized />;
 }
 
 export function TeaCard({ tea }: TeaCardProps) {
@@ -129,7 +125,7 @@ export function TeaCard({ tea }: TeaCardProps) {
               </CardContent>
               <CardFooter className="p-4 pt-0 flex flex-col items-end">
                   <div className="flex justify-between items-center w-full">
-                    <CategoryIcon categoryName={tea.categoryName} />
+                    <CategoryIcon categoryId={tea.categoryId} />
                     <div className="text-right">
                         {hasSale ? (
                             <>
@@ -166,5 +162,3 @@ export function TeaCard({ tea }: TeaCardProps) {
     </motion.div>
   );
 }
-
-    
