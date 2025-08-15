@@ -515,53 +515,55 @@ export default function CheckoutPage() {
                             <p className="text-sm text-neutral-400">All transactions are secure and encrypted.</p>
                         </div>
                         
-                        <FormField
-                            control={form.control}
-                            name="paymentMethod"
-                            render={({ field }) => (
-                            <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
-                                {/* PayHere Option */}
-                                <div className={cn("border rounded-t-md has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'payhere' ? "border-amber-300/80" : "border-neutral-700")}>
-                                    <div className="p-4 flex items-center space-x-3">
-                                        <FormControl>
-                                            <RadioGroupItem value="payhere" id="payhere" />
-                                        </FormControl>
-                                        <Label htmlFor="payhere" className="font-normal w-full text-neutral-300">Bank Card / Bank Account - PayHere</Label>
-                                    </div>
-                                    {watchPaymentMethod === 'payhere' && (
-                                        <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
-                                            <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
-                                            <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
+                        <Form {...form}>
+                            <FormField
+                                control={form.control}
+                                name="paymentMethod"
+                                render={({ field }) => (
+                                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
+                                    {/* PayHere Option */}
+                                    <div className={cn("border rounded-t-md has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'payhere' ? "border-amber-300/80" : "border-neutral-700")}>
+                                        <div className="p-4 flex items-center space-x-3">
+                                            <FormControl>
+                                                <RadioGroupItem value="payhere" id="payhere" />
+                                            </FormControl>
+                                            <Label htmlFor="payhere" className="font-normal w-full text-neutral-300">Bank Card / Bank Account - PayHere</Label>
                                         </div>
-                                    )}
-                                </div>
-                                {/* Mintpay Option */}
-                                <div className={cn("border border-t-0 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'mintpay' ? "border-amber-300/80" : "border-neutral-700")}>
-                                    <div className="p-4 flex items-center space-x-3">
-                                        <FormControl>
-                                            <RadioGroupItem value="mintpay" id="mintpay" />
-                                        </FormControl>
-                                        <Label htmlFor="mintpay" className="font-normal w-full text-neutral-300 flex items-center justify-between">
-                                            <span>Pay with Mintpay</span>
-                                            <Image src="https://content-provider.payshia.com/tea-jar/mintpay-pill.png" alt="Mintpay" width={80} height={20} />
-                                        </Label>
+                                        {watchPaymentMethod === 'payhere' && (
+                                            <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
+                                                <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
+                                                <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
+                                            </div>
+                                        )}
                                     </div>
-                                     {watchPaymentMethod === 'mintpay' && (
-                                        <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
-                                            <p>Pay in 3 interest-free installments. After clicking "Pay now", you will be redirected to Mintpay to complete your purchase.</p>
+                                    {/* Mintpay Option */}
+                                    <div className={cn("border border-t-0 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'mintpay' ? "border-amber-300/80" : "border-neutral-700")}>
+                                        <div className="p-4 flex items-center space-x-3">
+                                            <FormControl>
+                                                <RadioGroupItem value="mintpay" id="mintpay" />
+                                            </FormControl>
+                                            <Label htmlFor="mintpay" className="font-normal w-full text-neutral-300 flex items-center justify-between">
+                                                <span>Pay with Mintpay</span>
+                                                <Image src="https://content-provider.payshia.com/tea-jar/mintpay-pill.png" alt="Mintpay" width={80} height={20} />
+                                            </Label>
                                         </div>
-                                    )}
-                                </div>
-                                {/* Cash on Delivery Option */}
-                                <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
-                                    <FormControl>
-                                        <RadioGroupItem value="cod" id="cod" />
-                                    </FormControl>
-                                    <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
-                                </div>
-                            </RadioGroup>
-                            )}
-                        />
+                                         {watchPaymentMethod === 'mintpay' && (
+                                            <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
+                                                <p>Pay in 3 interest-free installments. After clicking "Pay now", you will be redirected to Mintpay to complete your purchase.</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                    {/* Cash on Delivery Option */}
+                                    <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
+                                        <FormControl>
+                                            <RadioGroupItem value="cod" id="cod" />
+                                        </FormControl>
+                                        <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
+                                    </div>
+                                </RadioGroup>
+                                )}
+                            />
+                        </Form>
                     </div>
 
                     <Alert className="bg-yellow-900/30 border-yellow-300/30 text-yellow-200">
