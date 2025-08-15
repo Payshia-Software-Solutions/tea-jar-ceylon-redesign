@@ -42,14 +42,14 @@ const checkoutSchema = z.object({
   saveInfo: z.boolean().optional(),
   // Billing Logic
   billingAddress: z.enum(['same', 'different']).default('same'),
-  paymentMethod: z.enum(['payhere', 'cod']).default('payhere'),
+  paymentMethod: z.enum(['payhere', 'cod', 'mintpay']).default('payhere'),
   // Billing Address (optional based on selection)
   billingCountry: z.string().optional(),
   billingFirstName: z.string().optional(),
   billingLastName: z.string().optional(),
   billingAddressLine: z.string().optional(),
   billingApartment: z.string().optional(),
-  billingCity: z.string().optional(),
+billingCity: z.string().optional(),
   billingPostalCode: z.string().optional(),
   billingPhone: z.string().optional(),
 }).refine(data => {
@@ -94,6 +94,8 @@ export default function CheckoutPage() {
   });
 
   const watchBillingAddress = form.watch('billingAddress');
+  const watchPaymentMethod = form.watch('paymentMethod');
+
 
   useEffect(() => {
     fbq.event('InitiateCheckout');
@@ -142,7 +144,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem className="flex items-center space-x-2 space-y-0">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                                             </FormControl>
                                             <Label htmlFor="emailOffers" className="font-normal text-neutral-300">Email me with news and offers</Label>
                                         </FormItem>
@@ -266,7 +268,7 @@ export default function CheckoutPage() {
                                     render={({ field }) => (
                                         <FormItem className="flex items-center space-x-2 space-y-0 pt-2">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} className="border-neutral-500 data-[state=checked]:bg-amber-200 data-[state=checked]:text-black" />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                                             </FormControl>
                                             <Label htmlFor="saveInfo" className="font-normal text-neutral-300">Save this information for next time</Label>
                                         </FormItem>
@@ -284,13 +286,13 @@ export default function CheckoutPage() {
                                     <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
                                         <div className={cn("border border-neutral-700 rounded-t-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchBillingAddress === 'different' ? 'rounded-b-none' : 'rounded-b-md')}>
                                             <FormControl>
-                                                <RadioGroupItem value="same" id="same" className="border-neutral-500 text-amber-200" />
+                                                <RadioGroupItem value="same" id="same" />
                                             </FormControl>
                                             <Label htmlFor="same" className="font-normal w-full text-neutral-300">Same as shipping address</Label>
                                         </div>
                                          <div className="border border-t-0 border-neutral-700 p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50 rounded-b-md">
                                             <FormControl>
-                                                <RadioGroupItem value="different" id="different" className="border-neutral-500 text-amber-200" />
+                                                <RadioGroupItem value="different" id="different" />
                                             </FormControl>
                                             <Label htmlFor="different" className="font-normal w-full text-neutral-300">Use a different billing address</Label>
                                         </div>
@@ -512,22 +514,54 @@ export default function CheckoutPage() {
                             <h2 className="text-xl font-semibold text-white">Payment</h2>
                             <p className="text-sm text-neutral-400">All transactions are secure and encrypted.</p>
                         </div>
-                        <RadioGroup name="paymentMethod" defaultValue="payhere" className="space-y-0">
-                            <div className="border border-amber-300/80 rounded-t-md has-[:checked]:bg-amber-200/10">
-                                <div className="p-4 flex items-center space-x-3">
-                                    <RadioGroupItem value="payhere" id="payhere" className="border-neutral-500 text-amber-200" />
-                                    <Label htmlFor="payhere" className="font-normal w-full text-neutral-300">Bank Card / Bank Account - PayHere</Label>
+                        
+                        <FormField
+                            control={form.control}
+                            name="paymentMethod"
+                            render={({ field }) => (
+                            <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-0">
+                                {/* PayHere Option */}
+                                <div className={cn("border rounded-t-md has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'payhere' ? "border-amber-300/80" : "border-neutral-700")}>
+                                    <div className="p-4 flex items-center space-x-3">
+                                        <FormControl>
+                                            <RadioGroupItem value="payhere" id="payhere" />
+                                        </FormControl>
+                                        <Label htmlFor="payhere" className="font-normal w-full text-neutral-300">Bank Card / Bank Account - PayHere</Label>
+                                    </div>
+                                    {watchPaymentMethod === 'payhere' && (
+                                        <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
+                                            <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
+                                            <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
-                                     <CreditCard className="w-10 h-10 text-neutral-500 mx-auto" />
-                                     <p>After clicking "Pay now", you will be redirected to Bank Card / Bank Account - PayHere to complete your purchase securely.</p>
+                                {/* Mintpay Option */}
+                                <div className={cn("border border-t-0 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'mintpay' ? "border-amber-300/80" : "border-neutral-700")}>
+                                    <div className="p-4 flex items-center space-x-3">
+                                        <FormControl>
+                                            <RadioGroupItem value="mintpay" id="mintpay" />
+                                        </FormControl>
+                                        <Label htmlFor="mintpay" className="font-normal w-full text-neutral-300 flex items-center justify-between">
+                                            <span>Pay with Mintpay</span>
+                                            <Image src="https://content-provider.payshia.com/tea-jar/mintpay-pill.png" alt="Mintpay" width={80} height={20} />
+                                        </Label>
+                                    </div>
+                                     {watchPaymentMethod === 'mintpay' && (
+                                        <div className="bg-neutral-800/60 px-4 py-6 text-center text-neutral-400 text-sm space-y-4">
+                                            <p>Pay in 3 interest-free installments. After clicking "Pay now", you will be redirected to Mintpay to complete your purchase.</p>
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
-                            <div className="border border-t-0 border-neutral-700 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50">
-                                <RadioGroupItem value="cod" id="cod" className="border-neutral-500 text-amber-200" />
-                                <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
-                            </div>
-                        </RadioGroup>
+                                {/* Cash on Delivery Option */}
+                                <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
+                                    <FormControl>
+                                        <RadioGroupItem value="cod" id="cod" />
+                                    </FormControl>
+                                    <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
+                                </div>
+                            </RadioGroup>
+                            )}
+                        />
                     </div>
 
                     <Alert className="bg-yellow-900/30 border-yellow-300/30 text-yellow-200">
@@ -556,3 +590,5 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+    
