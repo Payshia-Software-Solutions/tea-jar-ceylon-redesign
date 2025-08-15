@@ -137,7 +137,7 @@ export function TeaCard({ tea }: TeaCardProps) {
                     disabled={isOutOfStock}
                   >
                     <ShoppingCart className="mr-2 h-5 w-5" />
-                    {isOutOfStock ? 'Out of Stock' : 'Add to Stock'}
+                    {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
                 </Button>
             </div>
           </Card>
