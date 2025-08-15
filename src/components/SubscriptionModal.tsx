@@ -12,14 +12,16 @@ export function SubscriptionModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (sessionStorage.getItem('subscriptionModalShown') !== 'true') {
+    const hasModalBeenShown = sessionStorage.getItem('subscriptionModalShown') === 'true';
+
+    if (!hasModalBeenShown) {
+      const timer = setTimeout(() => {
         setIsOpen(true);
         sessionStorage.setItem('subscriptionModalShown', 'true');
-      }
-    }, 2000); // Delay of 2 seconds
+      }, 2000); // Delay of 2 seconds
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
