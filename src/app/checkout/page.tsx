@@ -443,7 +443,7 @@ export default function CheckoutPage() {
                         <div className="space-y-4">
                             {items.map(item => (
                                 <div key={item.product.id} className="flex items-center gap-4">
-                                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-700 bg-white">
+                                    <div className="relative h-16 w-16 flex-shrink-0 rounded-lg border border-neutral-700 bg-white">
                                         <Image
                                         src={item.product.image}
                                         alt={item.product.name}
@@ -451,7 +451,7 @@ export default function CheckoutPage() {
                                         className="object-contain p-1"
                                         unoptimized
                                         />
-                                        <div className="absolute -top-2 -right-2 bg-amber-200 text-black font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                        <div className="absolute -top-2 -right-2 bg-amber-200 text-black font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center z-10">
                                             {item.quantity}
                                         </div>
                                     </div>
