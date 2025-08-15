@@ -116,7 +116,9 @@ export default function CheckoutPage() {
             {/* Left Side - Form */}
             <div className="py-8 px-4 sm:px-6 lg:px-12 border-r border-neutral-700 flex flex-col items-end">
                 <div className="max-w-xl w-full mx-auto lg:mr-0 space-y-8">
-                    <h1 className="font-headline text-3xl mb-2 text-left text-white">Tea Jar</h1>
+                    <Link href="/">
+                        <Image src="https://content-provider.payshia.com/tea-jar/gold-logo.webp" alt="Tea Jar Logo" width={120} height={60} className="h-16" />
+                    </Link>
                     
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
@@ -554,12 +556,17 @@ export default function CheckoutPage() {
                                         )}
                                     </div>
                                     {/* Cash on Delivery Option */}
-                                    <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
-                                        <FormControl>
-                                            <RadioGroupItem value="cod" id="cod" />
-                                        </FormControl>
-                                        <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
-                                    </div>
+                                    <FormField
+                                        control={form.control}
+                                        name="paymentMethod"
+                                    >
+                                        <div className={cn("border border-t-0 rounded-b-md p-4 flex items-center space-x-3 has-[:checked]:bg-amber-200/10 has-[:checked]:border-amber-300/50", watchPaymentMethod === 'cod' ? "border-amber-300/80" : "border-neutral-700")}>
+                                            <FormControl>
+                                                <RadioGroupItem value="cod" id="cod" />
+                                            </FormControl>
+                                            <Label htmlFor="cod" className="font-normal w-full text-neutral-300">Cash On Delivery</Label>
+                                        </div>
+                                    </FormField>
                                 </RadioGroup>
                                 )}
                             />
@@ -592,5 +599,7 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+    
 
     
