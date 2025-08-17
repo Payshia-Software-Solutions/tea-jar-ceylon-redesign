@@ -39,15 +39,11 @@ export function RecommendedCollections() {
         const departmentsData: Department[] = await departmentsRes.json();
         const productsData: ApiProduct[] = await productsRes.json();
 
-        // Filter out unwanted departments
-        const allowedDepartmentIds = ["1", "2", "3", "4", "6"];
-        const filteredDepartments = departmentsData.filter(dep => allowedDepartmentIds.includes(dep.id));
-        
-        setDepartments(filteredDepartments);
+        setDepartments(departmentsData);
         setProducts(productsData);
 
-        if (filteredDepartments.length > 0) {
-            const firstDeptVideo = collectionVideos[filteredDepartments[0].department_name];
+        if (departmentsData.length > 0) {
+            const firstDeptVideo = collectionVideos[departmentsData[0].department_name];
             if(firstDeptVideo) {
                 setActiveVideo(firstDeptVideo);
             }
