@@ -87,36 +87,25 @@ export function RecommendedCollections() {
   };
 
   const formatProductName = (name: string) => {
-    // Definitive list of suffixes and patterns to remove
     const suffixesToRemove = [
-        'Loose Leaf Tea',
-        'Luxury Leaf Tea Bags',
-        'Enveloped Tea Bags',
-        'Pyramid Tea Bags',
-        'Tea Bags'
+        'Loose Leaf Tea', 'Luxury Leaf Tea Bags', 'Enveloped Tea Bags', 
+        'Pyramid Tea Bags', 'Tea Bags', 'Loose Tea'
     ];
-    
-    let cleanedName = name;
 
-    // Remove specific suffixes first
+    let cleanedName = name
+      .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
+      .replace(/\d+\s*(env(eloped)?|luxury|'s|’s|pcs|g)/gi, '')
+      .split(' - ')[0]
+      .trim();
+
     for (const suffix of suffixesToRemove) {
-        if (cleanedName.toLowerCase().includes(suffix.toLowerCase())) {
-             cleanedName = cleanedName.replace(new RegExp(suffix, 'i'), '');
-        }
+      if (cleanedName.toLowerCase().endsWith(suffix.toLowerCase())) {
+        cleanedName = cleanedName.substring(0, cleanedName.length - suffix.length).trim();
+      }
     }
-
-    // Remove patterns like "- 175g", "25's", etc.
-    cleanedName = cleanedName
-        .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
-        .replace(/\d+\s*(env(eloped)?|luxury|'s|’s|pcs|g)/gi, '');
-        
-    // Handle cases where the name is part of a larger string separated by '-'
-    cleanedName = cleanedName.split(' - ')[0];
-
-    // Trim whitespace from both ends
-    cleanedName = cleanedName.trim();
     
-    // A final check to ensure "Tea" is at the end if it's not already.
+    cleanedName = cleanedName.trim();
+
     if (!cleanedName.toLowerCase().endsWith('tea')) {
         cleanedName += ' Tea';
     }
