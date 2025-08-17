@@ -20,7 +20,7 @@ const footerSections = [
             { text: 'Privacy Policy', href: '/privacy-policy' },
             { text: 'Refund Policy', href: '/refund-policy' },
             { text: 'Terms of Service', href: '/terms-of-service' },
-            { text: 'Shipping Policy', href: '#' },
+            { text: 'Shipping Policy', href: '/shipping-policy' },
         ],
     },
     {
