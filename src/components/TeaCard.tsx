@@ -14,12 +14,18 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { MintPay } from './MintPay';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip"
 
 interface TeaCardProps {
   tea: Tea;
 }
 
-function CategoryIcon({ categoryId }: { categoryId?: string }) {
+function CategoryIcon({ categoryId, categoryName }: { categoryId?: string, categoryName?: string }) {
     const iconMap: Record<string, string> = {
         '1': "https://content-provider.payshia.com/tea-jar/tea-bag.webp",
         '2': "https://content-provider.payshia.com/tea-jar/teabag-icon.svg",
@@ -27,13 +33,26 @@ function CategoryIcon({ categoryId }: { categoryId?: string }) {
     };
 
     const iconSrc = categoryId ? iconMap[categoryId] : iconMap['1'];
-    const altText = categoryId === '3' ? "Loose Leaf Tea" : categoryId === '2' ? "Luxury Leaf Tea Bag" : "Tea Bag";
+    const altText = categoryName || (categoryId === '3' ? "Loose Leaf Tea" : categoryId === '2' ? "Luxury Leaf Tea Bag" : "Tea Bag");
 
-    if (!iconSrc) {
-         return <Image src={iconMap['1']} alt="Tea Bag" width={24} height={24} className="w-6 h-6 filter brightness-0 invert" unoptimized />;
+    const iconImage = <Image src={iconSrc || iconMap['1']} alt={altText} width={24} height={24} className="w-6 h-6 filter brightness-0 invert" unoptimized />;
+
+    if(categoryName) {
+        return (
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        {iconImage}
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-black text-white border-neutral-700">
+                        <p>{categoryName}</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+        )
     }
 
-    return <Image src={iconSrc} alt={altText} width={24} height={24} className="w-6 h-6 filter brightness-0 invert" unoptimized />;
+    return iconImage;
 }
 
 export function TeaCard({ tea }: TeaCardProps) {
@@ -125,7 +144,7 @@ export function TeaCard({ tea }: TeaCardProps) {
               </CardContent>
               <CardFooter className="p-4 pt-0 flex flex-col items-end">
                   <div className="flex justify-between items-center w-full">
-                    <CategoryIcon categoryId={tea.categoryId} />
+                    <CategoryIcon categoryId={tea.categoryId} categoryName={tea.categoryName} />
                     <div className="text-right">
                         {hasSale ? (
                             <>
