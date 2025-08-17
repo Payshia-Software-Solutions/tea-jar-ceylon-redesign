@@ -9,6 +9,7 @@ import type { Tea, ApiProduct, ApiImage, Category } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 import 'swiper/css';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export function Products() {
     const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
@@ -141,7 +142,10 @@ export function Products() {
             )}
             <div className="text-center mt-12">
                 <Link href="/shop">
-                  <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black">Shop More</Button>
+                  <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black">
+                    Shop More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </Link>
             </div>
         </section>
