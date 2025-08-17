@@ -20,7 +20,7 @@ const collectionVideos: Record<string, string> = {
   'Exceptional Teas': 'https://teajarceylon.com/assets/videos/recommendation/Exceptional.mp4',
   'Exclusive Teas': 'https://teajarceylon.com/assets/videos/recommendation/Exclusive.mp4',
   'Organic Teas': 'https://teajarceylon.com/assets/videos/recommendation/Organic.mp4',
-  'Factory Series': 'https://teajarceylon.com/assets/videos/recommendation/Factory-Series.mp4'
+  'Factory Teas': 'https://teajarceylon.com/assets/videos/recommendation/Factory-Series.mp4'
 };
 
 export function RecommendedCollections() {
