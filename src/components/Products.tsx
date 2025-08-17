@@ -141,7 +141,7 @@ export function Products() {
             )}
             <div className="text-center mt-12">
                 <Link href="/shop">
-                  <Button className="bg-[#d1e4c9] text-black hover:bg-[#d1e4c9]/90">Shop More</Button>
+                  <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black">Shop More</Button>
                 </Link>
             </div>
         </section>
