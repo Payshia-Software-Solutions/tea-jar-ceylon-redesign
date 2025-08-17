@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -143,7 +142,7 @@ export function RecommendedCollections() {
             loop
             muted
             playsInline
-            className="absolute z-0 w-full h-full object-cover object-bottom transition-opacity duration-500"
+            className="absolute z-0 w-full h-full object-cover transition-opacity duration-500"
           >
             <source src={activeVideo} type="video/mp4" />
             Your browser does not support the video tag.
@@ -196,20 +195,20 @@ export function RecommendedCollections() {
                 const videoUrl = collectionVideos[dept.department_name];
                 return (
                     <AccordionItem key={dept.id} value={`item-${index}`} className="border-b border-neutral-600/50">
-                    <AccordionTrigger className="text-base md:text-lg font-semibold text-left hover:no-underline py-4 text-neutral-100">
+                    <AccordionTrigger className="text-base font-semibold text-left hover:no-underline py-4 text-neutral-100">
                         {dept.department_name}
                     </AccordionTrigger>
-                    <AccordionContent className="pb-4">
-                        <div className="space-y-4">
+                    <AccordionContent className="pb-4 px-4">
+                        <div className="grid grid-cols-2 gap-4 items-start">
                             {videoUrl && (
-                                <div className="relative min-h-[250px] rounded-lg overflow-hidden mb-4">
+                                <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
                                      <video
                                         key={videoUrl}
                                         autoPlay
                                         loop
                                         muted
                                         playsInline
-                                        className="absolute z-0 w-full h-full object-cover object-bottom"
+                                        className="absolute z-0 w-full h-full object-cover"
                                     >
                                         <source src={videoUrl} type="video/mp4" />
                                         Your browser does not support the video tag.
@@ -217,14 +216,16 @@ export function RecommendedCollections() {
                                     <div className="absolute inset-0 bg-black/20"></div>
                                 </div>
                             )}
-                            {getGroupedProducts(dept.department_name, dept.id).map((product) => (
-                                <Link href={product.link} key={product.name} className="flex items-center justify-between group">
-                                <span className="text-lg font-headline group-hover:text-amber-100 transition-colors">
-                                    {product.name}
-                                </span>
-                                <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
-                                </Link>
-                            ))}
+                            <div className="space-y-3">
+                                {getGroupedProducts(dept.department_name, dept.id).map((product) => (
+                                    <Link href={product.link} key={product.name} className="flex items-center justify-between group">
+                                    <span className="text-sm font-headline group-hover:text-amber-100 transition-colors">
+                                        {product.name}
+                                    </span>
+                                    <Leaf className="w-4 h-4 text-neutral-500 group-hover:text-amber-100 transition-colors" />
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </AccordionContent>
                     </AccordionItem>
