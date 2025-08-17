@@ -91,13 +91,9 @@ export function RecommendedCollections() {
       .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '') // Removes weights like - 175g, - 25's
       .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '') // Removes counts like 25 enveloped tea bags
       .replace(/pyramid tea bags/gi, '')
+      .replace(/loose leaf tea/gi, '') // Removes "Loose Leaf Tea"
       .split(' - ')[0] // Removes anything after a hyphen
       .trim();
-
-    // Remove "Loose Leaf Tea" if it appears at the end
-    if (cleanedName.toLowerCase().endsWith('loose leaf tea')) {
-        cleanedName = cleanedName.slice(0, -'loose leaf tea'.length).trim();
-    }
 
     return cleanedName.toLowerCase().endsWith('tea') 
       ? cleanedName 
@@ -226,7 +222,7 @@ export function RecommendedCollections() {
                                         loop
                                         muted
                                         playsInline
-                                        className="absolute z-0 w-full h-full object-cover"
+                                        className="absolute z-0 w-full h-full object-cover object-center"
                                     >
                                         <source src={videoUrl} type="video/mp4" />
                                         Your browser does not support the video tag.
