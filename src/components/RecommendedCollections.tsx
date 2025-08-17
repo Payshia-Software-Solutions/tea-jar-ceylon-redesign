@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -28,6 +29,7 @@ export function RecommendedCollections() {
   const [products, setProducts] = useState<ApiProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeVideo, setActiveVideo] = useState(collectionVideos['Classic Teas']);
+  const [activeAccordionItem, setActiveAccordionItem] = useState('item-0');
 
   useEffect(() => {
     async function fetchData() {
@@ -76,7 +78,8 @@ export function RecommendedCollections() {
   };
 
   const handleMobileValueChange = (value: string) => {
-    if (!value) return; // Accordion can be fully collapsed
+    if (!value) return;
+    setActiveAccordionItem(value);
     const index = parseInt(value.replace('item-', ''), 10);
     const departmentName = departments[index]?.department_name;
     if (departmentName) {
@@ -133,7 +136,7 @@ export function RecommendedCollections() {
     <section className="bg-[#353d32] text-white">
       {/* Desktop View */}
       <div className="hidden md:grid md:grid-cols-2">
-        <div className="relative min-h-[400px] md:min-h-[800px]">
+        <div className="relative min-h-[400px] md:h-[600px]">
            <video
             key={activeVideo}
             autoPlay
@@ -186,42 +189,47 @@ export function RecommendedCollections() {
       
       {/* Mobile View */}
       <div className="md:hidden">
-        <div className="relative min-h-[400px]">
-             <video
-                key={activeVideo}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute z-0 w-full h-full object-cover object-bottom transition-opacity duration-500"
-                >
-                <source src={activeVideo} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-            <div className="absolute inset-0 bg-black/20"></div>
-        </div>
         <div className="p-8">
             <h2 className="font-headline text-3xl mb-8 text-center">Recommended Collections</h2>
             <Accordion type="single" collapsible className="w-full" defaultValue="item-0" onValueChange={handleMobileValueChange}>
-            {departments.map((dept, index) => (
-                <AccordionItem key={dept.id} value={`item-${index}`} className="border-b border-neutral-600/50">
-                <AccordionTrigger className="text-base md:text-lg font-semibold text-left hover:no-underline py-4 text-neutral-100">
-                    {dept.department_name}
-                </AccordionTrigger>
-                <AccordionContent className="pb-4">
-                    <div className="space-y-4">
-                        {getGroupedProducts(dept.department_name, dept.id).map((product) => (
-                            <Link href={product.link} key={product.name} className="flex items-center justify-between group">
-                            <span className="text-lg font-headline group-hover:text-amber-100 transition-colors">
-                                {product.name}
-                            </span>
-                            <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
-                            </Link>
-                        ))}
-                    </div>
-                </AccordionContent>
-                </AccordionItem>
-            ))}
+            {departments.map((dept, index) => {
+                const videoUrl = collectionVideos[dept.department_name];
+                return (
+                    <AccordionItem key={dept.id} value={`item-${index}`} className="border-b border-neutral-600/50">
+                    <AccordionTrigger className="text-base md:text-lg font-semibold text-left hover:no-underline py-4 text-neutral-100">
+                        {dept.department_name}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                        <div className="space-y-4">
+                            {videoUrl && (
+                                <div className="relative min-h-[250px] rounded-lg overflow-hidden mb-4">
+                                     <video
+                                        key={videoUrl}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="absolute z-0 w-full h-full object-cover object-bottom"
+                                    >
+                                        <source src={videoUrl} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div className="absolute inset-0 bg-black/20"></div>
+                                </div>
+                            )}
+                            {getGroupedProducts(dept.department_name, dept.id).map((product) => (
+                                <Link href={product.link} key={product.name} className="flex items-center justify-between group">
+                                <span className="text-lg font-headline group-hover:text-amber-100 transition-colors">
+                                    {product.name}
+                                </span>
+                                <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
+                                </Link>
+                            ))}
+                        </div>
+                    </AccordionContent>
+                    </AccordionItem>
+                )
+            })}
             </Accordion>
         </div>
       </div>
