@@ -142,7 +142,7 @@ export function RecommendedCollections() {
             loop
             muted
             playsInline
-            className="absolute z-0 w-full h-full object-cover transition-opacity duration-500"
+            className="absolute z-0 w-full h-full object-cover object-bottom transition-opacity duration-500"
           >
             <source src={activeVideo} type="video/mp4" />
             Your browser does not support the video tag.
