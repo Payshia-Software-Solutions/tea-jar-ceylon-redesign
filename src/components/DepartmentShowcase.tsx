@@ -145,6 +145,7 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
             </div>
         );
     }
+
     
     // Only render the section if there are products to display after filtering
     if (filteredAndFormattedTeas.length === 0) {

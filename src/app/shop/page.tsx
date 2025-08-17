@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-const MAX_PRICE = 10000;
+const MAX_PRICE = 15000;
 
 function ShopPageContent() {
   const searchParams = useSearchParams();
