@@ -60,7 +60,7 @@ export function ShopFilters({
   const hasActiveFilters = filters.sections.length > 0 || filters.departments.length > 0 || filters.categories.length > 0 || filters.stockStatus.length > 0 || filters.priceRange[0] !== 0 || filters.priceRange[1] !== maxPrice;
 
   return (
-    <div className="sticky top-32">
+    <div>
         <div className="flex justify-between items-center pb-4 border-b border-neutral-700/60 mb-6">
             <h3 className="font-headline text-2xl text-white">Filter By</h3>
             {hasActiveFilters && (
