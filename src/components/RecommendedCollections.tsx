@@ -20,6 +20,7 @@ const collectionVideos: Record<string, string> = {
   'Exceptional Teas': 'https://teajarceylon.com/assets/videos/recommendation/Exceptional.mp4',
   'Exclusive Teas': 'https://teajarceylon.com/assets/videos/recommendation/Exclusive.mp4',
   'Organic Teas': 'https://teajarceylon.com/assets/videos/recommendation/Organic.mp4',
+  'Factory Teas': 'https://teajarceylon.com/assets/videos/recommendation/Factory-Series.mp4'
 };
 
 export function RecommendedCollections() {
@@ -118,14 +119,14 @@ export function RecommendedCollections() {
     <section className="bg-[#353d32] text-white">
       {/* Desktop View */}
       <div className="hidden md:grid md:grid-cols-2">
-        <div className="relative min-h-[300px] md:min-h-[600px]">
+        <div className="relative min-h-[400px] md:min-h-[800px]">
            <video
             key={activeVideo}
             autoPlay
             loop
             muted
             playsInline
-            className="absolute z-0 w-full h-full object-cover transition-opacity duration-500"
+            className="absolute z-0 w-full h-full object-cover object-bottom transition-opacity duration-500"
           >
             <source src={activeVideo} type="video/mp4" />
             Your browser does not support the video tag.
