@@ -78,7 +78,9 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
             const sectionMatch = filters.sections.length === 0 || filters.sections.includes(product.section_id);
             const categoryMatch = filters.categories.length === 0 || filters.categories.includes(product.category_id);
             const searchMatch = !filters.search || product.product_name.toLowerCase().includes(filters.search.toLowerCase());
-            const stockMatch = product.stock_status !== "0";
+            
+            const stockStatus = product.stock_status === "1" ? 'in-stock' : 'out-of-stock';
+            const stockMatch = filters.stockStatus.length === 0 || filters.stockStatus.includes(stockStatus);
 
             return priceMatch && sectionMatch && categoryMatch && searchMatch && stockMatch;
           })

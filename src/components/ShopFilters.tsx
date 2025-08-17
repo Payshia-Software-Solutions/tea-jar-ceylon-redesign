@@ -14,6 +14,7 @@ export type Filters = {
   departments: string[];
   categories: string[];
   search: string;
+  stockStatus: string[];
 };
 
 interface ShopFiltersProps {
@@ -38,7 +39,7 @@ export function ShopFilters({
     onFilterChange({ ...filters, priceRange: newRange });
   };
   
-  const handleCheckboxChange = (filterType: 'sections' | 'departments' | 'categories', value: string, checked: boolean) => {
+  const handleCheckboxChange = (filterType: 'sections' | 'departments' | 'categories' | 'stockStatus', value: string, checked: boolean) => {
     const currentValues = filters[filterType] as string[];
     const newValues = checked
       ? [...currentValues, value]
@@ -53,10 +54,11 @@ export function ShopFilters({
         departments: [],
         categories: [],
         search: '',
+        stockStatus: [],
     });
   };
 
-  const hasActiveFilters = filters.sections.length > 0 || filters.departments.length > 0 || filters.categories.length > 0 || filters.priceRange[0] !== 0 || filters.priceRange[1] !== maxPrice;
+  const hasActiveFilters = filters.sections.length > 0 || filters.departments.length > 0 || filters.categories.length > 0 || filters.stockStatus.length > 0 || filters.priceRange[0] !== 0 || filters.priceRange[1] !== maxPrice;
 
   return (
     <div className="sticky top-32">
@@ -70,7 +72,36 @@ export function ShopFilters({
         </div>
         <ScrollArea className="h-[calc(100vh-10rem)] pr-4 -mr-4">
             <div className="space-y-6">
-                <Accordion type="multiple" defaultValue={['price', 'type', 'collection', 'category']} className="w-full text-white space-y-4">
+                <Accordion type="multiple" defaultValue={['availability', 'price', 'type', 'collection', 'category']} className="w-full text-white space-y-4">
+                    {/* Availability Filter */}
+                    <AccordionItem value="availability" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
+                    <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Availability</AccordionTrigger>
+                    <AccordionContent className="px-4">
+                        <div className="space-y-3 pt-2">
+                           <div className="flex items-center space-x-3">
+                                <Checkbox 
+                                    id="stock-in-stock"
+                                    checked={filters.stockStatus.includes('in-stock')}
+                                    onCheckedChange={(checked) => handleCheckboxChange('stockStatus', 'in-stock', !!checked)}
+                                />
+                                <label htmlFor="stock-in-stock" className="text-sm font-normal leading-none text-neutral-300 hover:text-white cursor-pointer">
+                                    In Stock
+                                </label>
+                            </div>
+                             <div className="flex items-center space-x-3">
+                                <Checkbox 
+                                    id="stock-out-of-stock"
+                                    checked={filters.stockStatus.includes('out-of-stock')}
+                                    onCheckedChange={(checked) => handleCheckboxChange('stockStatus', 'out-of-stock', !!checked)}
+                                />
+                                <label htmlFor="stock-out-of-stock" className="text-sm font-normal leading-none text-neutral-300 hover:text-white cursor-pointer">
+                                    Out of Stock
+                                </label>
+                            </div>
+                        </div>
+                    </AccordionContent>
+                    </AccordionItem>
+
                     {/* Price Range Filter */}
                     <AccordionItem value="price" className="bg-[#2a2f28]/80 rounded-lg border-neutral-700/60">
                     <AccordionTrigger className="text-base font-semibold text-neutral-200 hover:no-underline px-4 py-3">Price Range</AccordionTrigger>

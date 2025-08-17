@@ -29,6 +29,7 @@ function ShopPageContent() {
     departments: [],
     categories: [],
     search: '',
+    stockStatus: [],
   });
   
   const isInitialMount = useRef(true);
