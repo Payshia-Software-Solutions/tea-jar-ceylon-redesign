@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -39,11 +38,15 @@ export function RecommendedCollections() {
         const departmentsData: Department[] = await departmentsRes.json();
         const productsData: ApiProduct[] = await productsRes.json();
 
-        setDepartments(departmentsData);
+        const filteredDepartments = departmentsData.filter(
+          (dept) => dept.department_name !== 'Special Offers' && dept.department_name !== 'Gift'
+        );
+
+        setDepartments(filteredDepartments);
         setProducts(productsData);
 
-        if (departmentsData.length > 0) {
-            const firstDeptVideo = collectionVideos[departmentsData[0].department_name];
+        if (filteredDepartments.length > 0) {
+            const firstDeptVideo = collectionVideos[filteredDepartments[0].department_name];
             if(firstDeptVideo) {
                 setActiveVideo(firstDeptVideo);
             }
