@@ -121,14 +121,18 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                             ))}
                         </div>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 text-sm text-neutral-300">
-                             <div className="flex items-center gap-2">
-                                <Coffee className="w-5 h-5"/>
-                                <span>175 servings per pack</span>
-                             </div>
-                             <div className="flex items-center gap-2">
-                                <ShoppingBag className="w-5 h-5"/>
-                                <span>175 grams per pack</span>
-                             </div>
+                             {tea.servingCount && (
+                                <div className="flex items-center gap-2">
+                                    <Coffee className="w-5 h-5"/>
+                                    <span>{tea.servingCount} servings per pack</span>
+                                </div>
+                             )}
+                             {tea.perPackGram && (
+                                <div className="flex items-center gap-2">
+                                    <ShoppingBag className="w-5 h-5"/>
+                                    <span>{tea.perPackGram} grams per pack</span>
+                                </div>
+                             )}
                         </div>
                         <div className="flex flex-col items-end">
                             <div className="flex items-baseline flex-wrap gap-x-4 gap-y-2 pt-2 w-full">
@@ -160,37 +164,41 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                     </div>
 
                     <Tabs defaultValue="features" className="w-full pt-4">
-                        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 bg-neutral-800 text-neutral-300 h-auto sm:h-10">
+                        <TabsList className="grid w-full grid-cols-2 bg-neutral-800 text-neutral-300 h-auto sm:h-10">
                             <TabsTrigger value="features" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white whitespace-normal sm:whitespace-nowrap">
                                 Tasting Note
                             </TabsTrigger>
                             <TabsTrigger value="ingredients" className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white">Ingredients</TabsTrigger>
                         </TabsList>
-                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700">
-                        <p className="text-neutral-300">{tea.description}</p>
+                      <TabsContent value="features" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700 min-h-[200px]">
+                        <p className="text-neutral-300 whitespace-pre-line">{tea.tastingNotes || tea.description}</p>
                         <div className="mt-6 space-y-4">
                             <h4 className="font-semibold text-white">Net Weight</h4>
                             <p className="text-neutral-300">{tea.netWeight}</p>
                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <h4 className="font-semibold text-white mb-2">Caffeine</h4>
-                                    <div className="flex items-center gap-2">
-                                        <Coffee className="w-5 h-5 text-amber-400" />
-                                        <span className="text-neutral-300">Medium</span>
+                                {tea.caffeineLevel && (
+                                    <div>
+                                        <h4 className="font-semibold text-white mb-2">Caffeine</h4>
+                                        <div className="flex items-center gap-2">
+                                            <Coffee className="w-5 h-5 text-amber-400" />
+                                            <span className="text-neutral-300">{tea.caffeineLevel}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                 <div>
-                                    <h4 className="font-semibold text-white mb-2">Time of Day</h4>
-                                    <div className="flex items-center gap-2">
-                                        <Clock className="w-5 h-5 text-amber-400" />
-                                        <span className="text-neutral-300">Evening</span>
+                                )}
+                                {tea.usageType && (
+                                     <div>
+                                        <h4 className="font-semibold text-white mb-2">Time of Day</h4>
+                                        <div className="flex items-center gap-2">
+                                            <Clock className="w-5 h-5 text-amber-400" />
+                                            <span className="text-neutral-300">{tea.usageType}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                       </TabsContent>
-                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700">
-                        <p className="text-neutral-300">{tea.longDescription}</p>
+                      <TabsContent value="ingredients" className="p-4 border border-t-0 rounded-b-md bg-[#2a2f28] border-neutral-700 min-h-[200px]">
+                        <p className="text-neutral-300 whitespace-pre-line">{tea.ingredients || tea.longDescription}</p>
                       </TabsContent>
                     </Tabs>
 
@@ -201,31 +209,38 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
             <div className="mt-16 md:mt-24 text-center bg-[#2a2f28] py-12 rounded-xl border border-neutral-700">
                  <h2 className="font-headline text-3xl md:text-4xl text-white mb-10">Brewing Information</h2>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto px-4">
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
-                            <Droplets className="w-8 h-8 text-amber-400" />
+                    {tea.waterType && (
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                                <Droplets className="w-8 h-8 text-amber-400" />
+                            </div>
+                            <p className="font-semibold">{tea.waterType}</p>
                         </div>
-                        <p className="font-semibold">Recommended to use Spring Water</p>
-                    </div>
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
-                            <Thermometer className="w-8 h-8 text-amber-400" />
+                    )}
+                    {tea.brewTemp && (
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                                <Thermometer className="w-8 h-8 text-amber-400" />
+                            </div>
+                            <p className="font-semibold">{tea.brewTemp}</p>
                         </div>
-                        <p className="font-semibold">95°C – 100°C</p>
-                    </div>
-                     <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
-                            <Users className="w-8 h-8 text-amber-400" />
+                    )}
+                    {tea.waterAmount && (
+                         <div className="flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                                <Users className="w-8 h-8 text-amber-400" />
+                            </div>
+                            <p className="font-semibold">{tea.waterAmount}</p>
                         </div>
-                        <p className="font-semibold">220ml of water per person</p>
-                    </div>
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
-                            <Clock className="w-8 h-8 text-amber-400" />
+                    )}
+                    {tea.brewDuration && (
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
+                                <Clock className="w-8 h-8 text-amber-400" />
+                            </div>
+                            <p className="font-semibold">{tea.brewDuration}</p>
                         </div>
-                        <p className="font-semibold">3 - 5 Minutes</p>
-                        <p className="text-xs text-neutral-400">(5 minutes for a strong cup)</p>
-                    </div>
+                    )}
                  </div>
             </div>
 

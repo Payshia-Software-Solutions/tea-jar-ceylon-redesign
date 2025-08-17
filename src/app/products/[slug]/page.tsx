@@ -1,5 +1,5 @@
 
-import type { Tea, ApiProduct, ApiImage, Department, Category } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Department, Category, EcomValues } from '@/lib/types';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
@@ -32,6 +32,18 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
         
         const categoryMap = new Map(allCategories.map(c => [c.id, c.category_name]));
 
+        // Fetch e-commerce values
+        const ecomValuesResponse = await fetch(`https://kduserver.payshia.com/product-ecom-values/by-product/${apiProduct.product_id}`);
+        let ecomValues: EcomValues | null = null;
+        if (ecomValuesResponse.ok) {
+            const ecomData = await ecomValuesResponse.json();
+            if (Array.isArray(ecomData) && ecomData.length > 0) {
+                ecomValues = ecomData[0];
+            } else if (!Array.isArray(ecomData)) {
+                ecomValues = ecomData;
+            }
+        }
+
         const price = parseFloat(apiProduct.selling_price);
         let salePrice: number | undefined;
 
@@ -52,7 +64,7 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
             id: apiProduct.slug || apiProduct.product_id,
             productId: apiProduct.product_id,
             name: apiProduct.product_name.trim(),
-            description: apiProduct.product_description || 'A delightful tea from Ceylon.',
+            description: ecomValues?.detailed_description || apiProduct.product_description || 'A delightful tea from Ceylon.',
             longDescription: apiProduct.how_to_use || '100% Ceylon black tea.',
             price: price,
             salePrice: salePrice,
@@ -62,10 +74,24 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
             type: 'Black',
             flavorProfile: [],
             origin: 'Sri Lanka',
-            netWeight: '350.00 g',
+            netWeight: ecomValues?.net_weight ? `${ecomValues.net_weight} g` : '350.00 g',
             departmentId: apiProduct.department_id,
             categoryId: apiProduct.category_id,
             categoryName: categoryMap.get(apiProduct.category_id),
+            tastingNotes: ecomValues?.tasting_notes,
+            ingredients: ecomValues?.ingredients,
+            teaGrades: ecomValues?.tea_grades,
+            caffeineLevel: ecomValues?.caffain_level,
+            brewTemp: ecomValues?.breaw_temp,
+            usageType: ecomValues?.usage_type,
+            waterType: ecomValues?.water_type,
+            waterAmount: ecomValues?.water,
+            brewDuration: ecomValues?.brew_duration,
+            detailedDescription: ecomValues?.detailed_description,
+            productType: ecomValues?.product_type,
+            servingCount: ecomValues?.serving_count,
+            perPackGram: ecomValues?.per_pack_gram,
+            tbCount: ecomValues?.tb_count,
         };
 
         let departmentName: string | null = null;
