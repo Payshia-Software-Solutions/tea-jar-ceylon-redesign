@@ -40,7 +40,12 @@ export function RecommendedCollections() {
         const departmentsData: Department[] = await departmentsRes.json();
         const productsData: ApiProduct[] = await productsRes.json();
 
-        const filteredDepartments = departmentsData.filter(
+        const filteredDepartments = departmentsData.map(dept => {
+            if (dept.department_name === 'Factory Series') {
+                return { ...dept, department_name: 'Factory Teas' };
+            }
+            return dept;
+        }).filter(
           (dept) => dept.department_name !== 'Special Offers' && dept.department_name !== 'Gift'
         );
 
