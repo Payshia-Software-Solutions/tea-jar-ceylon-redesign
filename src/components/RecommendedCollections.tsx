@@ -135,7 +135,7 @@ export function RecommendedCollections() {
     <section className="bg-[#353d32] text-white">
       {/* Desktop View */}
       <div className="hidden md:grid md:grid-cols-2">
-        <div className="relative min-h-[400px] md:h-[600px]">
+        <div className="relative min-h-[400px] md:h-[800px]">
            <video
             key={activeVideo}
             autoPlay
