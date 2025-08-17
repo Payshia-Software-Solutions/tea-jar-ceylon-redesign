@@ -88,18 +88,20 @@ export function RecommendedCollections() {
 
   const formatProductName = (name: string) => {
     let cleanedName = name
-      .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
-      .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '')
-      .replace(/pyramid tea bags/gi, '')
-      .split(' - ')[0]
-      .trim();
-      
-    // Remove "Loose Leaf Tea" from anywhere in the string, case-insensitively
-    cleanedName = cleanedName.replace(/Loose Leaf Tea/gi, '').trim();
+        .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
+        .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '')
+        .replace(/pyramid tea bags/gi, '')
+        .replace(/Loose Leaf Tea/gi, '')
+        .split(' - ')[0]
+        .trim()
+        .replace(/\s+$/, ''); // remove trailing spaces
+        
+    // A final check to ensure "Tea" is at the end if it's not already.
+    if (!cleanedName.toLowerCase().endsWith('tea')) {
+        cleanedName += ' Tea';
+    }
 
-    return cleanedName.toLowerCase().endsWith('tea') 
-      ? cleanedName 
-      : `${cleanedName} Tea`;
+    return cleanedName;
   };
 
   const getGroupedProducts = (departmentName: string, departmentId: string) => {
