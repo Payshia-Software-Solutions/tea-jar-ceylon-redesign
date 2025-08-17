@@ -87,15 +87,35 @@ export function RecommendedCollections() {
   };
 
   const formatProductName = (name: string) => {
-    let cleanedName = name
+    // Definitive list of suffixes and patterns to remove
+    const suffixesToRemove = [
+        'Loose Leaf Tea',
+        'Luxury Leaf Tea Bags',
+        'Enveloped Tea Bags',
+        'Pyramid Tea Bags',
+        'Tea Bags'
+    ];
+    
+    let cleanedName = name;
+
+    // Remove specific suffixes first
+    for (const suffix of suffixesToRemove) {
+        if (cleanedName.toLowerCase().includes(suffix.toLowerCase())) {
+             cleanedName = cleanedName.replace(new RegExp(suffix, 'i'), '');
+        }
+    }
+
+    // Remove patterns like "- 175g", "25's", etc.
+    cleanedName = cleanedName
         .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
-        .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '')
-        .replace(/pyramid tea bags/gi, '')
-        .replace(/Loose Leaf Tea/gi, '')
-        .split(' - ')[0]
-        .trim()
-        .replace(/\s+$/, ''); // remove trailing spaces
+        .replace(/\d+\s*(env(eloped)?|luxury|'s|’s|pcs|g)/gi, '');
         
+    // Handle cases where the name is part of a larger string separated by '-'
+    cleanedName = cleanedName.split(' - ')[0];
+
+    // Trim whitespace from both ends
+    cleanedName = cleanedName.trim();
+    
     // A final check to ensure "Tea" is at the end if it's not already.
     if (!cleanedName.toLowerCase().endsWith('tea')) {
         cleanedName += ' Tea';
