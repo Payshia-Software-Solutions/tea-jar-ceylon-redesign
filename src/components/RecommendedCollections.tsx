@@ -88,12 +88,20 @@ export function RecommendedCollections() {
 
   const formatProductName = (name: string) => {
     let cleanedName = name
-      .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '') // Removes weights like - 175g, - 25's
-      .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '') // Removes counts like 25 enveloped tea bags
+      .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '')
+      .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '')
       .replace(/pyramid tea bags/gi, '')
-      .replace(/loose leaf tea/gi, '') // Removes "Loose Leaf Tea"
-      .split(' - ')[0] // Removes anything after a hyphen
+      .replace(/loose leaf tea/gi, '')
+      .split(' - ')[0]
       .trim();
+
+    // Remove "Loose Leaf Tea" if it appears at the end
+    if (cleanedName.toLowerCase().endsWith('loose leaf tea')) {
+        cleanedName = cleanedName.slice(0, -14).trim();
+    }
+      
+    // Another check to remove it from anywhere in the string, just in case
+    cleanedName = cleanedName.replace(/Loose Leaf Tea/gi, '').trim();
 
     return cleanedName.toLowerCase().endsWith('tea') 
       ? cleanedName 
@@ -156,7 +164,7 @@ export function RecommendedCollections() {
             loop
             muted
             playsInline
-            className="absolute z-0 w-full h-full object-cover object-bottom transition-opacity duration-500"
+            className="absolute z-0 w-full h-full object-cover object-center transition-opacity duration-500"
           >
             <source src={activeVideo} type="video/mp4" />
             Your browser does not support the video tag.
