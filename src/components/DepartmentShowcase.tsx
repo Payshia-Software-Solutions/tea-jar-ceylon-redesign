@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import type { Tea, ApiProduct, ApiImage, Category } from '@/lib/types';
+import type { Tea, ApiProduct, ApiImage, Category, SortBy } from '@/lib/types';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Filters } from './ShopFilters';
@@ -15,9 +15,10 @@ interface Department {
 interface DepartmentShowcaseProps {
     department: Department;
     filters: Filters;
+    sortBy: SortBy;
 }
 
-export function DepartmentShowcase({ department, filters }: DepartmentShowcaseProps) {
+export function DepartmentShowcase({ department, filters, sortBy }: DepartmentShowcaseProps) {
     const [products, setProducts] = useState<ApiProduct[]>([]);
     const [productImages, setProductImages] = useState<Record<string, ApiImage[]>>({});
     const [categories, setCategories] = useState<Category[]>([]);
@@ -69,7 +70,7 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
     const filteredAndFormattedTeas = useMemo(() => {
         const categoryMap = new Map(categories.map(c => [c.id, c.category_name]));
 
-        return products
+        const filtered = products
           .filter(product => {
             const price = parseFloat(product.selling_price);
             const [minPrice, maxPrice] = filters.priceRange;
@@ -126,7 +127,22 @@ export function DepartmentShowcase({ department, filters }: DepartmentShowcasePr
                 categoryName: categoryMap.get(apiProduct.category_id),
             };
           });
-    }, [products, filters, productImages, categories]);
+
+        switch (sortBy) {
+            case 'price-asc':
+                return filtered.sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price));
+            case 'price-desc':
+                return filtered.sort((a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price));
+            case 'name-asc':
+                return filtered.sort((a, b) => a.name.localeCompare(b.name));
+            case 'name-desc':
+                return filtered.sort((a, b) => b.name.localeCompare(a.name));
+            case 'featured':
+            default:
+                return filtered;
+        }
+
+    }, [products, filters, sortBy, productImages, categories]);
 
 
     if (loading) {

@@ -58,3 +58,5 @@ export interface Category {
     id: string;
     category_name: string;
 }
+
+export type SortBy = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc';

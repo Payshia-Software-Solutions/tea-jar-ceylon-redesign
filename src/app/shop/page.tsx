@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useRef } from 'react';
-import type { Tea, Department, Section, Category } from '@/lib/types';
+import type { Tea, Department, Section, Category, SortBy } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ShopFilters, type Filters } from '@/components/ShopFilters';
@@ -11,6 +11,7 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const MAX_PRICE = 15000;
 
@@ -21,6 +22,7 @@ function ShopPageContent() {
   const [allSections, setAllSections] = useState<Section[]>([]);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortBy>('featured');
 
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<Filters>({
@@ -132,48 +134,66 @@ function ShopPageContent() {
         
         <Separator className="bg-neutral-700/50 my-8" />
         
-        <div className="lg:hidden mb-6">
-            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetTrigger asChild>
-                    <Button variant="outline" className="w-full bg-transparent border-neutral-600 text-white hover:bg-neutral-800 hover:text-white">
-                        <Filter className="w-4 h-4 mr-2" />
-                        Filters
-                    </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="bg-[#353d32] text-white border-neutral-800 p-6">
-                    <SheetHeader>
-                        <SheetTitle className="font-headline text-2xl text-white">Filters</SheetTitle>
-                    </SheetHeader>
-                     {loading ? (
-                        <div className="space-y-8 mt-6">
-                            {Array.from({ length: 4 }).map((_, index) => (
-                                <div key={index}>
-                                    <Skeleton className="h-8 w-1/2 mb-4" />
-                                    <div className="space-y-2">
-                                        <Skeleton className="h-6 w-3/4" />
-                                        <Skeleton className="h-6 w-full" />
-                                        <Skeleton className="h-6 w-5/6" />
+        <div className="flex justify-between items-center mb-6">
+            <div className="lg:hidden">
+                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                    <SheetTrigger asChild>
+                        <Button variant="outline" className="bg-transparent border-neutral-600 text-white hover:bg-neutral-800 hover:text-white">
+                            <Filter className="w-4 h-4 mr-2" />
+                            Filters
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="bg-[#353d32] text-white border-neutral-800 p-6 flex flex-col">
+                        <SheetHeader>
+                            <SheetTitle className="font-headline text-2xl text-white">Filters</SheetTitle>
+                        </SheetHeader>
+                        <div className="flex-grow overflow-y-auto -mr-6 pr-6">
+                         {loading ? (
+                            <div className="space-y-8 mt-6">
+                                {Array.from({ length: 4 }).map((_, index) => (
+                                    <div key={index}>
+                                        <Skeleton className="h-8 w-1/2 mb-4" />
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-6 w-3/4" />
+                                            <Skeleton className="h-6 w-full" />
+                                            <Skeleton className="h-6 w-5/6" />
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                        ) : (
+                            <ShopFilters 
+                                filters={filters}
+                                onFilterChange={(newFilters) => {
+                                    setFilters(newFilters);
+                                }}
+                                maxPrice={MAX_PRICE}
+                                allSections={allSections}
+                                allDepartments={allDepartments}
+                                allCategories={allCategories}
+                            />
+                        )}
                         </div>
-                    ) : (
-                        <ShopFilters 
-                            filters={filters}
-                            onFilterChange={(newFilters) => {
-                                setFilters(newFilters);
-                                // Optional: close sheet on filter change
-                                // setIsSheetOpen(false);
-                            }}
-                            maxPrice={MAX_PRICE}
-                            allSections={allSections}
-                            allDepartments={allDepartments}
-                            allCategories={allCategories}
-                        />
-                    )}
-                </SheetContent>
-            </Sheet>
+                    </SheetContent>
+                </Sheet>
+            </div>
+            <div className="flex items-center gap-2 text-sm ml-auto">
+                <span className="text-neutral-400 hidden sm:inline">Sort by:</span>
+                <Select onValueChange={(value: SortBy) => setSortBy(value)} defaultValue="featured">
+                    <SelectTrigger className="w-[180px] bg-neutral-800 border-neutral-700 text-white">
+                        <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                        <SelectItem value="featured">Featured</SelectItem>
+                        <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                        <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                        <SelectItem value="name-asc">Name: A to Z</SelectItem>
+                        <SelectItem value="name-desc">Name: Z to A</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
         </div>
+
 
         <div className="grid lg:grid-cols-5 gap-x-12">
             <aside className="hidden lg:block lg:col-span-1">
@@ -226,8 +246,16 @@ function ShopPageContent() {
                                 key={dept.id}
                                 department={dept}
                                 filters={filters}
+                                sortBy={sortBy}
                             />
                         ))}
+                         {visibleDepartments.length === 0 && !filters.search && (
+                             <DepartmentShowcase
+                                department={{id: '10', department_name: 'Gift'}}
+                                filters={filters}
+                                sortBy={sortBy}
+                             />
+                         )}
                     </div>
                 )}
             </main>
