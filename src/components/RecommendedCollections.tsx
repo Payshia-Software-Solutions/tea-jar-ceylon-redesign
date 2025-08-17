@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -68,6 +69,29 @@ export function RecommendedCollections() {
     }
   };
 
+  const getGroupedProducts = (departmentName: string, departmentId: string) => {
+    const departmentProducts = products.filter((p) => p.department_id === departmentId);
+    
+    if (departmentName === 'Flavored Teas' || departmentName === 'Exceptional Teas') {
+        const grouped = departmentProducts.reduce((acc, product) => {
+            const commonName = product.product_name.split(' ')[0];
+            if (!acc[commonName]) {
+                acc[commonName] = {
+                    name: commonName,
+                    link: `/shop?department=${encodeURIComponent(departmentName)}`,
+                };
+            }
+            return acc;
+        }, {} as Record<string, {name: string, link: string}>);
+        return Object.values(grouped);
+    }
+
+    return departmentProducts.map(product => ({
+        name: product.product_name,
+        link: `/products/${product.slug || product.product_id}`
+    }));
+  };
+
   if (loading) {
     return (
         <section className="bg-[#353d32] text-white py-16">
@@ -129,12 +153,10 @@ export function RecommendedCollections() {
               {departments.map((dept) => (
                 <TabsContent key={dept.id} value={dept.department_name} className="mt-0">
                   <div className="space-y-6">
-                    {products
-                      .filter((product) => product.department_id === dept.id)
-                      .map((product) => (
-                        <Link href={`/products/${product.slug || product.product_id}`} key={product.product_id} className="flex items-center justify-between group">
+                    {getGroupedProducts(dept.department_name, dept.id).map((product) => (
+                        <Link href={product.link} key={product.name} className="flex items-center justify-between group">
                           <span className="text-xl font-headline group-hover:text-amber-100 transition-colors">
-                            {product.product_name}
+                            {product.name}
                           </span>
                           <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
                         </Link>
@@ -158,12 +180,10 @@ export function RecommendedCollections() {
               </AccordionTrigger>
               <AccordionContent className="pb-4">
                  <div className="space-y-4">
-                    {products
-                      .filter((product) => product.department_id === dept.id)
-                      .map((product) => (
-                        <Link href={`/products/${product.slug || product.product_id}`} key={product.product_id} className="flex items-center justify-between group">
+                    {getGroupedProducts(dept.department_name, dept.id).map((product) => (
+                        <Link href={product.link} key={product.name} className="flex items-center justify-between group">
                           <span className="text-lg font-headline group-hover:text-amber-100 transition-colors">
-                            {product.product_name}
+                            {product.name}
                           </span>
                           <Leaf className="w-5 h-5 text-neutral-500 group-hover:text-amber-100 transition-colors" />
                         </Link>
