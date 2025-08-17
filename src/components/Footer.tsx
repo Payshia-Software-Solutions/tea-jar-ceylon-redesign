@@ -17,7 +17,7 @@ const footerSections = [
     {
         title: 'Our Policies',
         links: [
-            { text: 'Privacy Policy', href: '#' },
+            { text: 'Privacy Policy', href: '/privacy-policy' },
             { text: 'Refund Policy', href: '#' },
             { text: 'Terms of Service', href: '#' },
             { text: 'Shipping Policy', href: '#' },
