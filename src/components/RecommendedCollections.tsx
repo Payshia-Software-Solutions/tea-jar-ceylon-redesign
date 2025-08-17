@@ -86,6 +86,19 @@ export function RecommendedCollections() {
     }
   };
 
+  const formatProductName = (name: string) => {
+    const cleanedName = name
+      .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '') // Removes weights like - 175g, - 25's
+      .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '') // Removes counts like 25 enveloped tea bags
+      .replace(/pyramid tea bags/gi, '')
+      .split(' - ')[0] // Removes anything after a hyphen
+      .trim();
+
+    return cleanedName.toLowerCase().endsWith('tea') 
+      ? cleanedName 
+      : `${cleanedName} Tea`;
+  };
+
   const getGroupedProducts = (departmentName: string, departmentId: string) => {
     const departmentProducts = products.filter((p) => p.department_id === departmentId);
     
@@ -94,7 +107,7 @@ export function RecommendedCollections() {
             const commonName = product.product_name.split(' ')[0];
             if (!acc[commonName]) {
                 acc[commonName] = {
-                    name: commonName,
+                    name: formatProductName(commonName),
                     link: `/shop?department=${encodeURIComponent(departmentName)}`,
                 };
             }
@@ -104,7 +117,7 @@ export function RecommendedCollections() {
     }
 
     return departmentProducts.map(product => ({
-        name: product.product_name,
+        name: formatProductName(product.product_name),
         link: `/products/${product.slug || product.product_id}`
     }));
   };
