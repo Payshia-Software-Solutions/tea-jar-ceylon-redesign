@@ -87,12 +87,17 @@ export function RecommendedCollections() {
   };
 
   const formatProductName = (name: string) => {
-    const cleanedName = name
+    let cleanedName = name
       .replace(/-\s*\d+(\s*g|s*pcs|'s|’s|s)/gi, '') // Removes weights like - 175g, - 25's
       .replace(/\d+\s*(env(eloped)? tea bags|luxury tea bags|'s|’s|pcs|g)/gi, '') // Removes counts like 25 enveloped tea bags
       .replace(/pyramid tea bags/gi, '')
       .split(' - ')[0] // Removes anything after a hyphen
       .trim();
+
+    // Remove "Loose Leaf Tea" if it appears at the end
+    if (cleanedName.toLowerCase().endsWith('loose leaf tea')) {
+        cleanedName = cleanedName.slice(0, -'loose leaf tea'.length).trim();
+    }
 
     return cleanedName.toLowerCase().endsWith('tea') 
       ? cleanedName 
