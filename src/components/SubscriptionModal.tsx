@@ -2,11 +2,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { Gift } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function SubscriptionModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,9 @@ export function SubscriptionModal() {
       </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="p-0 max-w-2xl w-[90vw] grid grid-cols-2 gap-0 overflow-hidden rounded-lg bg-white text-black border-none">
+           <DialogHeader className='sr-only'>
+                <DialogTitle>Subscription Offer</DialogTitle>
+            </DialogHeader>
           {/* Left Side (Image) */}
           <div className="relative h-full bg-black">
               <Image 
