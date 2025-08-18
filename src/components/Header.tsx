@@ -95,7 +95,8 @@ export function Header() {
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const [searchResults, setSearchResults] = useState<ApiProduct[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const desktopSearchRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
@@ -115,9 +116,11 @@ export function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      // Close desktop search results
+      if (desktopSearchRef.current && !desktopSearchRef.current.contains(event.target as Node)) {
         setSearchResults([]);
       }
+      // We don't need a click outside handler for mobile because it's a modal
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -176,6 +179,9 @@ export function Header() {
     // When the path changes, close the search dialog.
     if (isMobileSearchOpen) {
         setIsMobileSearchOpen(false);
+    }
+    if(isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
     }
     // When the path changes, close the desktop search results.
     setSearchResults([]);
@@ -238,7 +244,7 @@ export function Header() {
                <SheetContent side="left" className="bg-black text-white border-neutral-800 p-0 flex flex-col">
                  <SheetHeader className="p-6 border-b border-neutral-800">
                     <SheetTitle>
-                       <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                       <Link href="/" className="flex items-center">
                             <Image
                                 src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
                                 alt="Tea Jar Logo"
@@ -251,7 +257,7 @@ export function Header() {
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
                     <nav className="flex flex-col gap-1">
-                        <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                        <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Home</Link>
                         
                         <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
@@ -265,7 +271,7 @@ export function Header() {
                                                 <div key={col.title}>
                                                     {col.title === 'Shop Tea' ? (
                                                         col.links.map(link => (
-                                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
+                                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
                                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                     <span>{link.text}</span>
                                                             </Link>
@@ -277,7 +283,7 @@ export function Header() {
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pl-4">
                                                                 {col.links.map(link => (
-                                                                     <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
+                                                                     <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
                                                                             <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                             <span>{link.text}</span>
                                                                     </Link>
@@ -298,7 +304,7 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.about.map(link => (
-                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
+                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
                                             </Link>
@@ -313,7 +319,7 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.ourTeas.map(link => (
-                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
+                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
                                             </Link>
@@ -322,7 +328,7 @@ export function Header() {
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                        <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
+                        <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Contact Us</Link>
                     </nav>
                  </div>
                </SheetContent>
@@ -369,32 +375,34 @@ export function Header() {
                         <DialogHeader>
                             <DialogTitle>Search for products</DialogTitle>
                         </DialogHeader>
-                        <form onSubmit={handleSearchSubmit} className="w-full">
-                            <div className="relative" ref={searchRef}>
-                                <Input
-                                type="search"
-                                placeholder="Find products"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
-                                autoFocus
+                        <div ref={mobileSearchRef}>
+                            <form onSubmit={handleSearchSubmit} className="w-full">
+                                <div className="relative">
+                                    <Input
+                                    type="search"
+                                    placeholder="Find products"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-4 h-12 w-full text-white text-base"
+                                    autoFocus
+                                    />
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+                                </div>
+                            </form>
+                            <div className="relative flex-1 mt-4">
+                                <SearchResults
+                                    results={searchResults}
+                                    isLoading={isSearching}
+                                    query={debouncedSearchQuery}
+                                    isMobile={true}
                                 />
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                             </div>
-                        </form>
-                         <div className="relative flex-1 mt-4">
-                            <SearchResults
-                                results={searchResults}
-                                isLoading={isSearching}
-                                query={debouncedSearchQuery}
-                                isMobile={true}
-                            />
                         </div>
                     </DialogContent>
                 </Dialog>
 
                 <form onSubmit={handleSearchSubmit}>
-                    <div className="relative hidden lg:block" ref={searchRef}>
+                    <div className="relative hidden lg:block" ref={desktopSearchRef}>
                         <Input
                         type="search"
                         placeholder="Find products"
