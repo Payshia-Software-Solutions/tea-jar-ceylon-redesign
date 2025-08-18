@@ -372,11 +372,11 @@ export function Header() {
                             <span className="sr-only">Open search</span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-[20%] sm:top-[25%] rounded-lg w-[90vw] max-w-md shadow-2xl">
+                    <DialogContent className="bg-black/90 backdrop-blur-sm border-none text-white p-4 h-full flex flex-col top-0 translate-y-0 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top">
                         <DialogHeader>
-                            <DialogTitle>Search for products</DialogTitle>
+                            <DialogTitle className="sr-only">Search for products</DialogTitle>
                         </DialogHeader>
-                        <div>
+                        <div className="flex-shrink-0">
                             <form onSubmit={handleSearchSubmit} className="w-full">
                                 <div className="relative">
                                     <Input
@@ -390,14 +390,15 @@ export function Header() {
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                                 </div>
                             </form>
-                            <div className="relative flex-1 mt-4">
-                                <SearchResults
-                                    results={searchResults}
-                                    isLoading={isSearching}
-                                    query={debouncedSearchQuery}
-                                    isMobile={true}
-                                />
-                            </div>
+                        </div>
+                        <div className="flex-grow overflow-y-auto -mx-4">
+                            <SearchResults
+                                results={searchResults}
+                                isLoading={isSearching}
+                                query={debouncedSearchQuery}
+                                onClose={() => setIsMobileSearchOpen(false)}
+                                isMobile={true}
+                            />
                         </div>
                     </DialogContent>
                 </Dialog>
@@ -420,11 +421,14 @@ export function Header() {
                         )}
                     </form>
                     {isSearchFocused && (
-                        <SearchResults
-                            results={searchResults}
-                            isLoading={isSearching}
-                            query={debouncedSearchQuery}
-                        />
+                         <div className="absolute top-full mt-2 w-full">
+                            <SearchResults
+                                results={searchResults}
+                                isLoading={isSearching}
+                                query={debouncedSearchQuery}
+                                onClose={() => setIsSearchFocused(false)}
+                            />
+                        </div>
                     )}
                  </div>
               

@@ -12,22 +12,27 @@ interface SearchResultsProps {
     results: ApiProduct[];
     isLoading: boolean;
     query: string;
+    onClose: () => void;
     isMobile?: boolean;
 }
 
-export function SearchResults({ results, isLoading, query, isMobile = false }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, query, onClose, isMobile = false }: SearchResultsProps) {
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
 
     if (!isLoading && !showNoResults && results.length === 0) {
         return null;
     }
+
+    const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
+        onClose();
+    };
     
     return (
         <div className={cn(
             "overflow-y-auto",
             isMobile 
                 ? "h-full"
-                : "absolute top-full mt-2 w-full max-h-[60vh] rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50"
+                : "max-h-[60vh] rounded-md bg-[#2a2f28] border border-neutral-700 shadow-lg z-50"
         )}>
             {isLoading ? (
                 <div className="flex justify-center items-center gap-2 text-neutral-300 p-4">
@@ -49,6 +54,7 @@ export function SearchResults({ results, isLoading, query, isMobile = false }: S
                                 <Link 
                                     href={href} 
                                     className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
+                                    onClick={handleLinkClick}
                                 >
                                     <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white p-1">
                                         <Image
@@ -68,7 +74,7 @@ export function SearchResults({ results, isLoading, query, isMobile = false }: S
                         );
                     })}
                      <li className="p-4 text-center">
-                        <Link href={`/shop?search=${query}`} className="text-sm text-amber-200 hover:underline">
+                        <Link href={`/shop?search=${query}`} onClick={handleLinkClick} className="text-sm text-amber-200 hover:underline">
                             View all results for &quot;{query}&quot;
                         </Link>
                     </li>
