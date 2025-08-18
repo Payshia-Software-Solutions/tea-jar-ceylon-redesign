@@ -28,6 +28,7 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState<string>(tea.images?.[0] || tea.image);
   const { toast } = useToast();
+  const isOutOfStock = tea.stock_status === "0";
 
   const handleQuantityChange = (amount: number) => {
     setQuantity(prev => Math.max(1, prev + amount));
@@ -144,24 +145,34 @@ export function ProductDetailClient({ tea, relatedTeas, departmentName }: Produc
                                 ) : (
                                     <span className="text-4xl font-bold text-white">Rs {tea.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                                 )}
-                                <Badge className="bg-green-200 text-green-900 border border-green-300">IN STOCK</Badge>
+                                <Badge className={isOutOfStock ? "bg-neutral-500 text-neutral-100" : "bg-green-200 text-green-900 border border-green-300"}>
+                                    {isOutOfStock ? 'OUT OF STOCK' : 'IN STOCK'}
+                                </Badge>
                             </div>
-                            <MintPay price={displayPrice}/>
+                            {!isOutOfStock && <MintPay price={displayPrice}/>}
                          </div>
                          <p className="text-sm text-neutral-400">Shipping calculated at checkout.</p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                        <div className="flex w-full sm:w-auto items-center border border-neutral-600 rounded-md">
-                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="text-white hover:bg-neutral-700 hover:text-white"><Minus className="w-4 h-4" /></Button>
-                            <span className="w-full sm:w-10 text-center font-medium">{quantity}</span>
-                            <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-white hover:bg-neutral-700 hover:text-white"><Plus className="w-4 h-4" /></Button>
-                        </div>
-                        <AddToCartButton tea={tea} quantity={quantity} className="flex-grow w-full sm:w-auto bg-white text-black hover:bg-neutral-200" />
-                        <Button onClick={handleShare} variant="outline" size="icon" className="border-amber-200/50 text-amber-200/90 hover:bg-amber-500/10 hover:text-amber-200/90 hidden sm:inline-flex" title="Share this product">
-                            <Share2 className="w-5 h-5" />
+                    {!isOutOfStock && (
+                      <div className="flex flex-col sm:flex-row items-center gap-4">
+                          <div className="flex w-full sm:w-auto items-center border border-neutral-600 rounded-md">
+                              <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(-1)} className="text-white hover:bg-neutral-700 hover:text-white"><Minus className="w-4 h-4" /></Button>
+                              <span className="w-full sm:w-10 text-center font-medium">{quantity}</span>
+                              <Button variant="ghost" size="icon" onClick={() => handleQuantityChange(1)} className="text-white hover:bg-neutral-700 hover:text-white"><Plus className="w-4 h-4" /></Button>
+                          </div>
+                          <AddToCartButton tea={tea} quantity={quantity} className="flex-grow w-full sm:w-auto bg-white text-black hover:bg-neutral-200" disabled={isOutOfStock} />
+                          <Button onClick={handleShare} variant="outline" size="icon" className="border-amber-200/50 text-amber-200/90 hover:bg-amber-500/10 hover:text-amber-200/90 hidden sm:inline-flex" title="Share this product">
+                              <Share2 className="w-5 h-5" />
+                          </Button>
+                      </div>
+                    )}
+                    {isOutOfStock && (
+                        <Button size="lg" className="w-full bg-neutral-600 text-neutral-300 cursor-not-allowed" disabled>
+                            Out of Stock
                         </Button>
-                    </div>
+                    )}
+
 
                     <Tabs defaultValue="features" className="w-full pt-4">
                         <TabsList className="grid w-full grid-cols-2 bg-neutral-800 text-neutral-300 h-auto sm:h-10">

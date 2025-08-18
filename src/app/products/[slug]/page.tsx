@@ -78,6 +78,7 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
             departmentId: apiProduct.department_id,
             categoryId: apiProduct.category_id,
             categoryName: categoryMap.get(apiProduct.category_id),
+            stock_status: apiProduct.stock_status,
             tastingNotes: ecomValues?.tasting_notes,
             ingredients: ecomValues?.ingredients,
             teaGrades: ecomValues?.tea_grades,
@@ -134,6 +135,7 @@ async function getTeaData(slug: string): Promise<{tea: Tea | null, relatedTeas: 
                         origin: 'Sri Lanka',
                         categoryId: p.category_id,
                         categoryName: categoryMap.get(p.category_id),
+                        stock_status: p.stock_status,
                     };
                 });
         }
