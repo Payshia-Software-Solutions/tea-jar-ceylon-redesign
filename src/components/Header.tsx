@@ -239,9 +239,7 @@ export function Header() {
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
                     <nav className="flex flex-col gap-1">
-                        <SheetClose asChild>
-                            <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Home</Link>
-                        </SheetClose>
+                        <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
                         
                         <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
@@ -255,12 +253,10 @@ export function Header() {
                                                 <div key={col.title}>
                                                     {col.title === 'Shop Tea' ? (
                                                         col.links.map(link => (
-                                                            <SheetClose asChild key={link.text}>
-                                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
                                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                     <span>{link.text}</span>
-                                                                </Link>
-                                                            </SheetClose>
+                                                            </Link>
                                                         ))
                                                     ) : (
                                                         <AccordionItem value={col.title} className="border-none">
@@ -269,12 +265,10 @@ export function Header() {
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pl-4">
                                                                 {col.links.map(link => (
-                                                                     <SheetClose asChild key={link.text}>
-                                                                        <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                                     <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
                                                                             <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                                             <span>{link.text}</span>
-                                                                        </Link>
-                                                                    </SheetClose>
+                                                                    </Link>
                                                                 ))}
                                                             </AccordionContent>
                                                         </AccordionItem>
@@ -292,12 +286,10 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.about.map(link => (
-                                            <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
-                                                </Link>
-                                            </SheetClose>
+                                            </Link>
                                         ))}
                                    </div>
                                 </AccordionContent>
@@ -309,20 +301,16 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.ourTeas.map(link => (
-                                            <SheetClose asChild key={link.text}>
-                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text} onClick={() => setIsMobileMenuOpen(false)}>
                                                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
                                                     <span>{link.text}</span>
-                                                </Link>
-                                            </SheetClose>
+                                            </Link>
                                         ))}
                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                        <SheetClose asChild>
-                           <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Contact Us</Link>
-                        </SheetClose>
+                        <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
                     </nav>
                  </div>
                </SheetContent>
