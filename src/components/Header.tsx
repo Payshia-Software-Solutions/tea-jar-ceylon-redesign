@@ -374,7 +374,7 @@ export function Header() {
                     </DialogTrigger>
                     <DialogContent className="bg-black/90 backdrop-blur-sm border-none text-white p-4 h-full flex flex-col top-0 translate-y-0 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top">
                         <DialogHeader>
-                            <DialogTitle className="sr-only">Search for products</DialogTitle>
+                            <DialogTitle className="text-white text-lg font-semibold mb-4">Search For Products</DialogTitle>
                         </DialogHeader>
                         <div className="flex-shrink-0">
                             <form onSubmit={handleSearchSubmit} className="w-full">
