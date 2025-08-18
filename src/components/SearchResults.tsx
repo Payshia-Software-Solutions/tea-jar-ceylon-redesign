@@ -6,31 +6,22 @@ import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import type { MouseEvent } from 'react';
 
 interface SearchResultsProps {
     results: ApiProduct[];
     isLoading: boolean;
-    onClose: () => void;
     query: string;
     isMobile?: boolean;
 }
 
-export function SearchResults({ results, isLoading, onClose, query, isMobile = false }: SearchResultsProps) {
-    const router = useRouter();
+export function SearchResults({ results, isLoading, query, isMobile = false }: SearchResultsProps) {
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
 
     if (!isLoading && !showNoResults && results.length === 0) {
         return null;
     }
     
-    const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
-        router.push(href);
-        onClose();
-    };
-
     return (
         <div className={cn(
             "overflow-y-auto",
@@ -58,7 +49,6 @@ export function SearchResults({ results, isLoading, onClose, query, isMobile = f
                                 <Link 
                                     href={href} 
                                     className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
-                                    onClick={(e) => handleLinkClick(e, href)}
                                 >
                                     <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white p-1">
                                         <Image

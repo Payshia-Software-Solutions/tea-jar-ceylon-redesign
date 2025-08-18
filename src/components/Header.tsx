@@ -172,6 +172,18 @@ export function Header() {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    // When the path changes, close the search dialog.
+    if (isMobileSearchOpen) {
+        setIsMobileSearchOpen(false);
+    }
+    // When the path changes, close the desktop search results.
+    setSearchResults([]);
+    setSearchQuery('');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+
   const handleMouseEnter = (label: string) => {
     if (['Shop', 'About Us', 'Our Teas'].includes(label)) {
       setActiveMenu(label);
@@ -374,7 +386,6 @@ export function Header() {
                             <SearchResults
                                 results={searchResults}
                                 isLoading={isSearching}
-                                onClose={closeAllPopups}
                                 query={debouncedSearchQuery}
                                 isMobile={true}
                             />
@@ -400,7 +411,6 @@ export function Header() {
                         <SearchResults
                             results={searchResults}
                             isLoading={isSearching}
-                            onClose={closeAllPopups}
                             query={debouncedSearchQuery}
                         />
                     </div>
