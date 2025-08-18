@@ -105,7 +105,7 @@ export function Products() {
     }, [apiProducts, productImages, categories]);
 
     return (
-        <section className="bg-[#353d32] py-16 md:py-20 text-white" id="teas">
+        <section className="bg-[#353d32] py-16 md:py-20 text-white overflow-hidden" id="teas">
             <div className="container mx-auto px-4">
                 <h2 className="font-headline text-3xl md:text-4xl text-center mb-8 md:mb-12">Shop Our Best Selling Products</h2>
             </div>
