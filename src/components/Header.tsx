@@ -38,9 +38,9 @@ const navMenuData = {
     {
       title: 'Tea Format',
       links: [
-        { text: 'Loose Leaf', href: '/shop?category=Loose%20Leaf' },
-        { text: 'Tea Bags', href: '/shop?category=Tea%20Bags' },
-        { text: 'Luxury Leaf Tea Bags', href: '/shop?category=Luxury%20Leaf%20Tea%20Bags' },
+        { text: 'Loose Leaf Tea', href: '/shop?category=Loose%20Leaf%20Tea' },
+        { text: 'Tea Bag', href: '/shop?category=Tea%20Bag' },
+        { text: 'Luxury Leaf Tea Bag', href: '/shop?category=Luxury%20Leaf%20Tea%20Bag' },
         { text: 'Canisters', href: '/shop?category=Canisters' },
       ],
     },
