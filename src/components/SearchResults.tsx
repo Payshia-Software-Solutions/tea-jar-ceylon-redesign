@@ -18,15 +18,17 @@ interface SearchResultsProps {
 }
 
 export function SearchResults({ results, isLoading, onClose, query, isMobile = false }: SearchResultsProps) {
+    const router = useRouter();
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
 
     if (!isLoading && !showNoResults && results.length === 0) {
         return null;
     }
     
-    const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
-        // We use a timeout to allow the navigation to start before closing the modal.
-        setTimeout(onClose, 100);
+    const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+        e.preventDefault();
+        router.push(href);
+        onClose();
     };
 
     return (
@@ -56,7 +58,7 @@ export function SearchResults({ results, isLoading, onClose, query, isMobile = f
                                 <Link 
                                     href={href} 
                                     className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
-                                    onClick={handleLinkClick}
+                                    onClick={(e) => handleLinkClick(e, href)}
                                 >
                                     <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white p-1">
                                         <Image
