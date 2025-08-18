@@ -95,8 +95,8 @@ export function Header() {
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const [searchResults, setSearchResults] = useState<ApiProduct[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const desktopSearchRef = useRef<HTMLDivElement>(null);
-  const mobileSearchRef = useRef<HTMLDivElement>(null);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
@@ -116,11 +116,9 @@ export function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Close desktop search results
-      if (desktopSearchRef.current && !desktopSearchRef.current.contains(event.target as Node)) {
-        setSearchResults([]);
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false);
       }
-      // We don't need a click outside handler for mobile because it's a modal
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -176,16 +174,7 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    // When the path changes, close the search dialog.
-    if (isMobileSearchOpen) {
-        setIsMobileSearchOpen(false);
-    }
-    if(isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-    }
-    // When the path changes, close the desktop search results.
-    setSearchResults([]);
-    setSearchQuery('');
+    closeAllPopups();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
@@ -201,7 +190,9 @@ export function Header() {
   const closeAllPopups = () => {
     setIsMobileMenuOpen(false);
     setIsMobileSearchOpen(false);
-    handleClearSearch();
+    setIsSearchFocused(false);
+    setSearchQuery('');
+    setSearchResults([]);
   };
   
   useEffect(() => {
@@ -244,20 +235,22 @@ export function Header() {
                <SheetContent side="left" className="bg-black text-white border-neutral-800 p-0 flex flex-col">
                  <SheetHeader className="p-6 border-b border-neutral-800">
                     <SheetTitle>
-                       <Link href="/" className="flex items-center">
-                            <Image
-                                src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
-                                alt="Tea Jar Logo"
-                                width={80}
-                                height={40}
-                                className="object-contain h-16"
-                            />
-                        </Link>
+                        <SheetClose asChild>
+                           <Link href="/" className="flex items-center">
+                                <Image
+                                    src="https://content-provider.payshia.com/tea-jar/gold-logo.webp"
+                                    alt="Tea Jar Logo"
+                                    width={80}
+                                    height={40}
+                                    className="object-contain h-16"
+                                />
+                            </Link>
+                        </SheetClose>
                     </SheetTitle>
                  </SheetHeader>
                  <div className="p-6 flex-grow overflow-y-auto">
                     <nav className="flex flex-col gap-1">
-                        <Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Home</Link>
+                        <SheetClose asChild><Link href="/" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Home</Link></SheetClose>
                         
                         <Accordion type="multiple" className="w-full text-neutral-300">
                             <AccordionItem value="shop" className="border-none">
@@ -271,10 +264,12 @@ export function Header() {
                                                 <div key={col.title}>
                                                     {col.title === 'Shop Tea' ? (
                                                         col.links.map(link => (
-                                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
-                                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
-                                                                    <span>{link.text}</span>
-                                                            </Link>
+                                                            <SheetClose asChild key={link.text}>
+                                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                                        <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                                        <span>{link.text}</span>
+                                                                </Link>
+                                                            </SheetClose>
                                                         ))
                                                     ) : (
                                                         <AccordionItem value={col.title} className="border-none">
@@ -283,10 +278,12 @@ export function Header() {
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pl-4">
                                                                 {col.links.map(link => (
-                                                                     <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
-                                                                            <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
-                                                                            <span>{link.text}</span>
-                                                                    </Link>
+                                                                     <SheetClose asChild key={link.text}>
+                                                                        <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                                                <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                                                <span>{link.text}</span>
+                                                                        </Link>
+                                                                    </SheetClose>
                                                                 ))}
                                                             </AccordionContent>
                                                         </AccordionItem>
@@ -304,10 +301,12 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.about.map(link => (
-                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
-                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
-                                                    <span>{link.text}</span>
-                                            </Link>
+                                            <SheetClose asChild key={link.text}>
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                        <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                        <span>{link.text}</span>
+                                                </Link>
+                                            </SheetClose>
                                         ))}
                                    </div>
                                 </AccordionContent>
@@ -319,16 +318,18 @@ export function Header() {
                                 <AccordionContent className="pl-8">
                                    <div className="flex flex-col gap-1 mt-2">
                                         {navMenuData.ourTeas.map(link => (
-                                            <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group" key={link.text}>
-                                                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
-                                                    <span>{link.text}</span>
-                                            </Link>
+                                            <SheetClose asChild key={link.text}>
+                                                <Link href={link.href} className="flex items-center gap-2 text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors py-3 px-4 rounded-md group">
+                                                        <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-amber-200 transition-colors" />
+                                                        <span>{link.text}</span>
+                                                </Link>
+                                            </SheetClose>
                                         ))}
                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                        <Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Contact Us</Link>
+                        <SheetClose asChild><Link href="/contact" className="text-lg py-3 px-4 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">Contact Us</Link></SheetClose>
                     </nav>
                  </div>
                </SheetContent>
@@ -371,11 +372,11 @@ export function Header() {
                             <span className="sr-only">Open search</span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-[25%] rounded-lg w-[90vw] max-w-md shadow-2xl">
+                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-[20%] sm:top-[25%] rounded-lg w-[90vw] max-w-md shadow-2xl">
                         <DialogHeader>
                             <DialogTitle>Search for products</DialogTitle>
                         </DialogHeader>
-                        <div ref={mobileSearchRef}>
+                        <div>
                             <form onSubmit={handleSearchSubmit} className="w-full">
                                 <div className="relative">
                                     <Input
@@ -401,28 +402,31 @@ export function Header() {
                     </DialogContent>
                 </Dialog>
 
-                <form onSubmit={handleSearchSubmit}>
-                    <div className="relative hidden lg:block" ref={desktopSearchRef}>
+                 <div className="relative hidden lg:block" ref={searchRef}>
+                    <form onSubmit={handleSearchSubmit}>
                         <Input
                         type="search"
                         placeholder="Find products"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={() => setIsSearchFocused(true)}
                         className="bg-neutral-800 border-neutral-700 rounded-full pl-10 pr-10 h-10 w-72 text-white"
                         />
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                         {searchQuery && (
-                            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full" onClick={handleClearSearch}>
                                 <X className="h-4 w-4 text-neutral-400" />
                             </Button>
                         )}
+                    </form>
+                    {isSearchFocused && (
                         <SearchResults
                             results={searchResults}
                             isLoading={isSearching}
                             query={debouncedSearchQuery}
                         />
-                    </div>
-              </form>
+                    )}
+                 </div>
               
               <Sheet>
                  <SheetTrigger asChild>

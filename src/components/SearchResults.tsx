@@ -67,6 +67,11 @@ export function SearchResults({ results, isLoading, query, isMobile = false }: S
                             </li>
                         );
                     })}
+                     <li className="p-4 text-center">
+                        <Link href={`/shop?search=${query}`} className="text-sm text-amber-200 hover:underline">
+                            View all results for &quot;{query}&quot;
+                        </Link>
+                    </li>
                 </ul>
             )}
         </div>
