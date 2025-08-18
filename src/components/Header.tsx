@@ -365,7 +365,7 @@ export function Header() {
                             <span className="sr-only">Open search</span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-1/2 rounded-lg w-[90vw] max-w-md shadow-2xl">
+                    <DialogContent className="bg-black/80 backdrop-blur-sm border-none text-white p-4 top-[25%] rounded-lg w-[90vw] max-w-md shadow-2xl">
                         <DialogHeader>
                             <DialogTitle>Search for products</DialogTitle>
                         </DialogHeader>
