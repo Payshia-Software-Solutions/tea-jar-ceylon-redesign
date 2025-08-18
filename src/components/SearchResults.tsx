@@ -6,6 +6,8 @@ import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import type { MouseEvent } from 'react';
 
 interface SearchResultsProps {
     results: ApiProduct[];
@@ -17,10 +19,17 @@ interface SearchResultsProps {
 
 export function SearchResults({ results, isLoading, onClose, query, isMobile = false }: SearchResultsProps) {
     const showNoResults = !isLoading && query.length > 1 && results.length === 0;
+    const router = useRouter();
 
     if (!isLoading && !showNoResults && results.length === 0) {
         return null;
     }
+
+    const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+        e.preventDefault();
+        router.push(href);
+        setTimeout(onClose, 100); // Add a small delay to allow navigation
+    };
 
     return (
         <div className={cn(
@@ -43,12 +52,13 @@ export function SearchResults({ results, isLoading, onClose, query, isMobile = f
                     {results.map(product => {
                         const imageUrl = `https://kdu-admin.payshia.com/pos-system/assets/images/products/${product.product_id}/${product.image_path}`;
                         const price = parseFloat(product.selling_price);
+                        const href = `/products/${product.slug || product.product_id}`;
                         return (
                             <li key={product.product_id}>
                                 <Link 
-                                    href={`/products/${product.slug || product.product_id}`} 
+                                    href={href} 
                                     className="flex items-center gap-4 p-3 hover:bg-neutral-800 transition-colors"
-                                    onClick={onClose}
+                                    onClick={(e) => handleLinkClick(e, href)}
                                 >
                                     <div className="relative w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-white p-1">
                                         <Image
