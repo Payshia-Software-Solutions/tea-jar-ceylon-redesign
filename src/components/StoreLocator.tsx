@@ -97,7 +97,7 @@ const stores = [
     id: 'ratnapura',
     name: 'Tea Jar Lounge',
     location: 'Ratnapura',
-    bgImage: 'https://placehold.co/1920x1080.png',
+    bgImage: 'https://content-provider.payshia.com/tea-jar/outlets/tea-jar-lounge-rathnapura.webp',
     dataAiHint: 'tea lounge luxury',
     description: "WELCOME TO OUR FLAGSHIP TEA JAR LOUNGE IN RATNAPURA. THE PERFECT PLACE TO EXPERIENCE AUTHENTIC CEYLON TEA. HERE, YOU CAN PURCHASE OUR EXCLUSIVE TEA COLLECTIONS, EXPLORE A CURATED SELECTION OF GEMS AND JEWELRY, AND GATHER WITH LOVED ONES TO CELEBRATE YOUR SPECIAL MOMENTS ALONGSIDE OUR PREMIUM TEAS. ENJOY AN EXTENSIVE FOOD AND BEVERAGE MENU AND TAKE A JOURNEY THROUGH OUR MINI MUSEUM, WHICH SHOWCASES THE RICH HERITAGE OF CEYLON TEA. TEA JAR LOUNGE OFFERS MORE THAN JUST TEA—IT'S A DESTINATION TO CONNECT, CELEBRATE, AND DISCOVER THE TRUE ESSENCE OF CEYLON TEA CULTURE.",
     address: 'No. 25, Main Street, Ratnapura, Sri Lanka',
@@ -105,7 +105,7 @@ const stores = [
     phone: '(+94) 45 222 3333',
     hours: '9:00 AM - 10:00 PM',
     images: [
-      'https://placehold.co/400x300.png',
+      'https://content-provider.payshia.com/tea-jar/outlets/tea-jar-lounge-rathnapura.webp',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ],
@@ -115,7 +115,7 @@ const stores = [
     id: 'colombo',
     name: 'Tea Jar Lounge',
     location: 'Colombo',
-    bgImage: 'https://placehold.co/1920x1080.png',
+    bgImage: 'https://content-provider.payshia.com/tea-jar/outlets/colombo-lounge-outlet.webp',
     dataAiHint: 'modern tea shop',
     description: "Located in the heart of Colombo, Tea Jar Express offers a modern tea experience. Perfect for a quick stop, it features a curated selection of our finest teas and a range of delicious pastries. Whether you're commuting or shopping, it's the ideal spot to recharge with a perfect cup of Ceylon tea.",
     address: '123 Galle Road, Colombo 03, Sri Lanka',
@@ -123,7 +123,7 @@ const stores = [
     phone: '(+94) 11 222 4444',
     hours: '10:00 AM - 9:00 PM',
     images: [
-      'https://placehold.co/400x300.png',
+      'https://content-provider.payshia.com/tea-jar/outlets/colombo-lounge-outlet.webp',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ],
@@ -133,7 +133,7 @@ const stores = [
     id: 'weerawila',
     name: 'Tea Jar by the Lake',
     location: 'Weerawila',
-    bgImage: 'https://placehold.co/1920x1080.png',
+    bgImage: 'https://content-provider.payshia.com/tea-jar/outlets/weerawila-teajar-by-the-lake.webp',
     dataAiHint: 'lake view tea shop',
     description: "Enjoy stunning lakeside views at our Weerawila location. This serene spot is perfect for enjoying a peaceful cup of tea while surrounded by nature's beauty. We offer a full range of our exclusive tea collections and a delightful menu of light bites.",
     address: '456 Lake Road, Weerawila, Sri Lanka',
@@ -141,7 +141,7 @@ const stores = [
     phone: '(+94) 47 222 5555',
     hours: '8:00 AM - 7:00 PM',
     images: [
-      'https://placehold.co/400x300.png',
+      'https://content-provider.payshia.com/tea-jar/outlets/weerawila-teajar-by-the-lake.webp',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ],
@@ -151,7 +151,7 @@ const stores = [
     id: 'ella',
     name: 'Tea Jar Boutique',
     location: 'Ella',
-    bgImage: 'https://placehold.co/1920x1080.png',
+    bgImage: 'https://content-provider.payshia.com/tea-jar/outlets/ella-outlet-optimized.webp',
     dataAiHint: 'boutique tea store',
     description: "Our charming boutique in the scenic town of Ella is a treasure trove for tea lovers. Browse our extensive collection of packaged teas to take home, along with unique tea accessories and gifts. Our knowledgeable staff are on hand to help you find your perfect blend.",
     address: '789 Main Street, Ella, Sri Lanka',
@@ -159,7 +159,7 @@ const stores = [
     phone: '(+94) 57 222 6666',
     hours: '9:00 AM - 8:00 PM',
     images: [
-      'https://placehold.co/400x300.png',
+      'https://content-provider.payshia.com/tea-jar/outlets/ella-outlet-optimized.webp',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ],
@@ -169,7 +169,7 @@ const stores = [
     id: 'galle',
     name: 'Tea Jar Boutique',
     location: 'Galle',
-    bgImage: 'https://placehold.co/1920x1080.png',
+    bgImage: 'https://content-provider.payshia.com/tea-jar/outlets/galle-outlet.webp',
     dataAiHint: 'historic tea boutique',
     description: "Nestled within the historic Galle Fort, our boutique offers a unique tea experience amidst colonial charm. Discover our exclusive tea collections, fine porcelain, and curated gifts. A perfect stop to immerse yourself in the rich history and flavour of Ceylon tea.",
     address: '42 Lighthouse Street, Galle Fort, Sri Lanka',
@@ -177,7 +177,7 @@ const stores = [
     phone: '(+94) 91 222 7777',
     hours: '10:00 AM - 7:00 PM',
     images: [
-      'https://placehold.co/400x300.png',
+      'https://content-provider.payshia.com/tea-jar/outlets/galle-outlet.webp',
       'https://placehold.co/400x300.png',
       'https://placehold.co/400x300.png'
     ],
