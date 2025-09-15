@@ -23,6 +23,10 @@ const collectionVideos: Record<string, string> = {
   'Factory Teas': 'https://teajarceylon.com/assets/videos/recommendation/Factory-Series.mp4'
 };
 
+const collectionIcons: Record<string, string> = {
+    'Artisanal Teas': 'https://content-provider.payshia.com/tea-jar/icons/artisanalt-teas.png'
+};
+
 export function RecommendedCollections() {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [products, setProducts] = useState<ApiProduct[]>([]);
@@ -187,7 +191,12 @@ export function RecommendedCollections() {
                             value={dept.department_name}
                             className="text-neutral-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:shadow-none text-lg text-left justify-start p-2 whitespace-nowrap"
                         >
-                            {dept.department_name}
+                             <div className="flex items-center gap-2">
+                                {collectionIcons[dept.department_name] && (
+                                    <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" />
+                                )}
+                                <span>{dept.department_name}</span>
+                            </div>
                         </TabsTrigger>
                     ))}
                 </div>
@@ -223,7 +232,12 @@ export function RecommendedCollections() {
                 return (
                     <AccordionItem key={dept.id} value={`item-${index}`} className="border-b border-neutral-600/50">
                     <AccordionTrigger className="text-base font-semibold text-left hover:no-underline py-4 text-neutral-100">
-                        {dept.department_name}
+                        <div className="flex items-center gap-2">
+                            {collectionIcons[dept.department_name] && (
+                                <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" />
+                            )}
+                            <span>{dept.department_name}</span>
+                        </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-4">
                         <div className="grid grid-cols-2 gap-4 items-start">
