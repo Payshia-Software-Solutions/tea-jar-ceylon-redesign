@@ -109,15 +109,15 @@ export default function ViewProductPage() {
         return (
             <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32 pb-12">
                 <div className="text-center mb-8">
-                     <h2 className="font-headline text-3xl md:text-4xl text-amber-100/90 mb-4">{product.name}</h2>
                     <h1 className="font-headline text-4xl md:text-5xl text-white mb-2">Select Your Language</h1>
                     <p className="text-neutral-300">Choose your preferred language to view product details.</p>
                 </div>
                 
-                <div className="w-full max-w-sm mb-8">
+                <div className="w-full max-w-sm text-center">
                      <div className="relative aspect-square w-full bg-white p-4 rounded-lg shadow-lg">
                         <Image src={product.image} alt={product.name} fill className="object-contain" unoptimized/>
                     </div>
+                    <h2 className="font-headline text-3xl md:text-4xl text-amber-100/90 mt-6 mb-8">{product.name}</h2>
                 </div>
 
                 {translating ? (
