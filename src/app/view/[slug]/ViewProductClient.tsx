@@ -90,7 +90,7 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
     if (selectedLang && translatedProduct) {
         return (
             <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32 pb-12">
-                 <Button onClick={handleBackToLangSelect} variant="ghost" className="absolute top-6 left-6 text-amber-200/90 hover:text-amber-200 hover:bg-white/10 z-10">
+                 <Button onClick={handleBackToLangSelect} variant="ghost" className="absolute top-28 left-6 text-amber-200/90 hover:text-amber-200 hover:bg-white/10 z-10">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Language Selection
                 </Button>
@@ -180,5 +180,3 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
         </div>
     );
 }
-
-    
