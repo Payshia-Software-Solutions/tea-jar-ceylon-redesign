@@ -107,8 +107,9 @@ export default function ViewProductPage() {
 
     if (!selectedLang || translating) {
         return (
-            <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32">
+            <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32 pb-12">
                 <div className="text-center mb-8">
+                     <h2 className="font-headline text-3xl md:text-4xl text-amber-100/90 mb-4">{product.name}</h2>
                     <h1 className="font-headline text-4xl md:text-5xl text-white mb-2">Select Your Language</h1>
                     <p className="text-neutral-300">Choose your preferred language to view product details.</p>
                 </div>
