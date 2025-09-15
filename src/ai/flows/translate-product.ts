@@ -24,8 +24,9 @@ export type TranslateProductInput = z.infer<typeof TranslateProductInputSchema>;
 // Define the output schema for the translated product details
 const TranslateProductOutputSchema = z.object({
   name: z.string().describe('The translated product name.'),
-  description: z.string().describe('The translated product description.'),
-  howToUse: z.string().describe('The translated brewing instructions or how-to-use guide.'),
+  flavorProfile: z.string().describe('A short, descriptive line about the tea\'s flavor profile, like "Light | Herby | Soothing".'),
+  description: z.string().describe('The translated main product description paragraph.'),
+  bestSipped: z.string().describe('A translated brief note on the best time to enjoy the tea, like "Best sipped in the morning or early afternoon".'),
 });
 export type TranslateProductOutput = z.infer<typeof TranslateProductOutputSchema>;
 
@@ -42,7 +43,7 @@ export async function getTranslatedProduct(input: TranslateProductInput): Promis
   return translateProductFlow({
     productName: product.product_name,
     productDescription: product.product_description,
-    howToUse: product.how_to_use,
+    howToUse: product.how_to_use, // This is now more of a general field
     targetLanguage: input.targetLanguage,
   });
 }
@@ -89,10 +90,11 @@ const translatePrompt = ai.definePrompt({
     Original Product Description:
     {{{productDescription}}}
 
-    Original "How to Use" / Brewing Instructions:
-    {{{howToUse}}}
-
-    Please provide the translations for 'name', 'description', and 'howToUse' in the specified JSON format.
+    Based on the product name and description, provide translations for the following fields: 'name', 'flavorProfile', 'description', and 'bestSipped' in the specified JSON format.
+    - 'flavorProfile' should be a short, descriptive line (e.g., "Light | Herby | Soothing").
+    - 'description' is the main paragraph.
+    - 'bestSipped' is a brief note on the best time to enjoy the tea (e.g., "Best sipped in the morning or early afternoon").
+    
     Ensure the translations are accurate, natural-sounding, and appealing to a native speaker of that language.
   `,
 });
