@@ -303,16 +303,22 @@ export function StoreLocator() {
 
   return (
     <section ref={sectionRef} className="relative w-full text-white overflow-hidden py-16 md:py-20 bg-[#2a2f28] scroll-mt-20">
-      <div className="absolute inset-0 w-full h-full transition-opacity duration-1000">
-        <Image
-          key={selectedStore?.id || 'default'}
-          src={selectedStore?.bgImage || stores[0].bgImage}
-          alt={selectedStore?.name || 'Tea Jar Stores'}
-          fill
-          className="object-cover animate-fade-in opacity-20"
-          data-ai-hint={selectedStore?.dataAiHint || 'tea background'}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/50 to-transparent" />
+      <div className="absolute inset-0 w-full h-full">
+        {stores.map((store, index) => (
+            <Image
+              key={store.id}
+              src={store.bgImage}
+              alt={store.name}
+              fill
+              className={cn(
+                "object-cover transition-opacity duration-1000 ease-in-out",
+                (selectedStore === null && index === 0) || selectedStore?.id === store.id ? "opacity-20" : "opacity-0"
+              )}
+              data-ai-hint={store.dataAiHint}
+              priority={index === 0}
+            />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f28] via-[#2a2f28]/80 to-[#2a2f28]/30" />
       </div>
 
       <div className="relative container mx-auto px-4 z-10">
