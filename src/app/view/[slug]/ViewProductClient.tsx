@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Tea } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -30,6 +30,12 @@ interface ViewProductClientProps {
 
 export function ViewProductClient({ product }: ViewProductClientProps) {
     const [selectedLang, setSelectedLang] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (selectedLang) {
+            window.scrollTo(0, 0);
+        }
+    }, [selectedLang]);
 
     const handleLanguageSelect = (langCode: string) => {
         setSelectedLang(langCode);
