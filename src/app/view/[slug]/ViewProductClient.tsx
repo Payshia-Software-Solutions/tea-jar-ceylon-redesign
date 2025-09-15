@@ -90,10 +90,12 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
     if (selectedLang && translatedProduct) {
         return (
             <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32 pb-12">
-                 <Button onClick={handleBackToLangSelect} variant="ghost" className="absolute top-28 left-6 text-amber-200/90 hover:text-amber-200 hover:bg-white/10 z-10">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Language Selection
-                </Button>
+                 <div className="w-full max-w-5xl mb-4">
+                    <Button onClick={handleBackToLangSelect} variant="ghost" className="text-amber-200/90 hover:text-amber-200 hover:bg-white/10 z-10">
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Language Selection
+                    </Button>
+                </div>
                 <div className="bg-[#0b2218] border border-[#d4af37]/30 rounded-lg p-8 md:p-12 w-full max-w-5xl">
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Left Column */}
