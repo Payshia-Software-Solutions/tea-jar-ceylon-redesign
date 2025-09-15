@@ -107,7 +107,7 @@ export default function ViewProductPage() {
 
     if (!selectedLang || translating) {
         return (
-            <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4">
+            <div className="bg-[#1a2e23] text-white min-h-screen flex flex-col items-center justify-center p-4 pt-32">
                 <div className="text-center mb-8">
                     <h1 className="font-headline text-4xl md:text-5xl text-white mb-2">Select Your Language</h1>
                     <p className="text-neutral-300">Choose your preferred language to view product details.</p>
@@ -146,7 +146,7 @@ export default function ViewProductPage() {
     
     if (translatedProduct) {
         return (
-            <div className="bg-[#1a2e23] text-white min-h-screen pt-12 pb-12">
+            <div className="bg-[#1a2e23] text-white min-h-screen pt-32 pb-12">
                 <div className="container mx-auto px-4 max-w-2xl">
                      <Button onClick={handleBackToLangSelect} variant="ghost" className="mb-8 text-amber-200/90 hover:text-amber-200 hover:bg-white/10">
                         <ArrowLeft className="w-4 h-4 mr-2" />
