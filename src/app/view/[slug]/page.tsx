@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import type { Tea, ApiProduct } from '@/lib/types';
-import { notFound, useParams }s from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
