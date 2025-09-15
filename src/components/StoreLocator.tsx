@@ -16,7 +16,7 @@ const icons = {
         <path d="M57.5 39.2H12.4c-3.8 0-7 3.1-7 7v1.5c0 .8.7 1.5 1.5 1.5h49.2c.8 0 1.5-.7 1.5-1.5v-1.5c0-3.8-3.1-7-7.1-7z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10"></path>
         <path d="M29.5 21c0-3.3-1.6-6.3-4.1-8.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeMiterlimit="10"></path>
         <path d="M37.5 21c0-3.3-1.6-6.3-4.1-8.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeMiterlimit="10"></path>
-        <path d="M21.5 21c0-3.3-1.6-6.3-4.1-8.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeMiterlimit="10"></path>
+        <path d="M21.5 21c0-3.3-1.6-6.3-4.1-8.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeMiterlimit="G10"></path>
     </svg>
   ),
   'Factory Visit': (props: React.SVGProps<SVGSVGElement>) => (
@@ -214,7 +214,7 @@ export function StoreLocator() {
             <CardContent className="p-0">
                 <div className="relative aspect-video">
                     <Image 
-                        src={store.images[0]} 
+                        src={store.bgImage} 
                         alt={store.location} 
                         fill 
                         className="object-cover" 
@@ -233,7 +233,7 @@ export function StoreLocator() {
   const StoreDetail = ({ store, onBack }: { store: Store, onBack: () => void }) => (
      <div className="w-full">
         <div 
-            className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden mb-8"
+            className="relative w-full h-96 md:h-[500px] rounded-xl overflow-hidden mb-8"
         >
             <Image
             key={store.id}
