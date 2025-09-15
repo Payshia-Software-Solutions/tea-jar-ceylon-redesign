@@ -24,6 +24,12 @@ const collectionVideos: Record<string, string> = {
 };
 
 const collectionIcons: Record<string, string> = {
+    'Classic Teas': 'https://content-provider.payshia.com/tea-jar/icons/classsic-teas.png',
+    'Flavored Teas': 'https://content-provider.payshia.com/tea-jar/icons/flavoured-teas.png',
+    'Exceptional Teas': 'https://content-provider.payshia.com/tea-jar/icons/exceptional-teas.png',
+    'Exclusive Teas': 'https://content-provider.payshia.com/tea-jar/icons/exclusive-teas.png',
+    'Factory Teas': 'https://content-provider.payshia.com/tea-jar/icons/factory-teas.png',
+    'Organic Teas': 'https://content-provider.payshia.com/tea-jar/icons/organic-teas.png',
     'Artisanal Teas': 'https://content-provider.payshia.com/tea-jar/icons/artisanalt-teas-updated.png'
 };
 
@@ -193,7 +199,7 @@ export function RecommendedCollections() {
                         >
                              <div className="flex items-center gap-2">
                                 {collectionIcons[dept.department_name] && (
-                                    <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" />
+                                    <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" unoptimized/>
                                 )}
                                 <span>{dept.department_name}</span>
                             </div>
@@ -234,7 +240,7 @@ export function RecommendedCollections() {
                     <AccordionTrigger className="text-base font-semibold text-left hover:no-underline py-4 text-neutral-100">
                         <div className="flex items-center gap-2">
                             {collectionIcons[dept.department_name] && (
-                                <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" />
+                                <Image src={collectionIcons[dept.department_name]} alt={dept.department_name} width={24} height={24} className="w-6 h-6" unoptimized/>
                             )}
                             <span>{dept.department_name}</span>
                         </div>
