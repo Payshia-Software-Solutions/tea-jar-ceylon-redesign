@@ -24,7 +24,7 @@ const collectionVideos: Record<string, string> = {
 };
 
 const collectionIcons: Record<string, string> = {
-    'Artisanal Teas': 'https://content-provider.payshia.com/tea-jar/icons/artisanalt-teas.png'
+    'Artisanal Teas': 'https://content-provider.payshia.com/tea-jar/icons/artisanalt-teas-updated.png'
 };
 
 export function RecommendedCollections() {
