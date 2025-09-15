@@ -15,14 +15,14 @@ import { z } from 'genkit';
 import type { ApiProduct } from '@/lib/types';
 
 // Define the input schema for the translation flow
-export const TranslateProductInputSchema = z.object({
+const TranslateProductInputSchema = z.object({
   productId: z.string().describe('The ID of the product to translate.'),
   targetLanguage: z.string().describe('The target language code (e.g., "ja", "zh", "ru", "ar").'),
 });
 export type TranslateProductInput = z.infer<typeof TranslateProductInputSchema>;
 
 // Define the output schema for the translated product details
-export const TranslateProductOutputSchema = z.object({
+const TranslateProductOutputSchema = z.object({
   name: z.string().describe('The translated product name.'),
   description: z.string().describe('The translated product description.'),
   howToUse: z.string().describe('The translated brewing instructions or how-to-use guide.'),
