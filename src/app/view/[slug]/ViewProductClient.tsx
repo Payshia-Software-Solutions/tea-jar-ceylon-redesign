@@ -53,9 +53,13 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
             setTranslatedProduct(result);
         } catch (error) {
             console.error('Failed to translate product:', error);
-            // Optionally, show an error message to the user
-            // For now, we'll just go back to the language selection
-            setSelectedLang(null);
+            // Fallback to English content in the new layout
+            setTranslatedProduct({
+                name: product.name,
+                flavorProfile: product.flavorProfile.join(' | ') || 'Exquisite Flavor',
+                description: product.description || product.longDescription,
+                bestSipped: 'Enjoy any time of day.'
+            });
         } finally {
             setTranslating(false);
         }
@@ -176,3 +180,5 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
         </div>
     );
 }
+
+    
