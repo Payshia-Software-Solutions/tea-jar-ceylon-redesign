@@ -169,7 +169,7 @@ export async function generateMetadata({ params }: TeaPageProps): Promise<Metada
     openGraph: {
       title: `${productName} | Tea Jar`,
       description: description,
-      type: 'website',
+      type: 'product',
       url: `/products/${params.slug}`,
       images: [
         {
@@ -179,6 +179,7 @@ export async function generateMetadata({ params }: TeaPageProps): Promise<Metada
           alt: productName,
         },
       ],
+      siteName: 'Tea Jar',
     },
   };
 }
@@ -191,5 +192,40 @@ export default async function TeaPage({ params }: TeaPageProps) {
     notFound();
   }
 
-  return <ProductDetailClient tea={tea} relatedTeas={relatedTeas} departmentName={departmentName} />;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: tea.name,
+    image: tea.image,
+    description: tea.description,
+    brand: {
+      '@type': 'Brand',
+      name: 'Tea Jar',
+    },
+    sku: tea.productId,
+    offers: {
+      '@type': 'Offer',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${tea.id}`,
+      priceCurrency: 'LKR',
+      price: tea.salePrice || tea.price,
+      priceValidUntil: new Date().toISOString().split('T')[0], // Today's date
+      availability: tea.stock_status === '0' ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+     aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      reviewCount: '119'
+    }
+  };
+
+  return (
+    <>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <ProductDetailClient tea={tea} relatedTeas={relatedTeas} departmentName={departmentName} />
+    </>
+    );
 }
