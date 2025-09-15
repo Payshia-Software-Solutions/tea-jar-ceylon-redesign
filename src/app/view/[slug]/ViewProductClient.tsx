@@ -57,7 +57,7 @@ export function ViewProductClient({ product }: ViewProductClientProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="w-full flex flex-col items-center p-4 pt-32 pb-12"
+              className="w-full flex flex-col items-center p-4 pt-32 pb-12 min-h-screen"
             >
               <div className="w-full max-w-5xl mb-4">
                 <Button
