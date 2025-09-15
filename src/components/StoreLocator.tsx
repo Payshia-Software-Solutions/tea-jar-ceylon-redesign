@@ -233,7 +233,7 @@ export function StoreLocator() {
   const StoreDetail = ({ store, onBack }: { store: Store, onBack: () => void }) => (
      <div className="w-full">
         <div 
-            className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden mb-8"
+            className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden mb-8"
         >
             <Image
             key={store.id}
