@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: ViewPageProps): Promise<Metad
         openGraph: {
             title: `${productName} | Tea Jar`,
             description: description,
-            type: 'product',
+            type: 'website',
             url: `/view/${params.slug}`,
             images: [
                 {
