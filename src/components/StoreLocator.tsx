@@ -243,8 +243,8 @@ export function StoreLocator() {
             className="object-cover"
             data-ai-hint={store.dataAiHint}
             />
-            <div className="absolute inset-0 bg-black/40 flex items-end p-4 md:p-8">
-                <div>
+            <div className="absolute inset-0 flex items-end p-4 md:p-8">
+                <div className='bg-black/20 backdrop-blur-sm p-4 rounded-md'>
                      <h3 className="font-headline text-3xl md:text-5xl text-white mb-1">{store.name}</h3>
                      <p className="text-lg md:text-xl font-semibold text-amber-100/90">{store.location}</p>
                 </div>
