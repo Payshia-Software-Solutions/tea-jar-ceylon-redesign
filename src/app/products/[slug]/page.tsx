@@ -169,7 +169,7 @@ export async function generateMetadata({ params }: TeaPageProps): Promise<Metada
     openGraph: {
       title: `${productName} | Tea Jar`,
       description: description,
-      type: 'product',
+      type: 'website',
       url: `/products/${params.slug}`,
       images: [
         {
